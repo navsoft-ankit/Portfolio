@@ -13,7 +13,7 @@ export default function Footer({ profile }) {
           <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
           <path d="M2 2l7.586 7.586" /><circle cx="11" cy="11" r="2" />
         </svg>
-        <span style={{ color: "#fff", fontSize: "1.2rem", fontFamily: "Georgia, serif" }}>
+        <span style={{ color: "#fff", fontSize: "1.5rem", fontFamily: "Georgia, serif" }}>
           {profile?.name || "Ankit Das"}
         </span>
       </div>
@@ -24,7 +24,7 @@ export default function Footer({ profile }) {
             <span key={id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <button onClick={() => scrollTo(id)} style={{
                 background: "none", border: "none", color: "rgba(255,255,255,0.75)",
-                fontSize: "0.84rem", cursor: "pointer",
+                fontSize: "1.10rem", cursor: "pointer",
                 fontFamily: "Georgia, serif",
                 textDecoration: "underline", textUnderlineOffset: 3
               }}>{label}</button>
@@ -49,7 +49,7 @@ export default function Footer({ profile }) {
         ))}
       </div>
 
-      <p style={{ color: "rgba(255,255,255,0.38)", fontSize: "0.72rem", fontFamily: "sans-serif" }}>
+      <p style={{ color: "rgba(255,255,255,0.38)", fontSize: "1.00rem", fontFamily: "sans-serif" }}>
         © 2026 {profile?.name || "Ankit Das"} · All rights reserved
       </p>
     </footer>
