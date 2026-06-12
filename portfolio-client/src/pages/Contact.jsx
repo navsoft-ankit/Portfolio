@@ -69,7 +69,7 @@ export default function Contact() {
                                 Email
                             </h3>
                             <p style={{ color: "#666" }}>
-                                ankit@example.com
+                                ankitdas7956@gmail.com
                             </p>
                         </div>
 
@@ -78,7 +78,7 @@ export default function Contact() {
                                 Phone
                             </h3>
                             <p style={{ color: "#666" }}>
-                                +91 9876543210
+                                +91 9007316168
                             </p>
                         </div>
 
