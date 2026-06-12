@@ -1,0 +1,138 @@
+import { Link } from "react-router-dom";
+const BROWN = "#3d1f10";
+
+export default function Hero({ profile }) {
+  const scrollTo = (id) =>
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+  const bio =
+    profile?.bio &&
+      profile.bio.trim() !== "" &&
+      profile.bio.toLowerCase() !== "string"
+      ? profile.bio
+      : ".NET Full Stack Developer | React | ASP.NET Core | SQL Server";
+
+  return (
+    <section
+      id="home"
+      style={{
+        position: "relative",
+        height: "100vh",
+        minHeight: "650px",
+        overflow: "hidden",
+      }}
+    >
+      {/* Background Image */}
+      <img
+        src="/image.png"
+        alt="Ankit Das"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "50% 50%",
+        }}
+      />
+
+      {/* Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(20, 10, 5, 0.55)",
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          padding: "0 20px",
+        }}
+      >
+        <h1
+          style={{
+            color: "#fff",
+            fontSize: "clamp(3rem, 8vw, 6rem)",
+            fontWeight: 400,
+            lineHeight: 1.1,
+            marginBottom: "20px",
+            fontFamily: "Georgia, serif",
+          }}
+        >
+          {profile?.name || "Ankit Das"}
+        </h1>
+
+        <p
+          style={{
+            color: "rgba(255,255,255,0.9)",
+            fontSize: "clamp(1rem, 2vw, 1.2rem)",
+            maxWidth: "700px",
+            lineHeight: 1.8,
+            marginBottom: "40px",
+            fontFamily: "Montserrat, sans-serif",
+            letterSpacing: "0.5px",
+          }}
+        >
+          {bio}
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            gap: "16px",
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <button
+            onClick={() => scrollTo("my-projects")}
+            style={{
+              background: "#fff",
+              color: "#111",
+              border: "none",
+              padding: "15px 36px",
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "2px",
+              cursor: "pointer",
+              textTransform: "uppercase",
+            }}
+          >
+            View My Projects
+          </button>
+
+
+          <Link
+            to="/contact"
+            style={{
+              background: "transparent",
+              color: "#fff",
+              border: "2px solid #fff",
+              padding: "15px 36px",
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "2px",
+              cursor: "pointer",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              display: "inline-block",
+            }}
+          >
+            Contact Me
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
