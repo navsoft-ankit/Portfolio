@@ -12,7 +12,7 @@ export default function Hero({ profile }) {
       profile.bio.trim() !== "" &&
       profile.bio.toLowerCase() !== "string"
       ? profile.bio
-      : ".NET Full Stack Developer | React | ASP.NET Core | SQL Server";
+      : ".NET Full Stack Developer";
 
   return (
     <section

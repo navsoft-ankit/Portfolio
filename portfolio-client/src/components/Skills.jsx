@@ -31,7 +31,7 @@ export default function Skills({ skills }) {
             </div>
           )) : (
             ["ASP.NET Core", "C#", "React", "TypeScript", "Entity Framework",
-              "SQL Server", "REST APIs", "Azure", "Git", "Tailwind CSS"]
+              "SQL Server", "REST APIs", "Git", "Tailwind CSS"]
               .map((skill) => (
                 <span key={skill} style={{
                   padding: "8px 20px", border: `1px solid ${BROWN}`,

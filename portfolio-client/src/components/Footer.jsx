@@ -35,7 +35,7 @@ export default function Footer({ profile }) {
 
       <div style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 24 }}>
         {[
-          { label: "GH", href: profile?.githubUrl || "#" },
+          { label: "GH", href: profile?.githubUrl || "https://github.com/navsoft-ankit" },
           { label: "LI", href: profile?.linkedinUrl || "#" },
           { label: "IG", href: "#" },
         ].map(({ label, href }) => (
