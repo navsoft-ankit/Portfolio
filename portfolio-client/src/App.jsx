@@ -8,6 +8,7 @@ import ProjectDetails from "./pages/ProjectDetails";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import ProjectsPage from "./pages/ProjectsPage";
+import SkillsPage from "./pages/SkillsPage";
 
 function ProtectedRoute({ children }) {
   const { isLoggedIn } = useAuth();
@@ -30,6 +31,8 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
 
           <Route path="/projects" element={<ProjectsPage />} />
+
+          <Route path="/skills" element={<SkillsPage />} />
 
           <Route path="/admin" element={
               <ProtectedRoute>

@@ -92,7 +92,7 @@ export default function ProjectsPage() {
                     style={{
                         maxWidth: "1400px",
                         margin: "0 auto",
-                        padding: "120px 60px",
+                        padding: "10px 40px",
                         display: "grid",
                         gridTemplateColumns: "1fr 1fr",
                         gap: "80px",

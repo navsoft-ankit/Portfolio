@@ -17,6 +17,7 @@ export default function Footer() {
           margin: "0 auto",
         }}
       >
+
         {/* Top Section */}
         <div
           className="footer-top"

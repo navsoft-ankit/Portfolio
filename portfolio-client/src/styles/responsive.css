@@ -163,3 +163,38 @@
     margin: 0 auto;
   }
 }
+@media (max-width: 768px) {
+
+  .contact-section {
+    padding: 70px 20px !important;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-image {
+    height: 280px !important;
+  }
+
+  .contact-form-wrapper {
+    text-align: center;
+  }
+
+  .contact-form-wrapper button {
+    width: 100%;
+    align-self: stretch !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .contact-section {
+    padding: 60px 16px !important;
+  }
+
+  .contact-image {
+    height: 220px !important;
+  }
+}
