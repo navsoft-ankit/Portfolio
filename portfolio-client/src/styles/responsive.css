@@ -1,0 +1,165 @@
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  section {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  nav {
+    padding: 0 30px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  nav {
+    padding: 0 20px !important;
+    height: auto !important;
+    min-height: 70px;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 15px;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+
+  nav span {
+    font-size: 1.8rem !important;
+  }
+
+  nav > div:last-child {
+    gap: 20px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 0.95rem !important;
+  }
+
+  /* Hero */
+  section#home h1 {
+    font-size: 3rem !important;
+  }
+
+  section#home p {
+    font-size: 1rem !important;
+  }
+
+  /* About */
+  section#about-me > div {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  section#about-me img {
+    height: 350px !important;
+  }
+
+  /* Contact */
+  section#contact-me > div {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  section#contact-me img {
+    height: 300px !important;
+  }
+
+  /* Projects */
+  section#my-projects div[style*="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer */
+  footer {
+    padding: 60px 20px 30px !important;
+  }
+
+  footer > div > div:first-child {
+    flex-direction: column !important;
+    gap: 35px !important;
+  }
+
+  footer h2 {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  section#home h1 {
+    font-size: 2.2rem !important;
+  }
+
+  section#home p {
+    font-size: 0.95rem !important;
+  }
+
+  section#home button,
+  section#home a {
+    width: 100%;
+    text-align: center;
+  }
+
+  section#about-me h2,
+  section#contact-me h2,
+  section#my-projects h2,
+  section h2 {
+    font-size: 2rem !important;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  footer p {
+    max-width: 100% !important;
+  }
+
+  footer a {
+    display: block;
+  }
+
+  nav span {
+    font-size: 1.5rem !important;
+  }
+
+  nav a {
+    font-size: 0.9rem !important;
+  }
+}
+@media (max-width: 768px) {
+  .footer {
+    padding: 50px 20px 25px !important;
+  }
+
+  .footer-top {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 35px !important;
+  }
+
+  .footer-top > div {
+    width: 100%;
+  }
+
+  .footer-top p {
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+}

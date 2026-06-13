@@ -1,58 +1,213 @@
 const BROWN = "#3d1f10";
 
-export default function Footer({ profile }) {
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  console.log(profile);
-
+export default function Footer() {
   return (
-    <footer style={{ background: BROWN, padding: "56px 56px 36px", textAlign: "center" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 26 }}>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white"
-          strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 19l7-7 3 3-7 7-3-3z" />
-          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-          <path d="M2 2l7.586 7.586" /><circle cx="11" cy="11" r="2" />
-        </svg>
-        <span style={{ color: "#fff", fontSize: "1.5rem", fontFamily: "Georgia, serif" }}>
-          {profile?.name || "Ankit Das"}
-        </span>
-      </div>
-
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 28, flexWrap: "wrap" }}>
-        {[["home", "Home"], ["about-me", "About Me"], ["my-projects", "My Projects"], ["contact-me", "Contact Me"]]
-          .map(([id, label], i, arr) => (
-            <span key={id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <button onClick={() => scrollTo(id)} style={{
-                background: "none", border: "none", color: "rgba(255,255,255,0.75)",
-                fontSize: "1.10rem", cursor: "pointer",
+    <footer
+      className="footer"
+      style={{
+        background: BROWN,
+        color: "#fff",
+        padding: "70px 56px 30px",
+      }}
+    >
+      <div
+        className="footer-container"
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+        }}
+      >
+        {/* Top Section */}
+        <div
+          className="footer-top"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            flexWrap: "wrap",
+            gap: 40,
+            marginBottom: 50,
+          }}
+        >
+          {/* About */}
+          <div>
+            <h2
+              style={{
+                fontSize: "2rem",
+                fontWeight: 400,
                 fontFamily: "Georgia, serif",
-                textDecoration: "underline", textUnderlineOffset: 3
-              }}>{label}</button>
-              {i < arr.length - 1 && <span style={{ color: "rgba(255,255,255,0.35)" }}>|</span>}
-            </span>
-          ))}
-      </div>
+                marginBottom: 15,
+              }}
+            >
+              Ankit Das
+            </h2>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 24 }}>
-        {[
-          { label: "GH", href: profile?.githubUrl || "https://github.com/navsoft-ankit" },
-          { label: "LI", href: profile?.linkedinUrl || "#" },
-          { label: "Cv", href: profile?.CvUrl || "#" },
-        ].map(({ label, href }) => (
-          <a key={label} href={href} target="_blank" rel="noreferrer" style={{
-            width: 38, height: 38, borderRadius: "50%",
-            border: "1.5px solid rgba(255,255,255,0.35)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            color: "#fff", textDecoration: "none",
-            fontSize: "0.65rem", fontWeight: 700, fontFamily: "sans-serif"
-          }}>{label}</a>
-        ))}
-      </div>
+            <p
+              style={{
+                color: "#d7d0c8",
+                maxWidth: 350,
+                lineHeight: 1.8,
+                fontFamily: "sans-serif",
+              }}
+            >
+              Full Stack Developer specializing in ASP.NET Core,
+              React, SQL Server, and modern web applications.
+            </p>
+          </div>
 
-      <p style={{ color: "rgba(255,255,255,0.38)", fontSize: "1.00rem", fontFamily: "sans-serif" }}>
-        © 2026 {profile?.name || "Ankit Das"} · All rights reserved
-      </p>
+          {/* Quick Links */}
+          <div>
+            <h4
+              style={{
+                marginBottom: 15,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                fontSize: "0.8rem",
+                fontFamily: "sans-serif",
+              }}
+            >
+              Quick Links
+            </h4>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
+              <a
+                href="#home"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                Home
+              </a>
+
+              <a
+                href="#about-me"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                About
+              </a>
+
+              <a
+                href="#skills"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                Skills
+              </a>
+
+              <a
+                href="#my-projects"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                Projects
+              </a>
+
+              <a
+                href="#contact-me"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+
+          {/* Connect */}
+          <div>
+            <h4
+              style={{
+                marginBottom: 15,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                fontSize: "0.8rem",
+                fontFamily: "sans-serif",
+              }}
+            >
+              Connect
+            </h4>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+              }}
+            >
+              <a
+                href="https://github.com/navsoft-ankit"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                GitHub
+              </a>
+
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                }}
+              >
+                LinkedIn
+              </a>
+
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ankitdas7956@gmail.com"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "#d7d0c8",
+                  textDecoration: "none",
+                  wordBreak: "break-word",
+                }}
+              >
+                ankitdas7956@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.15)",
+            paddingTop: 25,
+            textAlign: "center",
+          }}
+        >
+          <p
+            style={{
+              color: "#bdb4ab",
+              fontSize: "0.85rem",
+              fontFamily: "sans-serif",
+            }}
+          >
+            © {new Date().getFullYear()} Ankit Das. All Rights Reserved.
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }
