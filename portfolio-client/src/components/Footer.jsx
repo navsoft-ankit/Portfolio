@@ -3,6 +3,7 @@ const BROWN = "#3d1f10";
 export default function Footer({ profile }) {
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  console.log(profile);
 
   return (
     <footer style={{ background: BROWN, padding: "56px 56px 36px", textAlign: "center" }}>
@@ -37,7 +38,7 @@ export default function Footer({ profile }) {
         {[
           { label: "GH", href: profile?.githubUrl || "https://github.com/navsoft-ankit" },
           { label: "LI", href: profile?.linkedinUrl || "#" },
-          { label: "IG", href: "#" },
+          { label: "Cv", href: profile?.CvUrl || "#" },
         ].map(({ label, href }) => (
           <a key={label} href={href} target="_blank" rel="noreferrer" style={{
             width: 38, height: 38, borderRadius: "50%",

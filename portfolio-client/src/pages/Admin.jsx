@@ -69,6 +69,9 @@ export default function Admin() {
     // Messages
     const [messages, setMessages] = useState([]);
 
+    // Image
+    const [imageFile, setImageFile] = useState(null);
+
     useEffect(() => {
         getProfile().then(r => setProfile(r.data)).catch(() => { });
         getProjects().then(r => setProjects(r.data)).catch(() => { });
@@ -130,6 +133,49 @@ export default function Admin() {
                             <Field label="Email" value={profile.email || ""} type="email" onChange={e => setProfile({ ...profile, email: e.target.value })} />
                             <Field label="GitHub URL" value={profile.githubUrl || ""} onChange={e => setProfile({ ...profile, githubUrl: e.target.value })} />
                             <Field label="LinkedIn URL" value={profile.linkedinUrl || ""} onChange={e => setProfile({ ...profile, linkedinUrl: e.target.value })} />
+
+                            <div style={{ marginBottom: 16 }}>
+                                <label
+                                    style={{
+                                        display: "block",
+                                        fontSize: "0.72rem",
+                                        fontWeight: 700,
+                                        color: "#666",
+                                        letterSpacing: 1,
+                                        marginBottom: 6,
+                                        textTransform: "uppercase",
+                                    }}
+                                >
+                                    Profile Image
+                                </label>
+
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setImageFile(e.target.files[0])}
+                                />
+
+                                {imageFile && (
+                                    <>
+                                        <p style={{ marginTop: 6, fontSize: "0.8rem" }}>
+                                            Selected: {imageFile.name}
+                                        </p>
+
+                                        <img
+                                            src={URL.createObjectURL(imageFile)}
+                                            alt="Preview"
+                                            style={{
+                                                width: "120px",
+                                                height: "120px",
+                                                objectFit: "cover",
+                                                borderRadius: "50%",
+                                                marginTop: "10px",
+                                                border: "2px solid #ddd",
+                                            }}
+                                        />
+                                    </>
+                                )}
+                            </div>
                             <button onClick={saveProfile} style={{ ...btn(BROWN), marginTop: 8 }}>SAVE PROFILE</button>
                             {profileMsg && <span style={{ marginLeft: 12, fontSize: "0.82rem", color: BROWN }}>{profileMsg}</span>}
                         </Section>
@@ -265,7 +311,7 @@ export default function Admin() {
                             ))}
                         </Section>
                     )}
-
+                    
                 </main>
             </div>
         </div>
