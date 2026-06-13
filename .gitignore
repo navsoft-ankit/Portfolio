@@ -1,0 +1,7 @@
+cat > .gitignore << EOF
+bin/
+obj/
+.vs/
+node_modules/
+dist/
+EOF
