@@ -6,6 +6,7 @@ const CREAM = "#f0ece4";
 const projects = {
     1: {
         title: "Feedback Management System",
+         image: "/image copy.png",
         description:
             "A complete feedback management platform built with React, ASP.NET Core Web API and SQL Server. Users can submit feedback, manage responses and track records efficiently.",
         github:
@@ -93,22 +94,28 @@ export default function ProjectDetails() {
                 ← Back To Home
             </Link>
 
-            {/* Hero Banner */}
-            <div
-                style={{
-                    width: "100%",
-                    height: "600px",
-                    background: CREAM,
-                    borderRadius: "12px",
-                    marginTop: "40px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    fontSize: "7rem",
-                }}
-            >
-                💻
-            </div>
+
+{/* Hero Banner */}
+<div
+    style={{
+        width: "100%",
+        height: "600px",
+        background: CREAM,
+        borderRadius: "12px",
+        marginTop: "40px",
+        overflow: "hidden",
+    }}
+>
+    <img
+        src={project.image}
+        alt={project.title}
+        style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+        }}
+    />
+</div>
 
             {/* Content */}
             <div

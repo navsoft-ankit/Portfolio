@@ -11,8 +11,7 @@ const projects = [
             "Enterprise feedback platform built with React and ASP.NET Core.",
         description:
             "A complete feedback management platform where users can submit feedback, administrators can manage records, track responses and monitor performance through dashboards.",
-        image:
-            "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200",
+        image: "image copy.png",
     },
 
     {
@@ -104,17 +103,25 @@ export default function ProjectsPage() {
 
                     {index % 2 === 0 ? (
                         <>
-                            <div>
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    style={{
-                                        width: "100%",
-                                        height: "650px",
-                                        objectFit: "cover",
-                                    }}
-                                />
-                            </div>
+<div
+    style={{
+        width: "100%",
+        height: "650px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    }}
+>
+    <img
+        src={project.image}
+        alt={project.title}
+        style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+        }}
+    />
+</div>
 
                             <div>
                                 <h2
