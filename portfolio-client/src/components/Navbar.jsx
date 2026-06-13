@@ -11,15 +11,36 @@ export default function Navbar() {
       background: BROWN, display: "flex", alignItems: "center",
       justifyContent: "space-between", padding: "0 56px", height: "70px"
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
-        onClick={() => scrollTo("home")}>
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
-          stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 19l7-7 3 3-7 7-3-3z" />
-          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-          <path d="M2 2l7.586 7.586" /><circle cx="11" cy="11" r="2" />
-        </svg>
-        <span style={{ color: "#fff", fontSize: "2.15rem" }}>Ankit Das</span>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          cursor: "pointer",
+        }}
+        onClick={() => scrollTo("home")}
+      >
+<svg
+  width="34"
+  height="34"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="white"
+  strokeWidth="2"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  <polyline points="4 17 10 11 4 5"></polyline>
+  <line x1="12" y1="19" x2="20" y2="19"></line>
+</svg>
+        <span
+          style={{
+            color: "#fff",
+            fontSize: "2.15rem",
+          }}
+        >
+          Ankit Das
+        </span>
       </div>
 
       <div style={{ display: "flex", gap: 36 }}>
@@ -36,18 +57,18 @@ export default function Navbar() {
           About Me
         </Link>
 
-        <Link
-          to="/projects" My Projects
-          style={{
-            color: "#fff",
-            textDecoration: "none",
-            fontSize: "1.10rem",
-            fontFamily: "Georgia, serif",
-            opacity: 0.9,
-          }}
-        >
-          My Projects
-        </Link>
+<Link
+  to="/projects"
+  style={{
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "1.10rem",
+    fontFamily: "Georgia, serif",
+    opacity: 0.9,
+  }}
+>
+  My Projects
+</Link>
 
         <Link
           to="/contact"
