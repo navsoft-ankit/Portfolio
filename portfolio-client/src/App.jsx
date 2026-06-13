@@ -28,12 +28,10 @@ export default function App() {
           <Route path="/about" element={<About />} />
 
           <Route path="/contact" element={<Contact />} />
-          
+
           <Route path="/projects" element={<ProjectsPage />} />
 
-          <Route
-            path="/admin"
-            element={
+          <Route path="/admin" element={
               <ProtectedRoute>
                 <Admin />
               </ProtectedRoute>

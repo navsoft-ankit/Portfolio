@@ -103,25 +103,25 @@ export default function ProjectsPage() {
 
                     {index % 2 === 0 ? (
                         <>
-<div
-    style={{
-        width: "100%",
-        height: "650px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    }}
->
-    <img
-        src={project.image}
-        alt={project.title}
-        style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-        }}
-    />
-</div>
+                            <div
+                                style={{
+                                    width: "100%",
+                                    height: "650px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                            </div>
 
                             <div>
                                 <h2

@@ -311,7 +311,7 @@ export default function Admin() {
                             ))}
                         </Section>
                     )}
-                    
+
                 </main>
             </div>
         </div>

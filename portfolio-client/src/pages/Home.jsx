@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProfile, getProjects, getSkills } from "../api/api";
+
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
@@ -17,30 +18,101 @@ export default function Home() {
     const [skills, setSkills] = useState([]);
 
     useEffect(() => {
-        getProfile().then(r => setProfile(r.data)).catch(() => { });
-        getProjects().then(r => setProjects(r.data)).catch(() => { });
-        getSkills().then(r => setSkills(r.data)).catch(() => { });
+        getProfile()
+            .then((r) => setProfile(r.data))
+            .catch(() => { });
+
+        getProjects()
+            .then((r) => setProjects(r.data))
+            .catch(() => { });
+
+        getSkills()
+            .then((r) => setSkills(r.data))
+            .catch(() => { });
     }, []);
 
     return (
-        <div style={{ fontFamily: "Georgia, serif", color: "#1a1a1a", background: "#fff" }}>
+        <div
+            style={{
+                fontFamily: "Georgia, serif",
+                color: "#1a1a1a",
+                background: "#fff",
+            }}
+        >
             <Navbar />
+
             <Hero profile={profile} />
 
-
-            {/* Publications strip */}
-            <section style={{ background: CREAM, padding: "72px 56px" }}>
-                <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 48, textAlign: "center" }}>
+            {/* Highlights Section */}
+            <section
+                style={{
+                    background: CREAM,
+                    padding: "80px 56px",
+                }}
+            >
+                <div
+                    style={{
+                        maxWidth: "1100px",
+                        margin: "0 auto",
+                    }}
+                >
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                            gap: "48px",
+                            textAlign: "center",
+                        }}
+                    >
                         {[
-                            { name: "The Code Review", desc: "In-depth articles on modern .NET architecture and React best practices." },
-                            { name: "Dev Weekly India", desc: "A weekly newsletter covering full-stack development and engineering culture." },
-                            { name: "Navsoft Tech Blog", desc: "Engineering solutions and innovations from the Navsoft product team." },
-                        ].map(({ name, desc }) => (
-                            <div key={name}>
-                                <div style={{ fontSize: "3rem", color: BROWN, marginBottom: 14, fontFamily: "serif" }}>❝❞</div>
-                                <h3 style={{ fontSize: "2.05rem", fontWeight: 400, marginBottom: 10 }}>{name}</h3>
-                                <p style={{ fontSize: "1.10rem", color: "#666", lineHeight: 1.75, fontFamily: "sans-serif" }}>{desc}</p>
+                            {
+                                value: "0+",
+                                title: "Years Experience",
+                                desc: "Building modern web applications with .NET, SQL Server and React.",
+                            },
+                            {
+                                value: "7+",
+                                title: "Projects Completed",
+                                desc: "Academic, personal and enterprise-grade software solutions.",
+                            },
+                            {
+                                value: "4+",
+                                title: "Technologies",
+                                desc: "Frontend, backend, databases and cloud fundamentals.",
+                            },
+                        ].map((item) => (
+                            <div key={item.title}>
+                                <h2
+                                    style={{
+                                        fontSize: "3rem",
+                                        color: BROWN,
+                                        marginBottom: "12px",
+                                        fontWeight: "600",
+                                    }}
+                                >
+                                    {item.value}
+                                </h2>
+
+                                <h3
+                                    style={{
+                                        fontSize: "1.5rem",
+                                        marginBottom: "12px",
+                                        fontWeight: "500",
+                                    }}
+                                >
+                                    {item.title}
+                                </h3>
+
+                                <p
+                                    style={{
+                                        fontSize: "1rem",
+                                        color: "#666",
+                                        lineHeight: "1.8",
+                                        fontFamily: "sans-serif",
+                                    }}
+                                >
+                                    {item.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -48,9 +120,13 @@ export default function Home() {
             </section>
 
             <About profile={profile} />
+
             <Skills skills={skills} />
+
             <Projects projects={projects} />
+
             <Contact profile={profile} />
+
             <Footer profile={profile} />
         </div>
     );

@@ -36,7 +36,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// 👇 EITA ADD KORO
 app.UseCors("AllowReact");
 
 app.MapControllers();
