@@ -88,7 +88,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="#about-me"
+                href="/about"
                 style={{
                   color: "#d7d0c8",
                   textDecoration: "none",
@@ -98,7 +98,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="#skills"
+                href="/skills"
                 style={{
                   color: "#d7d0c8",
                   textDecoration: "none",
@@ -108,7 +108,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="#my-projects"
+                href="/projects"
                 style={{
                   color: "#d7d0c8",
                   textDecoration: "none",
@@ -118,7 +118,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="#contact-me"
+                href="/contact"
                 style={{
                   color: "#d7d0c8",
                   textDecoration: "none",
