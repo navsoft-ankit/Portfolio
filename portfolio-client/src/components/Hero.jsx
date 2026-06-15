@@ -112,7 +112,6 @@ export default function Hero({ profile }) {
             View My Projects
           </button>
 
-
           <Link
             to="/contact"
             style={{

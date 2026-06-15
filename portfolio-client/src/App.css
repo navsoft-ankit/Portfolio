@@ -547,7 +547,6 @@ body {
 
 /* Tablet */
 @media (max-width: 992px) {
-
   h1 {
     font-size: clamp(2.5rem, 5vw, 4rem) !important;
   }
@@ -560,7 +559,6 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
-
   /* About Page */
   .about-content {
     flex-direction: column !important;
@@ -641,7 +639,6 @@ body {
 
 /* Small Mobile */
 @media (max-width: 480px) {
-
   .about-title,
   .project-title,
   .contact-title,

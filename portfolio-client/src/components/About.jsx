@@ -1,5 +1,3 @@
-
-
 const BROWN = "#3d1f10";
 
 export default function About({ profile }) {
@@ -22,17 +20,17 @@ export default function About({ profile }) {
         padding: "100px 56px",
       }}
     >
-<div
-  className="about-container"
-  style={{
-    maxWidth: 1100,
-    margin: "0 auto",
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 80,
-    alignItems: "center",
-  }}
->
+      <div
+        className="about-container"
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 80,
+          alignItems: "center",
+        }}
+      >
         {/* LEFT */}
         <div>
           <h2
@@ -71,7 +69,7 @@ export default function About({ profile }) {
               fontFamily: "sans-serif",
             }}
           >
-            📧 {profile?.email || "ankit@gmail.com"}
+            📧 {profile?.email || "ankitdas7956@gmail.com"}
           </p>
 
           <a
@@ -126,14 +124,14 @@ export default function About({ profile }) {
         </div>
 
         {/* RIGHT IMAGE */}
-<div
-  className="about-image"
-  style={{
-    width: "100%",
-    height: 460,
-    overflow: "hidden",
-  }}
->
+        <div
+          className="about-image"
+          style={{
+            width: "100%",
+            height: 460,
+            overflow: "hidden",
+          }}
+        >
           <img
             src="/image.png"
             alt="Ankit"

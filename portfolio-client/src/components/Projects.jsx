@@ -67,17 +67,17 @@ export default function Projects({ projects }) {
           Projects
         </h2>
 
-<div
-  className="projects-grid"
-  style={{
-    display: "grid",
-    gridTemplateColumns: `repeat(${Math.min(
-      projectList.length,
-      3
-    )}, 1fr)`,
-    gap: 0,
-  }}
->
+        <div
+          className="projects-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${Math.min(
+              projectList.length,
+              3
+            )}, 1fr)`,
+            gap: 0,
+          }}
+        >
           {projectList.map((project, index) => (
             <div
               key={project.id}

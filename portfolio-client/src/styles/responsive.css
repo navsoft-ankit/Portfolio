@@ -36,7 +36,6 @@ body {
 ========================= */
 
 @media (max-width: 768px) {
-
   /* NAVBAR */
 
   nav {
@@ -186,7 +185,6 @@ body {
 ========================= */
 
 @media (max-width: 480px) {
-
   section {
     padding-left: 16px !important;
     padding-right: 16px !important;

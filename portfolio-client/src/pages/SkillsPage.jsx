@@ -72,7 +72,7 @@ export default function SkillsPage() {
 
                 {/* Skills Grid */}
                 <div
-                className="skills-grid"
+                    className="skills-grid"
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
