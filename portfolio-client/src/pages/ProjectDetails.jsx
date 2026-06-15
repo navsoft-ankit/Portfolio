@@ -137,7 +137,7 @@ export default function ProjectDetails() {
 
                 <p
                     style={{
-                        maxWidth: "900px",
+                        maxWidth: "100%",
                         fontSize: "1.1rem",
                         lineHeight: "1.9",
                         color: "#555",
