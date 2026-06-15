@@ -4,4 +4,6 @@ obj/
 .vs/
 node_modules/
 dist/
+
+appsettings.Development.json
 EOF
