@@ -107,7 +107,7 @@ export default function Admin() {
 
     // Projects
     const [projects, setProjects] = useState([]);
-    const [newProject, setNewProject] = useState({ title: "", description: "" });
+    const [newProject, setNewProject] = useState({ title: "", description: "", githubUrl: "" });
     const [editProject, setEditProject] = useState(null);
 
     // Skills
@@ -433,13 +433,23 @@ export default function Admin() {
                                     )}
                                     rows={3}
                                 />
+                                <Field
+                                    label="GitHub URL"
+                                    value={newProject.githubUrl}
+                                    onChange={e =>
+                                        setNewProject({
+                                            ...newProject,
+                                            githubUrl: e.target.value
+                                        })
+                                    }
+                                />
 
                                 <button onClick={async () => {
                                     if (!newProject.title)
                                         return;
                                     const r = await createProject(newProject);
                                     setProjects([...projects, r.data]);
-                                    setNewProject({ title: "", description: "" });
+                                    setNewProject({ title: "", description: "", githubUrl: "" });
                                 }}
                                     style=
                                     {btn(BROWN)}
@@ -473,6 +483,16 @@ export default function Admin() {
                                                     { ...editProject, description: e.target.value }
                                                 )}
                                                 rows={3}
+                                            />
+                                            <Field
+                                                label="GitHub URL"
+                                                value={editProject.githubUrl || ""}
+                                                onChange={e =>
+                                                    setEditProject({
+                                                        ...editProject,
+                                                        githubUrl: e.target.value
+                                                    })
+                                                }
                                             />
 
                                             <div style=
