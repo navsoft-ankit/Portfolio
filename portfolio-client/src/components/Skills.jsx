@@ -30,13 +30,14 @@ export default function Skills({ skills }) {
           Skills & Tools
         </h2>
 
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-          }}
-        >
+<div
+  className="skills-grid"
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 10,
+  }}
+>
           {skills.length > 0 ? (
             skills.map((s) => (
               <div
