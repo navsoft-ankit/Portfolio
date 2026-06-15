@@ -66,6 +66,7 @@ export default function ProjectsPage() {
             {/* HERO */}
 
             <div
+             className="projects-hero"
                 style={{
                     background: BROWN,
                     color: "#fff",
@@ -89,6 +90,7 @@ export default function ProjectsPage() {
             {projects.map((project, index) => (
                 <div
                     key={project.id}
+                    className="project-row"
                     style={{
                         maxWidth: "1400px",
                         margin: "0 auto",
@@ -125,6 +127,7 @@ export default function ProjectsPage() {
 
                             <div>
                                 <h2
+                                 className="project-title"
                                     style={{
                                         fontSize: "4rem",
                                         fontFamily: "Georgia, serif",

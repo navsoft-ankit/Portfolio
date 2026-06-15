@@ -541,3 +541,124 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+/* ==========================================
+   RESPONSIVE FIX (LOOK SAME, MOBILE BETTER)
+========================================== */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem) !important;
+  }
+
+  section {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  /* About Page */
+  .about-content {
+    flex-direction: column !important;
+    gap: 30px !important;
+  }
+
+  .about-divider {
+    display: none !important;
+  }
+
+  .about-image img {
+    height: 400px !important;
+    object-fit: cover !important;
+  }
+
+  .about-title {
+    font-size: 2.5rem !important;
+  }
+
+  /* Projects */
+  .project-row {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    padding: 40px 20px !important;
+  }
+
+  .project-row img {
+    height: 300px !important;
+    width: 100% !important;
+  }
+
+  .project-title {
+    font-size: 2.2rem !important;
+  }
+
+  .projects-hero h1 {
+    font-size: 3rem !important;
+  }
+
+  /* Skills */
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .skills-grid > div {
+    min-width: 100% !important;
+  }
+
+  /* Contact */
+  .contact-container-mobile {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-form-side {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  .contact-title {
+    font-size: 2.5rem !important;
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    width: 100%;
+  }
+
+  /* Back Button */
+  .back-btn {
+    top: 15px !important;
+    left: 15px !important;
+    padding: 8px 12px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  .about-title,
+  .project-title,
+  .contact-title,
+  .projects-hero h1 {
+    font-size: 1.9rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .about-image img {
+    height: 280px !important;
+  }
+
+  .project-row img {
+    height: 220px !important;
+  }
+
+  p {
+    font-size: 0.95rem !important;
+  }
+}

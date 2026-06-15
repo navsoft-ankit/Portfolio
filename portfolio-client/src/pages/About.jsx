@@ -14,6 +14,7 @@ export default function About() {
         >
             {/* Back Button */}
             <Link
+                className="back-btn"
                 to="/"
                 style={{
                     position: "fixed",
@@ -33,6 +34,7 @@ export default function About() {
             </Link>
 
             <div
+                className="about-content"
                 style={{
                     maxWidth: "1400px",
                     margin: "0 auto",
@@ -44,6 +46,7 @@ export default function About() {
             >
                 {/* Image */}
                 <div
+                    className="about-image"
                     style={{
                         flex: "1.2",
                     }}
@@ -62,6 +65,7 @@ export default function About() {
 
                 {/* Vertical Line */}
                 <div
+                    className="about-divider"
                     style={{
                         width: "2px",
                         height: "700px",
@@ -90,6 +94,7 @@ export default function About() {
                     </p>
 
                     <h1
+                        className="about-title"
                         style={{
                             fontSize: "4rem",
                             color: BROWN,

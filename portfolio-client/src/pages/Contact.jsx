@@ -16,6 +16,7 @@ export default function Contact() {
                 }}
             >
                 <div
+                className="contact-container-mobile"
                     style={{
                         maxWidth: "1400px",
                         margin: "0 auto",
@@ -40,6 +41,7 @@ export default function Contact() {
                         </p>
 
                         <h1
+                         className="contact-title"
                             style={{
                                 fontSize: "5rem",
                                 color: BROWN,
@@ -94,6 +96,7 @@ export default function Contact() {
 
                     {/* RIGHT SIDE */}
                     <div
+                     className="contact-form-side"
                         style={{
                             borderLeft: `2px solid ${BROWN}`,
                             paddingLeft: "60px",
