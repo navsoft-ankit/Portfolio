@@ -12,7 +12,6 @@ export default function About() {
                 padding: "80px 60px",
             }}
         >
-            {/* Back Button */}
             <Link
                 className="back-btn"
                 to="/"
@@ -54,6 +53,7 @@ export default function About() {
                     <img
                         src="/image.png"
                         alt="Ankit Das"
+                        className="about-img"
                         style={{
                             width: "100%",
                             height: "700px",
@@ -63,7 +63,7 @@ export default function About() {
                     />
                 </div>
 
-                {/* Vertical Line */}
+                {/* Divider */}
                 <div
                     className="about-divider"
                     style={{
