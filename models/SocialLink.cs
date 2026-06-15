@@ -1,4 +1,5 @@
 namespace PORFOLIO.models;
+
 public class SocialLink
 {
     public int Id { get; set; }

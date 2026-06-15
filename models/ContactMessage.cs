@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace PORFOLIO.models;
+
 public class ContactMessage
 {
     public int Id { get; set; }

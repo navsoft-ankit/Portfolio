@@ -1,4 +1,5 @@
 namespace PORFOLIO.models;
+
 public class Skill
 {
     public int Id { get; set; }

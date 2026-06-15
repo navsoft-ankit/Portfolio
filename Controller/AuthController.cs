@@ -13,7 +13,7 @@ namespace PORFOLIO.Controllers
             if (model.Username == "Ankit" &&
 
                 model.Email == "ankit@gmail.com" &&
-                
+
                 model.Password == "Ankit123")
             {
                 return Ok(new
