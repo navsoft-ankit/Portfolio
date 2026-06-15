@@ -66,7 +66,7 @@ export default function ProjectsPage() {
             {/* HERO */}
 
             <div
-             className="projects-hero"
+                className="projects-hero"
                 style={{
                     background: BROWN,
                     color: "#fff",
@@ -127,7 +127,7 @@ export default function ProjectsPage() {
 
                             <div>
                                 <h2
-                                 className="project-title"
+                                    className="project-title"
                                     style={{
                                         fontSize: "4rem",
                                         fontFamily: "Georgia, serif",

@@ -38,25 +38,25 @@ export default function Skills({ skills }) {
             gap: 10,
           }}
         >
-{skills.length > 0 ? (
-  skills.map((s) => (
-    <span
-      key={s.id}
-      style={{
-        padding: "8px 20px",
-        border: `1px solid ${BROWN}`,
-        color: BROWN,
-        fontSize: "0.75rem",
-        letterSpacing: 1,
-        fontFamily: "sans-serif",
-        fontWeight: 600,
-      }}
-    >
-      {s.name}
-      {s.percentage ? ` (${s.percentage}%)` : ""}
-    </span>
-  ))
-) : (
+          {skills.length > 0 ? (
+            skills.map((s) => (
+              <span
+                key={s.id}
+                style={{
+                  padding: "8px 20px",
+                  border: `1px solid ${BROWN}`,
+                  color: BROWN,
+                  fontSize: "0.75rem",
+                  letterSpacing: 1,
+                  fontFamily: "sans-serif",
+                  fontWeight: 600,
+                }}
+              >
+                {s.name}
+                {s.percentage ? ` (${s.percentage}%)` : ""}
+              </span>
+            ))
+          ) : (
             [
               "ASP.NET Core",
               "C#",

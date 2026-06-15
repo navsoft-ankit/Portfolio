@@ -567,34 +567,34 @@ export default function Admin() {
                     {/* SKILLS */}
                     {tab === "skills" && (
                         <Section title="Skills">
-                            <div style={{ 
-                                background: CREAM, 
-                                padding: 20, 
+                            <div style={{
+                                background: CREAM,
+                                padding: 20,
                                 marginBottom: 24
-                                }}>
+                            }}>
 
-                                <h3 style={{ 
-                                    fontSize: "0.8rem", 
-                                    fontWeight: 700, color: BROWN, 
-                                    marginBottom: 12, 
-                                    letterSpacing: 1 
+                                <h3 style={{
+                                    fontSize: "0.8rem",
+                                    fontWeight: 700, color: BROWN,
+                                    marginBottom: 12,
+                                    letterSpacing: 1
                                 }}>
                                     ADD NEW SKILL
                                 </h3>
 
-                                <Field label="Skill Name" 
-                                value={newSkill.name} 
-                                onChange={e => setNewSkill(
-                                    { ...newSkill, name: e.target.value }
-                                )} 
+                                <Field label="Skill Name"
+                                    value={newSkill.name}
+                                    onChange={e => setNewSkill(
+                                        { ...newSkill, name: e.target.value }
+                                    )}
                                 />
 
-                                <Field label="Percentage (0-100)" 
-                                type="number" 
-                                value={newSkill.percentage} 
-                                onChange={e => setNewSkill(
-                                    { ...newSkill, percentage: e.target.value }
-                                    )} 
+                                <Field label="Percentage (0-100)"
+                                    type="number"
+                                    value={newSkill.percentage}
+                                    onChange={e => setNewSkill(
+                                        { ...newSkill, percentage: e.target.value }
+                                    )}
                                 />
 
                                 <button onClick={async () => {
@@ -602,51 +602,53 @@ export default function Admin() {
                                     const r = await createSkill(newSkill);
                                     setSkills([...skills, r.data]);
                                     setNewSkill({ name: "", percentage: "" });
-                                    }} 
+                                }}
                                     style={btn(BROWN)}>
                                     ADD
                                 </button>
                             </div>
 
                             <div style={
-                                { display: "flex", 
-                                flexWrap: "wrap", 
-                                gap: 10 }
+                                {
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    gap: 10
                                 }
+                            }
                             >
                                 {skills.map(s => (
-                                <div key={s.id} style={{ 
-                                    display: "flex", 
-                                    alignItems: "center", 
-                                    gap: 8, 
-                                    background: "#fff", 
-                                    border: "1px solid #e0d9d0", 
-                                    padding: "8px 14px" 
+                                    <div key={s.id} style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
+                                        background: "#fff",
+                                        border: "1px solid #e0d9d0",
+                                        padding: "8px 14px"
                                     }}>
 
-                                   <span
-    style={{
-        fontSize: "0.82rem",
-        fontWeight: 600,
-        color: BROWN
-    }}
->
-    {s.name}
-</span>
+                                        <span
+                                            style={{
+                                                fontSize: "0.82rem",
+                                                fontWeight: 600,
+                                                color: BROWN
+                                            }}
+                                        >
+                                            {s.name}
+                                        </span>
 
-                                    <button onClick={async () => {
-                                        await deleteSkill(s.id);
-                                        setSkills(skills.filter(x => x.id !== s.id));
-                                        }} style={{ 
-                                            background: "none", 
-                                            border: "none", 
-                                            color: "#c0392b", 
-                                            cursor: "pointer", 
-                                            fontSize: "0.9rem", 
-                                            fontWeight: 700 
+                                        <button onClick={async () => {
+                                            await deleteSkill(s.id);
+                                            setSkills(skills.filter(x => x.id !== s.id));
+                                        }} style={{
+                                            background: "none",
+                                            border: "none",
+                                            color: "#c0392b",
+                                            cursor: "pointer",
+                                            fontSize: "0.9rem",
+                                            fontWeight: 700
                                         }}>
-                                    ×</button>
-                                </div>
+                                            ×</button>
+                                    </div>
                                 ))}
                             </div>
                         </Section>
@@ -698,42 +700,43 @@ export default function Admin() {
                                 </button>
                             </div>
                             {services.map(s => (
-                                <div key={s.id} style={{ 
-                                    border: "1px solid #e0d9d0", 
-                                    padding: 16, 
-                                    marginBottom: 12, 
-                                    background: "#fff", 
-                                    display: "flex", 
-                                    justifyContent: "space-between", 
-                                    alignItems: "flex-start" 
-                                    }}>
+                                <div key={s.id} style={{
+                                    border: "1px solid #e0d9d0",
+                                    padding: 16,
+                                    marginBottom: 12,
+                                    background: "#fff",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-start"
+                                }}>
 
                                     <div>
-                                        <p style={{ 
-                                            fontWeight: 700, 
-                                            fontSize: "0.9rem", 
-                                            marginBottom: 4 
-                                            }}>
-                                                {s.name}
+                                        <p style={{
+                                            fontWeight: 700,
+                                            fontSize: "0.9rem",
+                                            marginBottom: 4
+                                        }}>
+                                            {s.name}
                                         </p>
 
-                                        <p style={{ 
-                                            fontSize: "0.82rem", 
-                                            color: "#666" }}
-                                            >
-                                                {s.description}
+                                        <p style={{
+                                            fontSize: "0.82rem",
+                                            color: "#666"
+                                        }}
+                                        >
+                                            {s.description}
                                         </p>
                                     </div>
 
                                     <button onClick={async () => {
                                         await deleteService(s.id);
                                         setServices(services.filter(x => x.id !== s.id));
-                                        }} style={{ 
-                                        ...btn("#c0392b"), 
-                                        marginLeft: 16, 
-                                        flexShrink: 0 
-                                        }}>
-                                            DELETE
+                                    }} style={{
+                                        ...btn("#c0392b"),
+                                        marginLeft: 16,
+                                        flexShrink: 0
+                                    }}>
+                                        DELETE
                                     </button>
                                 </div>
                             ))}
