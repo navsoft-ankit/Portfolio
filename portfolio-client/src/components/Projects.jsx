@@ -9,7 +9,7 @@ export default function Projects({ projects }) {
       id: 1,
       title: "Voxify Feedback System",
       description:
-        "Enterprise feedback platform with React frontend and ASP.NET Core backend.",
+        "Feedback platform with React frontend and ASP.NET Core backend. Users can fill forms and see their responses and we have also a admin login system.",
     },
     {
       id: 2,
