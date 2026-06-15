@@ -7,7 +7,7 @@ export default function Projects({ projects }) {
   const defaultProjects = [
     {
       id: 1,
-      title: "Navsoft Feedback System",
+      title: "Voxify Feedback System",
       description:
         "Enterprise feedback platform with React frontend and ASP.NET Core backend.",
     },
