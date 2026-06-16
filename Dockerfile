@@ -14,4 +14,4 @@ ENV ASPNETCORE_URLS=http://+:10000
 
 EXPOSE 10000
 
-ENTRYPOINT ["dotnet", "Portfolio.dll"]
+ENTRYPOINT ["dotnet", "Porfolio.dll"]
