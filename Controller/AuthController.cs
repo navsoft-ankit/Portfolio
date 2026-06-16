@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PORFOLIO.Data;
 using PORFOLIO.DTOs;
 
 namespace PORFOLIO.Controllers
@@ -7,24 +8,31 @@ namespace PORFOLIO.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+        private readonly AppDbContext _context;
+        public AuthController(AppDbContext context)
+        {
+           _context = context;
+        }
         [HttpPost("login")]
         public IActionResult Login(LoginDTO model)
         {
-            if (model.Username == "Ankit" &&
+            var admin = _context.Admin.FirstOrDefault(x =>
+                x.Username == model.Username &&
+                x.PasswordHash == model.Password &&
+                x.Email == model.Email
+                );
 
-                model.Email == "ankit@gmail.com" &&
-
-                model.Password == "Ankit123")
+            if (admin == null)
             {
-                return Ok(new
+                return Unauthorized(new
                 {
-                    Message = "Login Successful"
+                    Message = "Invalid Username or Password"
                 });
             }
 
-            return Unauthorized(new
+            return Ok(new
             {
-                Message = "Invalid Username or Password"
+                Message = "Login Successful"
             });
         }
     }

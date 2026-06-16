@@ -107,7 +107,7 @@ export default function Admin() {
 
     // Projects
     const [projects, setProjects] = useState([]);
-    const [newProject, setNewProject] = useState({ title: "", description: "", githubUrl: "" });
+    const [newProject, setNewProject] = useState({ title: "", description: "", githubUrl: "", ImageUrl: "", Technologies: "" });
     const [editProject, setEditProject] = useState(null);
 
     // Skills
@@ -443,13 +443,33 @@ export default function Admin() {
                                         })
                                     }
                                 />
+                                                                <Field
+                                    label="Image Url"
+                                    value={newProject.ImageUrl}
+                                    onChange={e =>
+                                        setNewProject({
+                                            ...newProject,
+                                            ImageUrl: e.target.value
+                                        })
+                                    }
+                                />
+                                                                <Field
+                                    label="Technologies"
+                                    value={newProject.Technologies}
+                                    onChange={e =>
+                                        setNewProject({
+                                            ...newProject,
+                                            Technologies: e.target.value
+                                        })
+                                    }
+                                />
 
                                 <button onClick={async () => {
                                     if (!newProject.title)
                                         return;
                                     const r = await createProject(newProject);
                                     setProjects([...projects, r.data]);
-                                    setNewProject({ title: "", description: "", githubUrl: "" });
+                                    setNewProject({ title: "", description: "", githubUrl: "", imageUrl: "", Technologies: "" });
                                 }}
                                     style=
                                     {btn(BROWN)}
@@ -491,6 +511,26 @@ export default function Admin() {
                                                     setEditProject({
                                                         ...editProject,
                                                         githubUrl: e.target.value
+                                                    })
+                                                }
+                                            />
+                                             <Field
+                                                label="Image Url"
+                                                value={editProject.ImageUrl || ""}
+                                                onChange={e =>
+                                                    setEditProject({
+                                                        ...editProject,
+                                                        ImageUrl: e.target.value
+                                                    })
+                                                }
+                                            />
+                                             <Field
+                                                label="Technologies"
+                                                value={editProject.Technologies || ""}
+                                                onChange={e =>
+                                                    setEditProject({
+                                                        ...editProject,
+                                                        Technologies: e.target.value
                                                     })
                                                 }
                                             />

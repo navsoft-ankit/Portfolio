@@ -53,6 +53,7 @@ namespace PORFOLIO.Controllers
             project.Title = updated.Title;
             project.Description = updated.Description;
             project.GithubUrl = updated.GithubUrl;
+            project.ImageUrl = updated.ImageUrl;
 
             await _context.SaveChangesAsync();
 

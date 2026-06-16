@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
@@ -39,208 +40,207 @@ const projects = [
 
 export default function ProjectsPage() {
     return (
-        <section
+        <>
+            <section
+                style={{
+                    background: CREAM,
+                    minHeight: "100vh",
+                }}
+            >
+                <Link
+                    className="back-btn"
+                    to="/"
+                    style={{
+                        position: "fixed",
+                        top: "25px",
+                        left: "25px",
+                        textDecoration: "none",
+                        color: BROWN,
+                        fontWeight: "600",
+                        background: "#fff",
+                        padding: "10px 16px",
+                        borderRadius: "8px",
+                        boxShadow: "0 2px 10px rgba(0,0,0,.08)",
+                        zIndex: 100,
+                    }}
+                >
+                    ← Back To Home
+                </Link>
+                {/* HERO */}
+
+                <div
+                    className="projects-hero"
+                    style={{
+                        background: BROWN,
+                        color: "#fff",
+                        padding: "20px 0",
+                        textAlign: "center",
+                    }}
+                >
+                    <h1
+                        style={{
+                            fontSize: "5rem",
+                            fontFamily: "Georgia, serif",
+                            fontWeight: "400",
+                        }}
+                    >
+                        My Projects
+                    </h1>
+                </div>
+
+                {/* PROJECTS */}
+
+                {projects.map((project, index) => (
+                    <div
+                        key={project.id}
+                        className="project-row"
+                        style={{
+                            maxWidth: "1400px",
+                            margin: "0 auto",
+                            padding: "10px 40px",
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: "80px",
+                            alignItems: "center",
+                        }}
+                    >
+                        {/* LEFT */}
+
+                        {index % 2 === 0 ? (
+                            <>
+                                <div className="project-image-wrap">
+                                    <img
+                                        className="project-image"
+                                        src={project.image}
+                                        alt={project.title}
+                                        style={{
+                                            width: "100%",
+                                            height: "650px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                </div>
+
+                                <div>
+                                    <h2
+                                        className="project-title"
+                                        style={{
+                                            fontSize: "4rem",
+                                            fontFamily: "Georgia, serif",
+                                            color: BROWN,
+                                            marginBottom: "30px",
+                                        }}
+                                    >
+                                        {project.title}
+                                    </h2>
+
+                                    <p
+                                        style={{
+                                            fontSize: "1.5rem",
+                                            color: "#666",
+                                            lineHeight: "1.8",
+                                            marginBottom: "40px",
+                                        }}
+                                    >
+                                        {project.short}
+                                    </p>
+
+                                    <p
+                                        style={{
+                                            fontSize: "1.15rem",
+                                            color: "#666",
+                                            lineHeight: "2",
+                                            marginBottom: "50px",
+                                        }}
+                                    >
+                                        {project.description}
+                                    </p>
+
+                                    <Link
+                                        to={`/projects/${project.id}`}
+                                        style={{
+                                            background: BROWN,
+                                            color: "#fff",
+                                            textDecoration: "none",
+                                            padding: "18px 50px",
+                                            display: "inline-block",
+                                            letterSpacing: "1px",
+                                        }}
+                                    >
+                                        VIEW PROJECT
+                                    </Link>
+                                </div>
+                            </>
+) : (
+<>
+    <div>
+        <h2
             style={{
-                background: CREAM,
-                minHeight: "100vh",
+                fontSize: "4rem",
+                fontFamily: "Georgia, serif",
+                color: BROWN,
+                marginBottom: "30px",
             }}
         >
-            <Link
-                to="/"
-                style={{
-                    position: "fixed",
-                    top: "25px",
-                    left: "25px",
-                    textDecoration: "none",
-                    color: BROWN,
-                    fontWeight: "600",
-                    background: "#fff",
-                    padding: "10px 16px",
-                    borderRadius: "8px",
-                    boxShadow: "0 2px 10px rgba(0,0,0,.08)",
-                    zIndex: 100,
-                }}
-            >
-                ← Back To Home
-            </Link>
-            {/* HERO */}
+            {project.title}
+        </h2>
 
-            <div
-                className="projects-hero"
-                style={{
-                    background: BROWN,
-                    color: "#fff",
-                    padding: "20px 0",
-                    textAlign: "center",
-                }}
-            >
-                <h1
-                    style={{
-                        fontSize: "5rem",
-                        fontFamily: "Georgia, serif",
-                        fontWeight: "400",
-                    }}
-                >
-                    My Projects
-                </h1>
-            </div>
+        <p
+            style={{
+                fontSize: "1.5rem",
+                color: "#666",
+                lineHeight: "1.8",
+                marginBottom: "40px",
+            }}
+        >
+            {project.short}
+        </p>
 
-            {/* PROJECTS */}
+        <p
+            style={{
+                fontSize: "1.15rem",
+                color: "#666",
+                lineHeight: "2",
+                marginBottom: "50px",
+            }}
+        >
+            {project.description}
+        </p>
 
-            {projects.map((project, index) => (
-                <div
-                    key={project.id}
-                    className="project-row"
-                    style={{
-                        maxWidth: "1400px",
-                        margin: "0 auto",
-                        padding: "10px 40px",
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "80px",
-                        alignItems: "center",
-                    }}
-                >
-                    {/* LEFT */}
+        <Link
+            to={`/projects/${project.id}`}
+            style={{
+                background: BROWN,
+                color: "#fff",
+                textDecoration: "none",
+                padding: "18px 50px",
+                display: "inline-block",
+                letterSpacing: "1px",
+            }}
+        >
+            VIEW PROJECT
+        </Link>
+    </div>
 
-                    {index % 2 === 0 ? (
-                        <>
-                            <div
-                                style={{
-                                    width: "100%",
-                                    height: "650px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "contain",
-                                    }}
-                                />
-                            </div>
+    <div className="project-image-wrap">
+        <img
+            className="project-image"
+            src={project.image}
+            alt={project.title}
+            style={{
+                width: "100%",
+                height: "650px",
+                objectFit: "cover",
+            }}
+        />
+    </div>
+</>
+)}
+                    </div>
+                ))}
+            </section>
 
-                            <div>
-                                <h2
-                                    className="project-title"
-                                    style={{
-                                        fontSize: "4rem",
-                                        fontFamily: "Georgia, serif",
-                                        color: BROWN,
-                                        marginBottom: "30px",
-                                    }}
-                                >
-                                    {project.title}
-                                </h2>
-
-                                <p
-                                    style={{
-                                        fontSize: "1.5rem",
-                                        color: "#666",
-                                        lineHeight: "1.8",
-                                        marginBottom: "40px",
-                                    }}
-                                >
-                                    {project.short}
-                                </p>
-
-                                <p
-                                    style={{
-                                        fontSize: "1.15rem",
-                                        color: "#666",
-                                        lineHeight: "2",
-                                        marginBottom: "50px",
-                                    }}
-                                >
-                                    {project.description}
-                                </p>
-
-                                <Link
-                                    to={`/projects/${project.id}`}
-                                    style={{
-                                        background: BROWN,
-                                        color: "#fff",
-                                        textDecoration: "none",
-                                        padding: "18px 50px",
-                                        display: "inline-block",
-                                        letterSpacing: "1px",
-                                    }}
-                                >
-                                    VIEW PROJECT
-                                </Link>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div>
-                                <h2
-                                    style={{
-                                        fontSize: "4rem",
-                                        fontFamily: "Georgia, serif",
-                                        color: BROWN,
-                                        marginBottom: "30px",
-                                    }}
-                                >
-                                    {project.title}
-                                </h2>
-
-                                <p
-                                    style={{
-                                        fontSize: "1.5rem",
-                                        color: "#666",
-                                        lineHeight: "1.8",
-                                        marginBottom: "40px",
-                                    }}
-                                >
-                                    {project.short}
-                                </p>
-
-                                <p
-                                    style={{
-                                        fontSize: "1.15rem",
-                                        color: "#666",
-                                        lineHeight: "2",
-                                        marginBottom: "50px",
-                                    }}
-                                >
-                                    {project.description}
-                                </p>
-
-                                <Link
-                                    to={`/projects/${project.id}`}
-                                    style={{
-                                        background: BROWN,
-                                        color: "#fff",
-                                        textDecoration: "none",
-                                        padding: "18px 50px",
-                                        display: "inline-block",
-                                        letterSpacing: "1px",
-                                    }}
-                                >
-                                    VIEW PROJECT
-                                </Link>
-                            </div>
-
-                            <div>
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    style={{
-                                        width: "100%",
-                                        height: "650px",
-                                        objectFit: "cover",
-                                    }}
-                                />
-                            </div>
-                        </>
-                    )}
-                </div>
-            ))}
-        </section>
+            <Footer />
+        </>
     );
 }

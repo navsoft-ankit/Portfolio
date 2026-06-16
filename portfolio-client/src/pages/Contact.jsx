@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f5f1eb";
@@ -173,6 +174,7 @@ export default function Contact() {
                     </div>
                 </div>
             </section>
+            <Footer />
         </>
     );
 }
