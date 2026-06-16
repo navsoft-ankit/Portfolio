@@ -233,7 +233,7 @@ export default function Admin() {
                                 background: tab === t ? CREAM : "none",
                                 border: "none",
                                 borderLeft: tab === t ? `3px solid 
-                            ${BROWN}` : "3px solid transparent",
+                                ${BROWN}` : "3px solid transparent",
                                 textAlign: "left",
                                 fontSize: "0.82rem",
                                 fontWeight: tab === t ? 700 : 400,
@@ -319,6 +319,7 @@ export default function Admin() {
                             <div style={{
                                 marginBottom: 16
                             }}>
+
                                 <label
                                     style={{
                                         display: "block",

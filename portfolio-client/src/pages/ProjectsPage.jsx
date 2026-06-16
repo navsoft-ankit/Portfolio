@@ -171,71 +171,71 @@ export default function ProjectsPage() {
                                     </Link>
                                 </div>
                             </>
-) : (
-<>
-    <div>
-        <h2
-            style={{
-                fontSize: "4rem",
-                fontFamily: "Georgia, serif",
-                color: BROWN,
-                marginBottom: "30px",
-            }}
-        >
-            {project.title}
-        </h2>
+                        ) : (
+                            <>
+                                <div>
+                                    <h2
+                                        style={{
+                                            fontSize: "4rem",
+                                            fontFamily: "Georgia, serif",
+                                            color: BROWN,
+                                            marginBottom: "30px",
+                                        }}
+                                    >
+                                        {project.title}
+                                    </h2>
 
-        <p
-            style={{
-                fontSize: "1.5rem",
-                color: "#666",
-                lineHeight: "1.8",
-                marginBottom: "40px",
-            }}
-        >
-            {project.short}
-        </p>
+                                    <p
+                                        style={{
+                                            fontSize: "1.5rem",
+                                            color: "#666",
+                                            lineHeight: "1.8",
+                                            marginBottom: "40px",
+                                        }}
+                                    >
+                                        {project.short}
+                                    </p>
 
-        <p
-            style={{
-                fontSize: "1.15rem",
-                color: "#666",
-                lineHeight: "2",
-                marginBottom: "50px",
-            }}
-        >
-            {project.description}
-        </p>
+                                    <p
+                                        style={{
+                                            fontSize: "1.15rem",
+                                            color: "#666",
+                                            lineHeight: "2",
+                                            marginBottom: "50px",
+                                        }}
+                                    >
+                                        {project.description}
+                                    </p>
 
-        <Link
-            to={`/projects/${project.id}`}
-            style={{
-                background: BROWN,
-                color: "#fff",
-                textDecoration: "none",
-                padding: "18px 50px",
-                display: "inline-block",
-                letterSpacing: "1px",
-            }}
-        >
-            VIEW PROJECT
-        </Link>
-    </div>
+                                    <Link
+                                        to={`/projects/${project.id}`}
+                                        style={{
+                                            background: BROWN,
+                                            color: "#fff",
+                                            textDecoration: "none",
+                                            padding: "18px 50px",
+                                            display: "inline-block",
+                                            letterSpacing: "1px",
+                                        }}
+                                    >
+                                        VIEW PROJECT
+                                    </Link>
+                                </div>
 
-    <div className="project-image-wrap">
-        <img
-            className="project-image"
-            src={project.image}
-            alt={project.title}
-            style={{
-                width: "100%",
-                height: "650px",
-                objectFit: "cover",
-            }}
-        />
-    </div>
-</>
-)}
+                                <div className="project-image-wrap">
+                                    <img
+                                        className="project-image"
+                                        src={project.image}
+                                        alt={project.title}
+                                        style={{
+                                            width: "100%",
+                                            height: "650px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        )}
                     </div>
                 ))}
             </section>
