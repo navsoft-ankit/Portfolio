@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
             policy.WithOrigins(
                 "http://localhost:5173",
                 "http://192.168.3.38:5173",
-                "https://ankitdas.vercel.app/"
+                "https://ankitdas.vercel.app"
 
             )
                   .AllowAnyHeader()

@@ -443,7 +443,7 @@ export default function Admin() {
                                         })
                                     }
                                 />
-                                                                <Field
+                                <Field
                                     label="Image Url"
                                     value={newProject.ImageUrl}
                                     onChange={e =>
@@ -453,7 +453,7 @@ export default function Admin() {
                                         })
                                     }
                                 />
-                                                                <Field
+                                <Field
                                     label="Technologies"
                                     value={newProject.Technologies}
                                     onChange={e =>
@@ -514,7 +514,7 @@ export default function Admin() {
                                                     })
                                                 }
                                             />
-                                             <Field
+                                            <Field
                                                 label="Image Url"
                                                 value={editProject.ImageUrl || ""}
                                                 onChange={e =>
@@ -524,7 +524,7 @@ export default function Admin() {
                                                     })
                                                 }
                                             />
-                                             <Field
+                                            <Field
                                                 label="Technologies"
                                                 value={editProject.Technologies || ""}
                                                 onChange={e =>
