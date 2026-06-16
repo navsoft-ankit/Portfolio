@@ -102,13 +102,20 @@ export default function Admin() {
     const [tab, setTab] = useState("profile");
 
     // Profile
-    const [profile, setProfile] = useState({ id: null, name: "", title: "", bio: "", email: "", githubUrl: "", linkedinUrl: "" });
+    const [profile, setProfile] = useState({ id: null, name: "", title: "", bio: "", email: "", githubUrl: "", linkedinUrl: "",   cvUrl: "",
+  profileImage: ""
+ });
     const [profileMsg, setProfileMsg] = useState("");
 
     // Projects
     const [projects, setProjects] = useState([]);
-    const [newProject, setNewProject] = useState({ title: "", description: "", githubUrl: "", ImageUrl: "", Technologies: "" });
-    const [editProject, setEditProject] = useState(null);
+const [newProject, setNewProject] = useState({
+  title: "",
+  description: "",
+  githubUrl: "",
+  liveUrl: "",
+  technologies: ""
+});    const [editProject, setEditProject] = useState(null);
 
     // Skills
     const [skills, setSkills] = useState([]);
@@ -123,6 +130,7 @@ export default function Admin() {
 
     // Image
     const [imageFile, setImageFile] = useState(null);
+    const [projectImage, setProjectImage] = useState(null);
 
     useEffect(() => {
         getProfile().then(r => setProfile(r.data)).catch(() => { });
@@ -132,19 +140,44 @@ export default function Admin() {
         getMessages().then(r => setMessages(r.data)).catch(() => { });
     }, []);
 
-    const saveProfile = async () => {
-        try {
-            if (profile.id) {
-                const r = await updateProfile(profile.id, profile);
-                setProfile(r.data);
-            } else {
-                const r = await createProfile(profile);
-                setProfile(r.data);
-            }
-            setProfileMsg("Data Saved!");
-            setTimeout(() => setProfileMsg(""), 2000);
-        } catch { setProfileMsg("Failed to save"); }
-    };
+const saveProfile = async () => {
+    try {
+
+        const formData = new FormData();
+
+        formData.append("Name", profile.name || "");
+        formData.append("Title", profile.title || "");
+        formData.append("Bio", profile.bio || "");
+        formData.append("Email", profile.email || "");
+        formData.append("GithubUrl", profile.githubUrl || "");
+        formData.append("LinkedinUrl", profile.linkedinUrl || "");
+        formData.append("CvUrl", profile.cvUrl || "");
+
+        if (imageFile) {
+            formData.append("Image", imageFile);
+        }
+
+        let r;
+
+        if (profile.id) {
+            r = await updateProfile(profile.id, formData);
+        } else {
+            r = await createProfile(formData);
+        }
+
+        setProfile(r.data);
+
+        setProfileMsg("Data Saved!");
+
+        setTimeout(() => {
+            setProfileMsg("");
+        }, 2000);
+
+    } catch (err) {
+        console.log(err);
+        setProfileMsg("Failed to save");
+    }
+};
 
     const tabs = ["profile", "projects", "skills", "services", "messages"];
 
@@ -444,39 +477,92 @@ export default function Admin() {
                                         })
                                     }
                                 />
-                                <Field
-                                    label="Image Url"
-                                    value={newProject.ImageUrl}
-                                    onChange={e =>
-                                        setNewProject({
-                                            ...newProject,
-                                            ImageUrl: e.target.value
-                                        })
-                                    }
-                                />
+                             <div style={{ marginBottom: 12 }}>
+
+    <label
+        style={{
+            display: "block",
+            marginBottom: 5,
+            fontWeight: "bold"
+        }}
+    >
+        Project Image
+    </label>
+
+    <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+            setProjectImage(e.target.files[0])
+        }
+    />
+
+    {
+        projectImage &&
+        <p>{projectImage.name}</p>
+    }
+
+</div>
                                 <Field
                                     label="Technologies"
-                                    value={newProject.Technologies}
-                                    onChange={e =>
-                                        setNewProject({
-                                            ...newProject,
-                                            Technologies: e.target.value
-                                        })
-                                    }
+                                    value={newProject.technologies}
+                                   onChange={e =>
+    setNewProject({
+        ...newProject,
+        technologies: e.target.value
+    })
+}
                                 />
 
-                                <button onClick={async () => {
-                                    if (!newProject.title)
-                                        return;
-                                    const r = await createProject(newProject);
-                                    setProjects([...projects, r.data]);
-                                    setNewProject({ title: "", description: "", githubUrl: "", imageUrl: "", Technologies: "" });
-                                }}
-                                    style=
-                                    {btn(BROWN)}
-                                >
-                                    ADD
-                                </button>
+<button
+onClick={async () => {
+
+    if (!newProject.title)
+        return;
+
+    const formData = new FormData();
+
+    formData.append(
+        "Title",
+        newProject.title
+    );
+
+    formData.append(
+        "Description",
+        newProject.description
+    );
+
+    formData.append(
+        "GithubUrl",
+        newProject.githubUrl
+    );
+
+    formData.append(
+        "Technologies",
+        newProject.technologies
+    );
+
+    if(projectImage){
+
+        formData.append(
+            "Image",
+            projectImage
+        );
+
+    }
+
+    const r = await createProject(formData);
+
+    setProjects([
+        ...projects,
+        r.data
+    ]);
+
+}}
+style={btn(BROWN)}
+>
+ADD
+</button>
                             </div>
 
                             {/* List */}

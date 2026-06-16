@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PORFOLIO.Data;
 using PORFOLIO.models;
-
+using PORFOLIO.DTOs;
 namespace PORFOLIO.Controllers
 {
     [ApiController]
@@ -31,18 +31,59 @@ namespace PORFOLIO.Controllers
         }
 
         // POST: api/profile
-        [HttpPost]
-        public async Task<ActionResult<Profile>> CreateProfile(Profile profile)
-        {
-            _context.Profiles.Add(profile);
-            await _context.SaveChangesAsync();
+[HttpPost]
+[Consumes("multipart/form-data")]
+public async Task<ActionResult<Profile>> CreateProfile([FromForm] ProfileCreateDto dto)
+{
+    if (dto.Image == null)
+    {
+        return BadRequest("Profile image is required.");
+    }
 
-            return CreatedAtAction(
-                nameof(GetProfile),
-                new { id = profile.Id },
-                profile
-            );
-        }
+    string? imageUrl = null;
+
+    var folderPath = Path.Combine(
+        Directory.GetCurrentDirectory(),
+        "wwwroot",
+        "images"
+    );
+
+    if (!Directory.Exists(folderPath))
+    {
+        Directory.CreateDirectory(folderPath);
+    }
+
+    var fileName =
+        Guid.NewGuid().ToString() +
+        Path.GetExtension(dto.Image.FileName);
+
+    var filePath = Path.Combine(folderPath, fileName);
+
+    using (var stream = new FileStream(filePath, FileMode.Create))
+    {
+        await dto.Image.CopyToAsync(stream);
+    }
+
+    imageUrl = "/images/" + fileName;
+
+    var profile = new Profile
+    {
+        Name = dto.Name,
+        Title = dto.Title,
+        Bio = dto.Bio,
+        CvUrl = dto.CvUrl,
+        Email = dto.Email,
+        GithubUrl = dto.GithubUrl,
+        LinkedinUrl = dto.LinkedinUrl,
+        ProfileImage = imageUrl
+    };
+
+    _context.Profiles.Add(profile);
+
+    await _context.SaveChangesAsync();
+
+    return Ok(profile);
+}
 
         // PUT: api/profile/1
         [HttpPut("{id}")]

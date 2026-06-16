@@ -1,44 +1,28 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
+import { getProjects } from "../api/api";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const projects = [
-    {
-        id: 1,
-        title: "Feedback Management System",
-        short:
-            "Enterprise feedback platform built with React and ASP.NET Core.",
-        description:
-            "A complete feedback management platform where users can submit feedback, administrators can manage records, track responses and monitor performance through dashboards.",
-        image: "image copy.png",
-    },
-
-    {
-        id: 2,
-        title: "Weather API Application",
-        short:
-            "Real-time weather application integrated with external APIs.",
-        description:
-            "Users can search any location and instantly view weather conditions, temperature, humidity and forecasts using third-party weather APIs.",
-        image:
-            "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=1200",
-    },
-
-    {
-        id: 3,
-        title: "QR Generator",
-        short:
-            "Generate and download QR codes instantly.",
-        description:
-            "Built with React and ASP.NET Core. Users can create QR codes for URLs, text and other resources and download them instantly.",
-        image:
-            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200",
-    },
-];
-
+const API_URL = "http://localhost:5055/api";
 export default function ProjectsPage() {
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+
+        getProjects()
+            .then(res => {
+                setProjects(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }, []);
+
     return (
         <>
             <section
@@ -66,6 +50,7 @@ export default function ProjectsPage() {
                 >
                     ← Back To Home
                 </Link>
+
                 {/* HERO */}
 
                 <div
@@ -91,6 +76,7 @@ export default function ProjectsPage() {
                 {/* PROJECTS */}
 
                 {projects.map((project, index) => (
+
                     <div
                         key={project.id}
                         className="project-row"
@@ -104,14 +90,15 @@ export default function ProjectsPage() {
                             alignItems: "center",
                         }}
                     >
-                        {/* LEFT */}
 
                         {index % 2 === 0 ? (
+
                             <>
                                 <div className="project-image-wrap">
+
                                     <img
                                         className="project-image"
-                                        src={project.image}
+                                        src={`${API_URL}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -119,9 +106,11 @@ export default function ProjectsPage() {
                                             objectFit: "cover",
                                         }}
                                     />
+
                                 </div>
 
                                 <div>
+
                                     <h2
                                         className="project-title"
                                         style={{
@@ -142,7 +131,7 @@ export default function ProjectsPage() {
                                             marginBottom: "40px",
                                         }}
                                     >
-                                        {project.short}
+                                        {project.technologies}
                                     </p>
 
                                     <p
@@ -169,11 +158,17 @@ export default function ProjectsPage() {
                                     >
                                         VIEW PROJECT
                                     </Link>
+
                                 </div>
+
                             </>
+
                         ) : (
+
                             <>
+
                                 <div>
+
                                     <h2
                                         style={{
                                             fontSize: "4rem",
@@ -193,7 +188,7 @@ export default function ProjectsPage() {
                                             marginBottom: "40px",
                                         }}
                                     >
-                                        {project.short}
+                                        {project.technologies}
                                     </p>
 
                                     <p
@@ -220,12 +215,14 @@ export default function ProjectsPage() {
                                     >
                                         VIEW PROJECT
                                     </Link>
+
                                 </div>
 
                                 <div className="project-image-wrap">
+
                                     <img
                                         className="project-image"
-                                        src={project.image}
+                                        src={`${API_URL}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -233,14 +230,21 @@ export default function ProjectsPage() {
                                             objectFit: "cover",
                                         }}
                                     />
+
                                 </div>
+
                             </>
+
                         )}
+
                     </div>
+
                 ))}
+
             </section>
 
             <Footer />
+
         </>
     );
 }

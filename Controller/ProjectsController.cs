@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PORFOLIO.Data;
 using PORFOLIO.models;
+using PORFOLIO.DTOs;
 
 namespace PORFOLIO.Controllers
 {
@@ -34,9 +35,52 @@ namespace PORFOLIO.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject(Project project)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)
         {
+            Console.WriteLine(dto.Title);
+    Console.WriteLine(dto.Image?.FileName);
+            string? imageUrl = null;
+
+            if (dto.Image != null)
+            {
+                var folderPath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images"
+                );
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var fileName =
+                    Guid.NewGuid().ToString() +
+                    Path.GetExtension(dto.Image.FileName);
+
+                var filePath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await dto.Image.CopyToAsync(stream);
+                }
+
+                imageUrl = "/images/" + fileName;
+            }
+
+            var project = new Project
+            {
+                Title = dto.Title,
+                Description = dto.Description,
+                GithubUrl = dto.GithubUrl,
+                LiveUrl = dto.LiveUrl,
+                Technologies = dto.Technologies,
+                ImageUrl = imageUrl
+            };
+
             _context.Projects.Add(project);
+
             await _context.SaveChangesAsync();
 
             return Ok(project);
@@ -54,6 +98,7 @@ namespace PORFOLIO.Controllers
             project.Description = updated.Description;
             project.GithubUrl = updated.GithubUrl;
             project.ImageUrl = updated.ImageUrl;
+            project.Technologies = updated.Technologies;
 
             await _context.SaveChangesAsync();
 

@@ -1,9 +1,6 @@
 import axios from "axios";
 
-const BASE =
-  import.meta.env.VITE_API_URL ||
-  "https://portfolio-6k0f.onrender.com/api";
-
+const BASE = "http://localhost:5055/api";
 
 export const api = axios.create({ baseURL: BASE });
 
@@ -12,15 +9,36 @@ export const login = (data) => api.post("/auth/login", data);
 
 // Profile
 export const getProfile = () => api.get("/profile");
-export const createProfile = (data) => api.post("/profile", data);
-export const updateProfile = (id, data) => api.put(`/profile/${id}`, data);
+export const createProfile = (data) =>
+  api.post("/profile", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+export const updateProfile = (id, data) =>
+  api.put(`/profile/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 export const deleteProfile = (id) => api.delete(`/profile/${id}`);
 
 // Projects
+// Projects
 export const getProjects = () => api.get("/projects");
-export const createProject = (data) => api.post("/projects", data);
-export const updateProject = (id, data) => api.put(`/projects/${id}`, data);
-export const deleteProject = (id) => api.delete(`/projects/${id}`);
+
+export const getProjectById = (id) =>
+  api.get(`/projects/${id}`);
+
+export const createProject = (data) =>
+  api.post("/projects", data);
+
+export const updateProject = (id, data) =>
+  api.put(`/projects/${id}`, data);
+
+export const deleteProject = (id) =>
+  api.delete(`/projects/${id}`);
 
 // Skills
 export const getSkills = () => api.get("/skills");
