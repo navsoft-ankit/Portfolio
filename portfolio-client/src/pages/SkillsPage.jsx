@@ -39,7 +39,6 @@ export default function SkillsPage() {
             >
 
                 {/* Header */}
-
                 <div
                     style={{
                         textAlign: "center",
@@ -84,7 +83,6 @@ export default function SkillsPage() {
 
 
                 {/* Skills Grid */}
-
                 <div
                     className="skills-grid"
                     style={{
@@ -94,7 +92,8 @@ export default function SkillsPage() {
                     }}
                 >
 
-                    {skills.map((skill) => (
+                    {skills.map((skill) => 
+                    (
 
                         <div
                             key={skill.id}
@@ -164,7 +163,6 @@ export default function SkillsPage() {
 
 
                 {/* Technologies */}
-
                 <div
                     style={{
                         marginTop: "80px",

@@ -146,35 +146,6 @@ export default function About() {
                             exceptional user experiences.
                         </p>
 
-                        {/* <div
-                            style={{
-                                display: "flex",
-                                gap: "12px",
-                                marginTop: "30px",
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            {[
-                                "React",
-                                "ASP.NET Core",
-                                "C#",
-                                "SQL Server",
-                                "JavaScript",
-                                "REST API",
-                            ].map((skill) => (
-                                <span
-                                    key={skill}
-                                    style={{
-                                        background: CREAM,
-                                        padding: "10px 18px",
-                                        borderRadius: "6px",
-                                        border: "1px solid #ddd",
-                                    }}
-                                >
-                                    {skill}
-                                </span>
-                            ))}
-                        </div> */}
                     </div>
                 </div>
             </div>

@@ -103,7 +103,14 @@ export default function Admin() {
 
     // Profile
     const [profile, setProfile] = useState({
-        id: null, name: "", title: "", bio: "", email: "", githubUrl: "", linkedinUrl: "", cvUrl: "",
+        id: null,
+        name: "",
+        title: "",
+        bio: "",
+        email: "",
+        githubUrl: "",
+        linkedinUrl: "",
+        cvUrl: "",
         profileImage: ""
     });
     const [profileMsg, setProfileMsg] = useState("");
@@ -116,15 +123,22 @@ export default function Admin() {
         githubUrl: "",
         liveUrl: "",
         technologies: ""
-    }); const [editProject, setEditProject] = useState(null);
+    });
+    const [editProject, setEditProject] = useState(null);
 
     // Skills
     const [skills, setSkills] = useState([]);
-    const [newSkill, setNewSkill] = useState({ name: "", percentage: "" });
+    const [newSkill, setNewSkill] = useState({
+        name: "",
+        percentage: ""
+    });
 
     // Services
     const [services, setServices] = useState([]);
-    const [newService, setNewService] = useState({ name: "", description: "" });
+    const [newService, setNewService] = useState({
+        name: "",
+        description: ""
+    });
 
     // Messages
     const [messages, setMessages] = useState([]);
@@ -134,11 +148,31 @@ export default function Admin() {
     const [projectImage, setProjectImage] = useState(null);
 
     useEffect(() => {
-        getProfile().then(r => setProfile(r.data)).catch(() => { });
-        getProjects().then(r => setProjects(r.data)).catch(() => { });
-        getSkills().then(r => setSkills(r.data)).catch(() => { });
-        getServices().then(r => setServices(r.data)).catch(() => { });
-        getMessages().then(r => setMessages(r.data)).catch(() => { });
+        getProfile().then(r =>
+            setProfile(r.data))
+            .catch(() => { }
+            );
+
+        getProjects().then(r =>
+            setProjects(r.data))
+            .catch(() => { }
+            );
+
+        getSkills().then(r =>
+            setSkills(r.data))
+            .catch(() => { }
+            );
+
+        getServices().then(r =>
+            setServices(r.data))
+            .catch(() => { }
+            );
+
+        getMessages().then(r =>
+            setMessages(r.data))
+            .catch(() => { }
+            );
+
     }, []);
 
     const saveProfile = async () => {
@@ -146,13 +180,33 @@ export default function Admin() {
 
             const formData = new FormData();
 
-            formData.append("Name", profile.name || "");
-            formData.append("Title", profile.title || "");
-            formData.append("Bio", profile.bio || "");
-            formData.append("Email", profile.email || "");
-            formData.append("GithubUrl", profile.githubUrl || "");
-            formData.append("LinkedinUrl", profile.linkedinUrl || "");
-            formData.append("CvUrl", profile.cvUrl || "");
+            formData.append(
+                "Name", profile.name || ""
+            );
+
+            formData.append(
+                "Title", profile.title || ""
+            );
+
+            formData.append(
+                "Bio", profile.bio || ""
+            );
+
+            formData.append(
+                "Email", profile.email || ""
+            );
+
+            formData.append(
+                "GithubUrl", profile.githubUrl || ""
+            );
+
+            formData.append(
+                "LinkedinUrl", profile.linkedinUrl || ""
+            );
+
+            formData.append(
+                "CvUrl", profile.cvUrl || ""
+            );
 
             if (imageFile) {
                 formData.append("Image", imageFile);
@@ -179,7 +233,13 @@ export default function Admin() {
         }
     };
 
-    const tabs = ["profile", "projects", "skills", "services", "messages"];
+    const tabs = [
+        "profile",
+        "projects",
+        "skills",
+        "services",
+        "messages"
+    ];
 
     return (
         <div style={{
@@ -189,7 +249,6 @@ export default function Admin() {
         }}
         >
             {/* Top bar */}
-
             <div style={{
                 background: BROWN,
                 padding: "0 32px",
@@ -245,7 +304,6 @@ export default function Admin() {
                 }}>
 
                 {/* Sidebar */}
-
                 <aside style={{
                     width: 180,
                     background: "#fff",
@@ -289,7 +347,6 @@ export default function Admin() {
                 }}>
 
                     {/* PROFILE */}
-
                     {tab === "profile" && (
 
                         <Section title="Profile">
@@ -297,27 +354,30 @@ export default function Admin() {
                                 label="Name"
                                 value={profile.name || ""}
                                 onChange={e => setProfile
-                                    ({ ...profile, name: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        name: e.target.value
+                                    })}
                             />
 
                             <Field
                                 label="Title"
                                 value={profile.title || ""}
                                 onChange={e => setProfile
-                                    ({ ...profile, title: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        title: e.target.value
+                                    })}
                             />
 
                             <Field
                                 label="Bio"
                                 value={profile.bio || ""}
                                 onChange={e => setProfile
-                                    ({ ...profile, bio: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        bio: e.target.value
+                                    })}
                                 rows={4}
                             />
 
@@ -326,27 +386,30 @@ export default function Admin() {
                                 value={profile.email || ""}
                                 type="email"
                                 onChange={e => setProfile
-                                    ({ ...profile, email: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        email: e.target.value
+                                    })}
                             />
 
                             <Field
                                 label="GitHub URL"
                                 value={profile.githubUrl || ""}
                                 onChange={e => setProfile
-                                    ({ ...profile, githubUrl: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        githubUrl: e.target.value
+                                    })}
                             />
 
                             <Field
                                 label="LinkedIn URL"
                                 value={profile.linkedinUrl || ""}
                                 onChange={e => setProfile
-                                    ({ ...profile, linkedinUrl: e.target.value }
-
-                                    )}
+                                    ({
+                                        ...profile,
+                                        linkedinUrl: e.target.value
+                                    })}
                             />
 
                             <div style={{
@@ -427,12 +490,10 @@ export default function Admin() {
                     )}
 
                     {/* PROJECTS */}
-
                     {tab === "projects" && (
                         <Section title="Projects">
 
                             {/* Add new */}
-
                             <div style={{
                                 background: CREAM,
                                 padding: 20,
@@ -454,17 +515,19 @@ export default function Admin() {
                                     value={newProject.title}
                                     onChange={e => setNewProject(
                                         {
-                                            ...newProject, title: e.target.value
+                                            ...newProject,
+                                            title: e.target.value
 
-                                        }
-                                    )}
+                                        })}
                                 />
 
                                 <Field label="Description"
                                     value={newProject.description}
                                     onChange={e => setNewProject(
-                                        { ...newProject, description: e.target.value }
-                                    )}
+                                        {
+                                            ...newProject,
+                                            description: e.target.value
+                                        })}
                                     rows={3}
                                 />
                                 <Field
@@ -474,8 +537,7 @@ export default function Admin() {
                                         setNewProject({
                                             ...newProject,
                                             githubUrl: e.target.value
-                                        })
-                                    }
+                                        })}
                                 />
                                 <div style={{ marginBottom: 12 }}>
 
@@ -503,6 +565,7 @@ export default function Admin() {
                                     }
 
                                 </div>
+
                                 <Field
                                     label="Technologies"
                                     value={newProject.technologies}
@@ -510,8 +573,7 @@ export default function Admin() {
                                         setNewProject({
                                             ...newProject,
                                             technologies: e.target.value
-                                        })
-                                    }
+                                        })}
                                 />
 
                                 <button
@@ -579,18 +641,23 @@ export default function Admin() {
                                             <Field
                                                 label="Title" value={editProject.title}
                                                 onChange={e => setEditProject(
-                                                    { ...editProject, title: e.target.value }
-                                                )}
+                                                    {
+                                                        ...editProject,
+                                                        title: e.target.value
+                                                    })}
                                             />
 
                                             <Field
                                                 label="Description"
                                                 value={editProject.description}
                                                 onChange={e => setEditProject(
-                                                    { ...editProject, description: e.target.value }
-                                                )}
+                                                    {
+                                                        ...editProject,
+                                                        description: e.target.value
+                                                    })}
                                                 rows={3}
                                             />
+
                                             <div style={{ marginBottom: 15 }}>
 
                                                 <label
@@ -620,8 +687,7 @@ export default function Admin() {
                                                     setEditProject({
                                                         ...editProject,
                                                         technologies: e.target.value
-                                                    })
-                                                }
+                                                    })}
                                             />
 
                                             <div style=
@@ -631,9 +697,11 @@ export default function Admin() {
                                                 }}
                                             >
                                                 <button onClick={async () => {
-                                                    await updateProject(editProject.id, editProject);
+                                                    await updateProject(editProject.id,
+                                                        editProject);
                                                     setProjects(projects.map
-                                                        (x => x.id === editProject.id ? editProject : x));
+                                                        (x => x.id === editProject.id
+                                                            ? editProject : x));
                                                     setEditProject(null);
                                                 }}
                                                     style=
@@ -735,23 +803,30 @@ export default function Admin() {
                                 <Field label="Skill Name"
                                     value={newSkill.name}
                                     onChange={e => setNewSkill(
-                                        { ...newSkill, name: e.target.value }
-                                    )}
+                                        {
+                                            ...newSkill,
+                                            name: e.target.value
+                                        })}
                                 />
 
                                 <Field label="Percentage (0-100)"
                                     type="number"
                                     value={newSkill.percentage}
                                     onChange={e => setNewSkill(
-                                        { ...newSkill, percentage: e.target.value }
-                                    )}
+                                        {
+                                            ...newSkill,
+                                            percentage: e.target.value
+                                        })}
                                 />
 
                                 <button onClick={async () => {
                                     if (!newSkill.name) return;
                                     const r = await createSkill(newSkill);
                                     setSkills([...skills, r.data]);
-                                    setNewSkill({ name: "", percentage: "" });
+                                    setNewSkill({
+                                        name: "",
+                                        percentage: ""
+                                    });
                                 }}
                                     style={btn(BROWN)}>
                                     ADD
@@ -789,14 +864,15 @@ export default function Admin() {
                                         <button onClick={async () => {
                                             await deleteSkill(s.id);
                                             setSkills(skills.filter(x => x.id !== s.id));
-                                        }} style={{
-                                            background: "none",
-                                            border: "none",
-                                            color: "#c0392b",
-                                            cursor: "pointer",
-                                            fontSize: "0.9rem",
-                                            fontWeight: 700
-                                        }}>
+                                        }}
+                                            style={{
+                                                background: "none",
+                                                border: "none",
+                                                color: "#c0392b",
+                                                cursor: "pointer",
+                                                fontSize: "0.9rem",
+                                                fontWeight: 700
+                                            }}>
                                             ×</button>
                                     </div>
                                 ))}
@@ -827,15 +903,19 @@ export default function Admin() {
                                 <Field label="Service Name"
                                     value={newService.name}
                                     onChange={e => setNewService(
-                                        { ...newService, name: e.target.value }
-                                    )}
+                                        {
+                                            ...newService,
+                                            name: e.target.value
+                                        })}
                                 />
 
                                 <Field label="Description"
                                     value={newService.description}
                                     onChange={e => setNewService(
-                                        { ...newService, description: e.target.value }
-                                    )}
+                                        {
+                                            ...newService,
+                                            description: e.target.value
+                                        })}
                                     rows={3}
                                 />
 
@@ -843,7 +923,10 @@ export default function Admin() {
                                     if (!newService.name) return;
                                     const r = await createService(newService);
                                     setServices([...services, r.data]);
-                                    setNewService({ name: "", description: "" });
+                                    setNewService({
+                                        name: "",
+                                        description: ""
+                                    });
                                 }}
                                     style={btn(BROWN)}>
                                     ADD
