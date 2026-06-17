@@ -17,7 +17,7 @@ export default function ProjectDetails() {
 
     useEffect(() => {
 
-        getProjectById(id)
+        getProjectById(_id)
             .then(res => {
 
                 setProject(res.data);
@@ -97,7 +97,11 @@ export default function ProjectDetails() {
             >
 
                 <img
-                    src={project.imageUrl}
+                    src={
+  project.imageUrl?.startsWith("http")
+    ? project.imageUrl
+    : `${IMAGE_URL}${project.imageUrl}`
+}
                     alt={project.title}
                     style={{
                         width: "100%",

@@ -79,7 +79,7 @@ export default function ProjectsPage() {
                 {projects.map((project, index) => (
 
                     <div
-                        key={project.id}
+                        key={project._id}
                         className="project-row"
                         style={{
                             maxWidth: "1400px",
@@ -99,7 +99,11 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={project.imageUrl}
+                                        src={
+  project.imageUrl?.startsWith("http")
+    ? project.imageUrl
+    : `${IMAGE_URL}${project.imageUrl}`
+}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -171,7 +175,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project.id}`}
+                                        to={`/projects/${project._id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -229,7 +233,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project.id}`}
+                                        to={`/projects/${project._id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -248,7 +252,11 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={project.imageUrl}
+                                        src={
+  project.imageUrl?.startsWith("http")
+    ? project.imageUrl
+    : `${IMAGE_URL}${project.imageUrl}`
+}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
