@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
+using PORFOLIO.Services;
 
 namespace PORFOLIO.Controllers
 {
@@ -11,10 +12,12 @@ namespace PORFOLIO.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly MongoDbContext _context;
+        private readonly CloudinaryService _cloudinary;
 
-        public ProjectsController(MongoDbContext context)
+        public ProjectsController(MongoDbContext context, CloudinaryService cloudinary)
         {
             _context = context;
+            _cloudinary = cloudinary;
         }
 
         // GET: api/projects
@@ -51,26 +54,7 @@ namespace PORFOLIO.Controllers
 
             if (dto.Image != null)
             {
-                var folderPath = Path.Combine(
-                    Directory.GetCurrentDirectory(),
-                    "wwwroot",
-                    "images"
-                );
-
-                if (!Directory.Exists(folderPath))
-                    Directory.CreateDirectory(folderPath);
-
-                var fileName =
-                    Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
-
-                var filePath = Path.Combine(folderPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await dto.Image.CopyToAsync(stream);
-                }
-
-                imageUrl = "/images/" + fileName;
+                imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
             }
 
             var project = new Project

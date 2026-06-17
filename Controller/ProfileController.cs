@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
+using PORFOLIO.Services;
 
 namespace PORFOLIO.Controllers
 {
@@ -11,10 +12,12 @@ namespace PORFOLIO.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly MongoDbContext _context;
+        private readonly CloudinaryService _cloudinary;
 
-        public ProfileController(MongoDbContext context)
+        public ProfileController(MongoDbContext context, CloudinaryService cloudinary)
         {
             _context = context;
+            _cloudinary = cloudinary;
         }
 
         // GET: api/profile
@@ -39,24 +42,7 @@ namespace PORFOLIO.Controllers
             if (dto.Image == null)
                 return BadRequest("Profile image is required.");
 
-            var folderPath = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                "wwwroot",
-                "images"
-            );
-
-            if (!Directory.Exists(folderPath))
-                Directory.CreateDirectory(folderPath);
-
-            var fileName =
-                Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
-
-            var filePath = Path.Combine(folderPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await dto.Image.CopyToAsync(stream);
-            }
+            var imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
 
             var profile = new Profile
             {
@@ -67,7 +53,7 @@ namespace PORFOLIO.Controllers
                 Email = dto.Email,
                 GithubUrl = dto.GithubUrl,
                 LinkedinUrl = dto.LinkedinUrl,
-                ProfileImage = "/images/" + fileName
+                ProfileImage = imageUrl
             };
 
             await _context.Profiles.InsertOneAsync(profile);
@@ -97,26 +83,8 @@ namespace PORFOLIO.Controllers
 
             if (dto.Image != null)
             {
-                var folderPath = Path.Combine(
-                    Directory.GetCurrentDirectory(),
-                    "wwwroot",
-                    "images"
-                );
-
-                if (!Directory.Exists(folderPath))
-                    Directory.CreateDirectory(folderPath);
-
-                var fileName =
-                    Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
-
-                var filePath = Path.Combine(folderPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await dto.Image.CopyToAsync(stream);
-                }
-
-                profile.ProfileImage = "/images/" + fileName;
+                var imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
+                profile.ProfileImage = imageUrl;
             }
 
             await _context.Profiles.ReplaceOneAsync(

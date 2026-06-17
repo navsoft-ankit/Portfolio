@@ -1,5 +1,6 @@
 using PORFOLIO.Data;
 using MongoDB.Driver;
+using PORFOLIO.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 });
 
 builder.Services.AddSingleton<MongoDbContext>();
+
+builder.Services.AddSingleton<CloudinaryService>();
 
 // CORS
 builder.Services.AddCors(options =>
