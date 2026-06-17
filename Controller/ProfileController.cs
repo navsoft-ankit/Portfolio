@@ -31,63 +31,66 @@ namespace PORFOLIO.Controllers
         }
 
         // POST: api/profile
-[HttpPost]
-[Consumes("multipart/form-data")]
-public async Task<ActionResult<Profile>> CreateProfile([FromForm] ProfileCreateDto dto)
-{
-    if (dto.Image == null)
-    {
-        return BadRequest("Profile image is required.");
-    }
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult<Profile>> CreateProfile([FromForm] ProfileCreateDto dto)
+        {
+            if (dto.Image == null)
+            {
+                return BadRequest("Profile image is required.");
+            }
 
-    string? imageUrl = null;
+            string? imageUrl = null;
 
-    var folderPath = Path.Combine(
-        Directory.GetCurrentDirectory(),
-        "wwwroot",
-        "images"
-    );
+            var folderPath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "images"
+            );
 
-    if (!Directory.Exists(folderPath))
-    {
-        Directory.CreateDirectory(folderPath);
-    }
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
 
-    var fileName =
-        Guid.NewGuid().ToString() +
-        Path.GetExtension(dto.Image.FileName);
+            var fileName =
+                Guid.NewGuid().ToString() +
+                Path.GetExtension(dto.Image.FileName);
 
-    var filePath = Path.Combine(folderPath, fileName);
+            var filePath = Path.Combine(folderPath, fileName);
 
-    using (var stream = new FileStream(filePath, FileMode.Create))
-    {
-        await dto.Image.CopyToAsync(stream);
-    }
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await dto.Image.CopyToAsync(stream);
+            }
 
-    imageUrl = "/images/" + fileName;
+            imageUrl = "/images/" + fileName;
 
-    var profile = new Profile
-    {
-        Name = dto.Name,
-        Title = dto.Title,
-        Bio = dto.Bio,
-        CvUrl = dto.CvUrl,
-        Email = dto.Email,
-        GithubUrl = dto.GithubUrl,
-        LinkedinUrl = dto.LinkedinUrl,
-        ProfileImage = imageUrl
-    };
+            var profile = new Profile
+            {
+                Name = dto.Name,
+                Title = dto.Title,
+                Bio = dto.Bio,
+                CvUrl = dto.CvUrl,
+                Email = dto.Email,
+                GithubUrl = dto.GithubUrl,
+                LinkedinUrl = dto.LinkedinUrl,
+                ProfileImage = imageUrl
+            };
 
-    _context.Profiles.Add(profile);
+            _context.Profiles.Add(profile);
 
-    await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-    return Ok(profile);
-}
+            return Ok(profile);
+        }
 
         // PUT: api/profile/1
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProfile(int id, Profile updatedProfile)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateProfile(
+            int id,
+            [FromForm] ProfileCreateDto dto)
         {
             var profile = await _context.Profiles.FindAsync(id);
 
@@ -96,12 +99,40 @@ public async Task<ActionResult<Profile>> CreateProfile([FromForm] ProfileCreateD
                 return NotFound("Profile not found.");
             }
 
-            profile.Name = updatedProfile.Name;
-            profile.Title = updatedProfile.Title;
-            profile.Bio = updatedProfile.Bio;
-            profile.Email = updatedProfile.Email;
-            profile.GithubUrl = updatedProfile.GithubUrl;
-            profile.LinkedinUrl = updatedProfile.LinkedinUrl;
+            profile.Name = dto.Name;
+            profile.Title = dto.Title;
+            profile.Bio = dto.Bio;
+            profile.Email = dto.Email;
+            profile.GithubUrl = dto.GithubUrl;
+            profile.LinkedinUrl = dto.LinkedinUrl;
+            profile.CvUrl = dto.CvUrl;
+
+            if (dto.Image != null)
+            {
+                var folderPath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images"
+                );
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var fileName =
+                    Guid.NewGuid().ToString() +
+                    Path.GetExtension(dto.Image.FileName);
+
+                var filePath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await dto.Image.CopyToAsync(stream);
+                }
+
+                profile.ProfileImage = "/images/" + fileName;
+            }
 
             await _context.SaveChangesAsync();
 
