@@ -81,7 +81,8 @@ export default function ProjectsPage() {
                 {projects.map((project, index) => (
 
                     <div
-                        key={project._id}
+                        key={project.id}
+
                         className="project-row"
                         style={{
                             maxWidth: "1400px",
@@ -173,7 +174,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={project._id ? `/projects/${project._id}` : "#"}
+                                        to={`/projects/${project.id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -231,7 +232,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={project._id ? `/projects/${project._id}` : "#"}
+                                        to={`/projects/${project.id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",

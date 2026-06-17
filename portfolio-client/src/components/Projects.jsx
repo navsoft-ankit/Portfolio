@@ -90,7 +90,7 @@ export default function Projects({ projects }) {
           {projectList.map((project, index) => (
 
             <div
-              key={project._id} // 👈 id এর বদলে _id ব্যবহার করা হয়েছে
+              key={project.id}
               style={{
                 borderTop: `3px solid ${BROWN}`,
                 borderRight:
@@ -182,7 +182,7 @@ export default function Projects({ projects }) {
 
               {/* BUTTON */}
               <Link
-                to={project._id ? `/projects/${project._id}` : "#"}
+                to={`/projects/${project.id}`}
                 style={{
                   fontSize: "0.75rem",
                   fontWeight: 700,

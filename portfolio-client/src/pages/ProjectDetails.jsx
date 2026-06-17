@@ -97,19 +97,15 @@ export default function ProjectDetails() {
                 }}
             >
 
-                <img
-                    src={
-  project.imageUrl?.startsWith("http")
-    ? project.imageUrl
-    : `${IMAGE_URL}${project.imageUrl}`
-}
-                    alt={project.title}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                    }}
-                />
+<img
+    src={project.imageUrl}
+    alt={project.title}
+    style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "contain",
+    }}
+/>
 
             </div>
 

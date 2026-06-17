@@ -23,10 +23,11 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins(
-                    "http://localhost:5173",
-                    "https://ankitdas.vercel.app"
-                )
+               .WithOrigins(
+    "http://localhost:5173",
+    "https://ankitdas.vercel.app",
+    "https://portfolio-p7iw0vjfn-ankitdas-6862s-projects.vercel.app"
+)
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -34,9 +35,9 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseRouting();
+app.UseCors("AllowReact");
 
-app.UseCors("AllowReact"); // MUST be here
+app.UseRouting();
 
 app.UseAuthorization();
 

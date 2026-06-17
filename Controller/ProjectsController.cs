@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using MongoDB.Bson;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
@@ -15,15 +14,15 @@ namespace PORFOLIO.Controllers
         private readonly MongoDbContext _context;
         private readonly CloudinaryService _cloudinary;
 
-        public ProjectsController(MongoDbContext context, CloudinaryService cloudinary)
+        public ProjectsController(
+            MongoDbContext context,
+            CloudinaryService cloudinary)
         {
             _context = context;
             _cloudinary = cloudinary;
         }
 
-        // =========================
-        // GET ALL PROJECTS
-        // =========================
+        // GET: api/projects
         [HttpGet]
         public async Task<IActionResult> GetProjects()
         {
@@ -34,9 +33,7 @@ namespace PORFOLIO.Controllers
             return Ok(projects);
         }
 
-        // =========================
-        // GET PROJECT BY ID
-        // =========================
+        // GET: api/projects/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject(string id)
         {
@@ -50,19 +47,21 @@ namespace PORFOLIO.Controllers
             return Ok(project);
         }
 
-        // =========================
-        // CREATE PROJECT
-        // =========================
+        // POST: api/projects
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)
+        public async Task<IActionResult> CreateProject(
+            [FromForm] ProjectCreateDto dto)
         {
             string? imageUrl = null;
 
             try
             {
                 if (dto.Image != null)
-                    imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
+                {
+                    imageUrl =
+                        await _cloudinary.UploadImageAsync(dto.Image);
+                }
             }
             catch
             {
@@ -84,12 +83,12 @@ namespace PORFOLIO.Controllers
             return Ok(project);
         }
 
-        // =========================
-        // UPDATE PROJECT
-        // =========================
+        // PUT: api/projects/{id}
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateProject(string id, [FromForm] ProjectCreateDto dto)
+        public async Task<IActionResult> UpdateProject(
+            string id,
+            [FromForm] ProjectCreateDto dto)
         {
             var project = await _context.Projects
                 .Find(x => x.Id == id)
@@ -101,11 +100,14 @@ namespace PORFOLIO.Controllers
             try
             {
                 if (dto.Image != null)
-                    project.ImageUrl = await _cloudinary.UploadImageAsync(dto.Image);
+                {
+                    project.ImageUrl =
+                        await _cloudinary.UploadImageAsync(dto.Image);
+                }
             }
             catch
             {
-                // keep old image if upload fails
+                // keep old image
             }
 
             project.Title = dto.Title;
@@ -114,18 +116,19 @@ namespace PORFOLIO.Controllers
             project.LiveUrl = dto.LiveUrl;
             project.Technologies = dto.Technologies;
 
-            await _context.Projects.ReplaceOneAsync(x => x.Id == id, project);
+            await _context.Projects.ReplaceOneAsync(
+                x => x.Id == id,
+                project);
 
             return Ok(project);
         }
 
-        // =========================
-        // DELETE PROJECT
-        // =========================
+        // DELETE: api/projects/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(string id)
         {
-            var result = await _context.Projects.DeleteOneAsync(x => x.Id == id);
+            var result = await _context.Projects
+                .DeleteOneAsync(x => x.Id == id);
 
             if (result.DeletedCount == 0)
                 return NotFound("Project not found");
