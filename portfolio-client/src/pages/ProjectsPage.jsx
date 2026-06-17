@@ -6,7 +6,7 @@ import { getProjects } from "../api/api";
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const API_URL = "http://localhost:5055/api";
+const IMAGE_URL = "http://localhost:5055"
 export default function ProjectsPage() {
 
     const [projects, setProjects] = useState([]);
@@ -18,7 +18,6 @@ export default function ProjectsPage() {
                 setProjects(res.data);
             })
             .catch(err => {
-                console.log(err);
             });
 
     }, []);
@@ -98,7 +97,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={`${API_URL}${project.imageUrl}`}
+                                        src={`${IMAGE_URL}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -123,27 +122,51 @@ export default function ProjectsPage() {
                                         {project.title}
                                     </h2>
 
-                                    <p
-                                        style={{
-                                            fontSize: "1.5rem",
-                                            color: "#666",
-                                            lineHeight: "1.8",
-                                            marginBottom: "40px",
-                                        }}
-                                    >
-                                        {project.technologies}
-                                    </p>
+                                    <div style={{ marginBottom: "25px" }}>
+                                        <h3
+                                            style={{
+                                                color: BROWN,
+                                                marginBottom: "12px",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700"
+                                            }}
+                                        >
+                                            Technologies
+                                        </h3>
 
-                                    <p
-                                        style={{
-                                            fontSize: "1.15rem",
-                                            color: "#666",
-                                            lineHeight: "2",
-                                            marginBottom: "50px",
-                                        }}
-                                    >
-                                        {project.description}
-                                    </p>
+                                        <p
+                                            style={{
+                                                fontSize: "1rem",
+                                                color: "#666",
+                                                lineHeight: "1.8"
+                                            }}
+                                        >
+                                            {project.technologies || "Not specified"}
+                                        </p>
+                                    </div>
+
+                                    <div style={{ marginBottom: "40px" }}>
+                                        <h3
+                                            style={{
+                                                color: BROWN,
+                                                marginBottom: "12px",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700"
+                                            }}
+                                        >
+                                            Description
+                                        </h3>
+
+                                        <p
+                                            style={{
+                                                fontSize: "1rem",
+                                                color: "#666",
+                                                lineHeight: "1.9"
+                                            }}
+                                        >
+                                            {project.description || "No description available"}
+                                        </p>
+                                    </div>
 
                                     <Link
                                         to={`/projects/${project.id}`}
@@ -180,27 +203,28 @@ export default function ProjectsPage() {
                                         {project.title}
                                     </h2>
 
-                                    <p
-                                        style={{
-                                            fontSize: "1.5rem",
-                                            color: "#666",
-                                            lineHeight: "1.8",
-                                            marginBottom: "40px",
-                                        }}
-                                    >
-                                        {project.technologies}
-                                    </p>
+                                    <div style={{ marginBottom: "40px" }}>
+                                        <h3
+                                            style={{
+                                                color: BROWN,
+                                                marginBottom: "12px",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700"
+                                            }}
+                                        >
+                                            Description
+                                        </h3>
 
-                                    <p
-                                        style={{
-                                            fontSize: "1.15rem",
-                                            color: "#666",
-                                            lineHeight: "2",
-                                            marginBottom: "50px",
-                                        }}
-                                    >
-                                        {project.description}
-                                    </p>
+                                        <p
+                                            style={{
+                                                fontSize: "1rem",
+                                                color: "#666",
+                                                lineHeight: "1.9"
+                                            }}
+                                        >
+                                            {project.description || "No description available"}
+                                        </p>
+                                    </div>
 
                                     <Link
                                         to={`/projects/${project.id}`}
@@ -222,7 +246,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={`${API_URL}${project.imageUrl}`}
+                                        src={`${IMAGE_URL}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",

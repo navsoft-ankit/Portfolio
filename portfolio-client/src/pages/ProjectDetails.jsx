@@ -5,7 +5,7 @@ import { getProjectById } from "../api/api";
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const API_URL = "http://localhost:5055/api";
+const IMAGE_URL = "http://localhost:5055";
 
 export default function ProjectDetails() {
 
@@ -96,7 +96,7 @@ export default function ProjectDetails() {
             >
 
                 <img
-                    src={`${API_URL}${project.imageUrl}`}
+                    src={`${IMAGE_URL}${project.imageUrl}`}
                     alt={project.title}
                     style={{
                         width: "100%",

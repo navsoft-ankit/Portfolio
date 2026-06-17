@@ -1,7 +1,6 @@
 /* =========================
    GLOBAL RESPONSIVE
 ========================= */
-
 * {
   box-sizing: border-box;
 }
@@ -19,7 +18,6 @@ body {
 /* =========================
    TABLET
 ========================= */
-
 @media (max-width: 992px) {
   section {
     padding-left: 30px !important;
@@ -34,10 +32,9 @@ body {
 /* =========================
    MOBILE
 ========================= */
-
 @media (max-width: 768px) {
-  /* NAVBAR */
 
+  /* NAVBAR */
   nav {
     height: auto !important;
     min-height: 70px !important;
@@ -69,7 +66,6 @@ body {
   }
 
   /* HERO */
-
   #home {
     min-height: 100vh !important;
     height: auto !important;
@@ -94,7 +90,6 @@ body {
   }
 
   /* ABOUT */
-
   #about-me > div,
   .about-container {
     grid-template-columns: 1fr !important;
@@ -110,14 +105,12 @@ body {
   }
 
   /* SKILLS */
-
   #skills .skills-grid,
   .skills-grid {
     grid-template-columns: 1fr !important;
   }
 
   /* PROJECTS */
-
   #my-projects div[style*="grid"],
   .projects-grid {
     grid-template-columns: 1fr !important;
@@ -125,7 +118,6 @@ body {
   }
 
   /* CONTACT */
-
   #contact-me > div,
   .contact-container {
     grid-template-columns: 1fr !important;
@@ -151,7 +143,6 @@ body {
   }
 
   /* FOOTER */
-
   .footer {
     padding: 50px 20px 25px !important;
   }
@@ -183,7 +174,6 @@ body {
 /* =========================
    SMALL MOBILE
 ========================= */
-
 @media (max-width: 480px) {
   section {
     padding-left: 16px !important;

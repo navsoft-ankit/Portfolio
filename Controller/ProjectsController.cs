@@ -39,7 +39,7 @@ namespace PORFOLIO.Controllers
         public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)
         {
             Console.WriteLine(dto.Title);
-    Console.WriteLine(dto.Image?.FileName);
+            Console.WriteLine(dto.Image?.FileName);
             string? imageUrl = null;
 
             if (dto.Image != null)
@@ -65,6 +65,9 @@ namespace PORFOLIO.Controllers
                 {
                     await dto.Image.CopyToAsync(stream);
                 }
+
+Console.WriteLine(filePath);
+Console.WriteLine(System.IO.File.Exists(filePath));
 
                 imageUrl = "/images/" + fileName;
             }

@@ -102,20 +102,21 @@ export default function Admin() {
     const [tab, setTab] = useState("profile");
 
     // Profile
-    const [profile, setProfile] = useState({ id: null, name: "", title: "", bio: "", email: "", githubUrl: "", linkedinUrl: "",   cvUrl: "",
-  profileImage: ""
- });
+    const [profile, setProfile] = useState({
+        id: null, name: "", title: "", bio: "", email: "", githubUrl: "", linkedinUrl: "", cvUrl: "",
+        profileImage: ""
+    });
     const [profileMsg, setProfileMsg] = useState("");
 
     // Projects
     const [projects, setProjects] = useState([]);
-const [newProject, setNewProject] = useState({
-  title: "",
-  description: "",
-  githubUrl: "",
-  liveUrl: "",
-  technologies: ""
-});    const [editProject, setEditProject] = useState(null);
+    const [newProject, setNewProject] = useState({
+        title: "",
+        description: "",
+        githubUrl: "",
+        liveUrl: "",
+        technologies: ""
+    }); const [editProject, setEditProject] = useState(null);
 
     // Skills
     const [skills, setSkills] = useState([]);
@@ -140,44 +141,44 @@ const [newProject, setNewProject] = useState({
         getMessages().then(r => setMessages(r.data)).catch(() => { });
     }, []);
 
-const saveProfile = async () => {
-    try {
+    const saveProfile = async () => {
+        try {
 
-        const formData = new FormData();
+            const formData = new FormData();
 
-        formData.append("Name", profile.name || "");
-        formData.append("Title", profile.title || "");
-        formData.append("Bio", profile.bio || "");
-        formData.append("Email", profile.email || "");
-        formData.append("GithubUrl", profile.githubUrl || "");
-        formData.append("LinkedinUrl", profile.linkedinUrl || "");
-        formData.append("CvUrl", profile.cvUrl || "");
+            formData.append("Name", profile.name || "");
+            formData.append("Title", profile.title || "");
+            formData.append("Bio", profile.bio || "");
+            formData.append("Email", profile.email || "");
+            formData.append("GithubUrl", profile.githubUrl || "");
+            formData.append("LinkedinUrl", profile.linkedinUrl || "");
+            formData.append("CvUrl", profile.cvUrl || "");
 
-        if (imageFile) {
-            formData.append("Image", imageFile);
+            if (imageFile) {
+                formData.append("Image", imageFile);
+            }
+
+            let r;
+
+            if (profile.id) {
+                r = await updateProfile(profile.id, formData);
+            } else {
+                r = await createProfile(formData);
+            }
+
+            setProfile(r.data);
+
+            setProfileMsg("Data Saved!");
+
+            setTimeout(() => {
+                setProfileMsg("");
+            }, 2000);
+
+        } catch (err) {
+            console.log(err);
+            setProfileMsg("Failed to save");
         }
-
-        let r;
-
-        if (profile.id) {
-            r = await updateProfile(profile.id, formData);
-        } else {
-            r = await createProfile(formData);
-        }
-
-        setProfile(r.data);
-
-        setProfileMsg("Data Saved!");
-
-        setTimeout(() => {
-            setProfileMsg("");
-        }, 2000);
-
-    } catch (err) {
-        console.log(err);
-        setProfileMsg("Failed to save");
-    }
-};
+    };
 
     const tabs = ["profile", "projects", "skills", "services", "messages"];
 
@@ -477,92 +478,92 @@ const saveProfile = async () => {
                                         })
                                     }
                                 />
-                             <div style={{ marginBottom: 12 }}>
+                                <div style={{ marginBottom: 12 }}>
 
-    <label
-        style={{
-            display: "block",
-            marginBottom: 5,
-            fontWeight: "bold"
-        }}
-    >
-        Project Image
-    </label>
+                                    <label
+                                        style={{
+                                            display: "block",
+                                            marginBottom: 5,
+                                            fontWeight: "bold"
+                                        }}
+                                    >
+                                        Project Image
+                                    </label>
 
-    <input
-        type="file"
-        accept="image/*"
-        onChange={(e) =>
-            setProjectImage(e.target.files[0])
-        }
-    />
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) =>
+                                            setProjectImage(e.target.files[0])
+                                        }
+                                    />
 
-    {
-        projectImage &&
-        <p>{projectImage.name}</p>
-    }
+                                    {
+                                        projectImage &&
+                                        <p>{projectImage.name}</p>
+                                    }
 
-</div>
+                                </div>
                                 <Field
                                     label="Technologies"
                                     value={newProject.technologies}
-                                   onChange={e =>
-    setNewProject({
-        ...newProject,
-        technologies: e.target.value
-    })
-}
+                                    onChange={e =>
+                                        setNewProject({
+                                            ...newProject,
+                                            technologies: e.target.value
+                                        })
+                                    }
                                 />
 
-<button
-onClick={async () => {
+                                <button
+                                    onClick={async () => {
 
-    if (!newProject.title)
-        return;
+                                        if (!newProject.title)
+                                            return;
 
-    const formData = new FormData();
+                                        const formData = new FormData();
 
-    formData.append(
-        "Title",
-        newProject.title
-    );
+                                        formData.append(
+                                            "Title",
+                                            newProject.title
+                                        );
 
-    formData.append(
-        "Description",
-        newProject.description
-    );
+                                        formData.append(
+                                            "Description",
+                                            newProject.description
+                                        );
 
-    formData.append(
-        "GithubUrl",
-        newProject.githubUrl
-    );
+                                        formData.append(
+                                            "GithubUrl",
+                                            newProject.githubUrl
+                                        );
 
-    formData.append(
-        "Technologies",
-        newProject.technologies
-    );
+                                        formData.append(
+                                            "Technologies",
+                                            newProject.technologies
+                                        );
 
-    if(projectImage){
+                                        if (projectImage) {
 
-        formData.append(
-            "Image",
-            projectImage
-        );
+                                            formData.append(
+                                                "Image",
+                                                projectImage
+                                            );
 
-    }
+                                        }
 
-    const r = await createProject(formData);
+                                        const r = await createProject(formData);
 
-    setProjects([
-        ...projects,
-        r.data
-    ]);
+                                        setProjects([
+                                            ...projects,
+                                            r.data
+                                        ]);
 
-}}
-style={btn(BROWN)}
->
-ADD
-</button>
+                                    }}
+                                    style={btn(BROWN)}
+                                >
+                                    ADD
+                                </button>
                             </div>
 
                             {/* List */}

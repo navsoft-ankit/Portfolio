@@ -541,6 +541,7 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 /* ==========================================
    RESPONSIVE FIX (LOOK SAME, MOBILE BETTER)
 ========================================== */
@@ -659,8 +660,8 @@ body {
     font-size: 0.95rem !important;
   }
 }
-/* ABOUT PAGE MOBILE */
 
+/* ABOUT PAGE MOBILE */
 @media (max-width: 768px) {
   .about-content {
     flex-direction: column !important;
@@ -696,10 +697,10 @@ body {
     height: 280px !important;
   }
 }
+
 /* =========================
    PROJECT PAGE RESPONSIVE
 ========================= */
-
 @media (max-width: 768px) {
   .back-btn {
     position: static !important;
@@ -753,7 +754,6 @@ body {
 }
 
 /* Extra Small Mobile */
-
 @media (max-width: 480px) {
   .projects-hero h1 {
     font-size: 2rem !important;

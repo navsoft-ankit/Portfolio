@@ -20,6 +20,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Home />} />
 
           <Route path="/login" element={<Login />} />
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/skills" element={<SkillsPage />} />
 
           <Route path="/admin" element={<ProtectedRoute> <Admin /> </ProtectedRoute>} />
+          
         </Routes>
       </BrowserRouter>
     </AuthProvider>

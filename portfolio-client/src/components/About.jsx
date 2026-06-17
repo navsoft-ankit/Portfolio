@@ -1,7 +1,6 @@
 const BROWN = "#3d1f10";
 
 export default function About({ profile }) {
-  console.log(profile);
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
