@@ -19,17 +19,16 @@ export default function Footer() {
       >
 
         {/* Top Section */}
-        <div
-          className="footer-top"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
-            gap: 40,
-            marginBottom: 50,
-          }}
-        >
+<div
+  className="footer-top"
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    alignItems: "start",
+    gap: 40,
+    marginBottom: 50,
+  }}
+>
           {/* About */}
           <div>
             <h2
