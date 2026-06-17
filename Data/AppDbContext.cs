@@ -1,27 +1,40 @@
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.models;
 
 namespace PORFOLIO.Data
 {
-    public class AppDbContext : DbContext
+    public class MongoDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
+        private readonly IMongoDatabase _db;
+
+        public MongoDbContext(IConfiguration config)
         {
+            var client = new MongoClient(
+                config.GetConnectionString("MongoDb")
+            );
+
+            _db = client.GetDatabase("PortfolioDb");
         }
 
-        public DbSet<User> Admin { get; set; }
+        public IMongoCollection<User> Admin =>
+            _db.GetCollection<User>("Admin");
 
-        public DbSet<Profile> Profiles { get; set; }
+        public IMongoCollection<Profile> Profiles =>
+            _db.GetCollection<Profile>("Profiles");
 
-        public DbSet<Project> Projects { get; set; }
+        public IMongoCollection<Project> Projects =>
+            _db.GetCollection<Project>("Projects");
 
-        public DbSet<Service> Services { get; set; }
+        public IMongoCollection<Service> Services =>
+            _db.GetCollection<Service>("Services");
 
-        public DbSet<SocialLink> SocialLinks { get; set; }
+        public IMongoCollection<SocialLink> SocialLinks =>
+            _db.GetCollection<SocialLink>("SocialLinks");
 
-        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public IMongoCollection<ContactMessage> ContactMessages =>
+            _db.GetCollection<ContactMessage>("ContactMessages");
 
-        public DbSet<Skill> Skills { get; set; }
+        public IMongoCollection<Skill> Skills =>
+            _db.GetCollection<Skill>("Skills");
     }
 }

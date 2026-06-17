@@ -1,31 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
+
 namespace PORFOLIO.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class ProfileController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public ProfileController(AppDbContext context)
+        public ProfileController(MongoDbContext context)
         {
             _context = context;
         }
 
         // GET: api/profile
         [HttpGet]
-        public async Task<ActionResult<Profile>> GetProfile()
+        public async Task<IActionResult> GetProfile()
         {
-            var profile = await _context.Profiles.FirstOrDefaultAsync();
+            var profile = await _context.Profiles
+                .Find(_ => true)
+                .FirstOrDefaultAsync();
 
             if (profile == null)
-            {
                 return NotFound("Profile not found.");
-            }
 
             return Ok(profile);
         }
@@ -33,14 +34,10 @@ namespace PORFOLIO.Controllers
         // POST: api/profile
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult<Profile>> CreateProfile([FromForm] ProfileCreateDto dto)
+        public async Task<IActionResult> CreateProfile([FromForm] ProfileCreateDto dto)
         {
             if (dto.Image == null)
-            {
                 return BadRequest("Profile image is required.");
-            }
-
-            string? imageUrl = null;
 
             var folderPath = Path.Combine(
                 Directory.GetCurrentDirectory(),
@@ -49,13 +46,10 @@ namespace PORFOLIO.Controllers
             );
 
             if (!Directory.Exists(folderPath))
-            {
                 Directory.CreateDirectory(folderPath);
-            }
 
             var fileName =
-                Guid.NewGuid().ToString() +
-                Path.GetExtension(dto.Image.FileName);
+                Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
 
             var filePath = Path.Combine(folderPath, fileName);
 
@@ -63,8 +57,6 @@ namespace PORFOLIO.Controllers
             {
                 await dto.Image.CopyToAsync(stream);
             }
-
-            imageUrl = "/images/" + fileName;
 
             var profile = new Profile
             {
@@ -75,29 +67,25 @@ namespace PORFOLIO.Controllers
                 Email = dto.Email,
                 GithubUrl = dto.GithubUrl,
                 LinkedinUrl = dto.LinkedinUrl,
-                ProfileImage = imageUrl
+                ProfileImage = "/images/" + fileName
             };
 
-            _context.Profiles.Add(profile);
-
-            await _context.SaveChangesAsync();
+            await _context.Profiles.InsertOneAsync(profile);
 
             return Ok(profile);
         }
 
-        // PUT: api/profile/1
+        // PUT: api/profile/{id}
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateProfile(
-            int id,
-            [FromForm] ProfileCreateDto dto)
+        public async Task<IActionResult> UpdateProfile(string id, [FromForm] ProfileCreateDto dto)
         {
-            var profile = await _context.Profiles.FindAsync(id);
+            var profile = await _context.Profiles
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (profile == null)
-            {
                 return NotFound("Profile not found.");
-            }
 
             profile.Name = dto.Name;
             profile.Title = dto.Title;
@@ -116,13 +104,10 @@ namespace PORFOLIO.Controllers
                 );
 
                 if (!Directory.Exists(folderPath))
-                {
                     Directory.CreateDirectory(folderPath);
-                }
 
                 var fileName =
-                    Guid.NewGuid().ToString() +
-                    Path.GetExtension(dto.Image.FileName);
+                    Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
 
                 var filePath = Path.Combine(folderPath, fileName);
 
@@ -134,24 +119,23 @@ namespace PORFOLIO.Controllers
                 profile.ProfileImage = "/images/" + fileName;
             }
 
-            await _context.SaveChangesAsync();
+            await _context.Profiles.ReplaceOneAsync(
+                x => x.Id == id,
+                profile
+            );
 
             return Ok(profile);
         }
 
-        // DELETE: api/profile/1
+        // DELETE: api/profile/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfile(int id)
+        public async Task<IActionResult> DeleteProfile(string id)
         {
-            var profile = await _context.Profiles.FindAsync(id);
+            var result = await _context.Profiles
+                .DeleteOneAsync(x => x.Id == id);
 
-            if (profile == null)
-            {
+            if (result.DeletedCount == 0)
                 return NotFound("Profile not found.");
-            }
-
-            _context.Profiles.Remove(profile);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

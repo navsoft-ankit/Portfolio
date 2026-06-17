@@ -1,19 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using PORFOLIO.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Console.WriteLine("ENV = " + builder.Environment.EnvironmentName);
+// MongoDB
+builder.Services.AddSingleton<MongoDbContext>();
 
-// Console.WriteLine(
-//     "CONN = " +
-//     builder.Configuration.GetConnectionString("DefaultConnection")
-// );
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
@@ -23,16 +15,15 @@ builder.Services.AddCors(options =>
                 "http://localhost:5173",
                 "http://192.168.3.38:5173",
                 "https://ankitdas.vercel.app"
-
             )
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            .AllowAnyHeader()
+            .AllowAnyMethod();
         });
 });
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 
 var app = builder.Build();
 

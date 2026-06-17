@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 
@@ -9,32 +9,39 @@ namespace PORFOLIO.Controllers
     [Route("api/[controller]")]
     public class ServicesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public ServicesController(AppDbContext context)
+        public ServicesController(MongoDbContext context)
         {
             _context = context;
         }
 
+        // GET: api/services
         [HttpGet]
         public async Task<IActionResult> GetServices()
         {
-            return Ok(await _context.Services.ToListAsync());
+            var services = await _context.Services
+                .Find(_ => true)
+                .ToListAsync();
+
+            return Ok(services);
         }
 
+        // POST: api/services
         [HttpPost]
         public async Task<IActionResult> CreateService(Service service)
         {
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
-
+            await _context.Services.InsertOneAsync(service);
             return Ok(service);
         }
 
+        // PUT: api/services/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateService(int id, Service updated)
+        public async Task<IActionResult> UpdateService(string id, Service updated)
         {
-            var service = await _context.Services.FindAsync(id);
+            var service = await _context.Services
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (service == null)
                 return NotFound();
@@ -42,21 +49,23 @@ namespace PORFOLIO.Controllers
             service.Name = updated.Name;
             service.Description = updated.Description;
 
-            await _context.SaveChangesAsync();
+            await _context.Services.ReplaceOneAsync(
+                x => x.Id == id,
+                service
+            );
 
             return Ok(service);
         }
 
+        // DELETE: api/services/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteService(int id)
+        public async Task<IActionResult> DeleteService(string id)
         {
-            var service = await _context.Services.FindAsync(id);
+            var result = await _context.Services
+                .DeleteOneAsync(x => x.Id == id);
 
-            if (service == null)
+            if (result.DeletedCount == 0)
                 return NotFound();
-
-            _context.Services.Remove(service);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 
@@ -9,38 +9,41 @@ namespace PORFOLIO.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public ContactController(AppDbContext context)
+        public ContactController(MongoDbContext context)
         {
             _context = context;
         }
 
+        // GET: api/contact
         [HttpGet]
         public async Task<IActionResult> GetMessages()
         {
-            return Ok(await _context.ContactMessages.ToListAsync());
+            var messages = await _context.ContactMessages
+                .Find(_ => true)
+                .ToListAsync();
+
+            return Ok(messages);
         }
 
+        // POST: api/contact
         [HttpPost]
         public async Task<IActionResult> SendMessage(ContactMessage message)
         {
-            _context.ContactMessages.Add(message);
-            await _context.SaveChangesAsync();
-
+            await _context.ContactMessages.InsertOneAsync(message);
             return Ok(message);
         }
 
+        // DELETE: api/contact/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage(int id)
+        public async Task<IActionResult> DeleteMessage(string id)
         {
-            var message = await _context.ContactMessages.FindAsync(id);
+            var result = await _context.ContactMessages
+                .DeleteOneAsync(x => x.Id == id);
 
-            if (message == null)
+            if (result.DeletedCount == 0)
                 return NotFound();
-
-            _context.ContactMessages.Remove(message);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

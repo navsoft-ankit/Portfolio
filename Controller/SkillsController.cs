@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 
@@ -9,32 +9,39 @@ namespace PORFOLIO.Controllers
     [Route("api/[controller]")]
     public class SkillsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public SkillsController(AppDbContext context)
+        public SkillsController(MongoDbContext context)
         {
             _context = context;
         }
 
+        // GET: api/skills
         [HttpGet]
         public async Task<IActionResult> GetSkills()
         {
-            return Ok(await _context.Skills.ToListAsync());
+            var skills = await _context.Skills
+                .Find(_ => true)
+                .ToListAsync();
+
+            return Ok(skills);
         }
 
+        // POST: api/skills
         [HttpPost]
         public async Task<IActionResult> CreateSkill(Skill skill)
         {
-            _context.Skills.Add(skill);
-            await _context.SaveChangesAsync();
-
+            await _context.Skills.InsertOneAsync(skill);
             return Ok(skill);
         }
 
+        // PUT: api/skills/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSkill(int id, Skill updated)
+        public async Task<IActionResult> UpdateSkill(string id, Skill updated)
         {
-            var skill = await _context.Skills.FindAsync(id);
+            var skill = await _context.Skills
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (skill == null)
                 return NotFound();
@@ -42,21 +49,23 @@ namespace PORFOLIO.Controllers
             skill.Name = updated.Name;
             skill.Percentage = updated.Percentage;
 
-            await _context.SaveChangesAsync();
+            await _context.Skills.ReplaceOneAsync(
+                x => x.Id == id,
+                skill
+            );
 
             return Ok(skill);
         }
 
+        // DELETE: api/skills/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSkill(int id)
+        public async Task<IActionResult> DeleteSkill(string id)
         {
-            var skill = await _context.Skills.FindAsync(id);
+            var result = await _context.Skills
+                .DeleteOneAsync(x => x.Id == id);
 
-            if (skill == null)
+            if (result.DeletedCount == 0)
                 return NotFound();
-
-            _context.Skills.Remove(skill);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }

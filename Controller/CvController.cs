@@ -1,22 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PORFOLIO.Data;
-using PORFOLIO.models;
 
 namespace PORFOLIO.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-
 public class CvController : ControllerBase
 {
-    private readonly AppDbContext _context;
-
-    public CvController(AppDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
@@ -46,5 +35,4 @@ public class CvController : ControllerBase
             imageUrl = $"/uploads/images/{fileName}"
         });
     }
-
 }

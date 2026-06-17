@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
@@ -10,23 +10,31 @@ namespace PORFOLIO.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly MongoDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public ProjectsController(MongoDbContext context)
         {
             _context = context;
         }
 
+        // GET: api/projects
         [HttpGet]
         public async Task<IActionResult> GetProjects()
         {
-            return Ok(await _context.Projects.ToListAsync());
+            var projects = await _context.Projects
+                .Find(_ => true)
+                .ToListAsync();
+
+            return Ok(projects);
         }
 
+        // GET: api/projects/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProject(int id)
+        public async Task<IActionResult> GetProject(string id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (project == null)
                 return NotFound();
@@ -34,12 +42,11 @@ namespace PORFOLIO.Controllers
             return Ok(project);
         }
 
+        // POST: api/projects
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)
         {
-            Console.WriteLine(dto.Title);
-            Console.WriteLine(dto.Image?.FileName);
             string? imageUrl = null;
 
             if (dto.Image != null)
@@ -51,13 +58,10 @@ namespace PORFOLIO.Controllers
                 );
 
                 if (!Directory.Exists(folderPath))
-                {
                     Directory.CreateDirectory(folderPath);
-                }
 
                 var fileName =
-                    Guid.NewGuid().ToString() +
-                    Path.GetExtension(dto.Image.FileName);
+                    Guid.NewGuid() + Path.GetExtension(dto.Image.FileName);
 
                 var filePath = Path.Combine(folderPath, fileName);
 
@@ -65,9 +69,6 @@ namespace PORFOLIO.Controllers
                 {
                     await dto.Image.CopyToAsync(stream);
                 }
-
-Console.WriteLine(filePath);
-Console.WriteLine(System.IO.File.Exists(filePath));
 
                 imageUrl = "/images/" + fileName;
             }
@@ -82,17 +83,18 @@ Console.WriteLine(System.IO.File.Exists(filePath));
                 ImageUrl = imageUrl
             };
 
-            _context.Projects.Add(project);
-
-            await _context.SaveChangesAsync();
+            await _context.Projects.InsertOneAsync(project);
 
             return Ok(project);
         }
 
+        // PUT: api/projects/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(int id, Project updated)
+        public async Task<IActionResult> UpdateProject(string id, Project updated)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects
+                .Find(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (project == null)
                 return NotFound();
@@ -103,21 +105,23 @@ Console.WriteLine(System.IO.File.Exists(filePath));
             project.ImageUrl = updated.ImageUrl;
             project.Technologies = updated.Technologies;
 
-            await _context.SaveChangesAsync();
+            await _context.Projects.ReplaceOneAsync(
+                x => x.Id == id,
+                project
+            );
 
             return Ok(project);
         }
 
+        // DELETE: api/projects/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProject(int id)
+        public async Task<IActionResult> DeleteProject(string id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var result = await _context.Projects
+                .DeleteOneAsync(x => x.Id == id);
 
-            if (project == null)
+            if (result.DeletedCount == 0)
                 return NotFound();
-
-            _context.Projects.Remove(project);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
