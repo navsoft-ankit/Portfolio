@@ -27,7 +27,8 @@ builder.Services.AddCors(options =>
                 "https://ankitdas.vercel.app"
             )
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .SetIsOriginAllowed(origin => true);
         });
 });
 
