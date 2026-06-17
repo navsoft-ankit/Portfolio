@@ -102,7 +102,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                       src={`${IMAGE_BASE}${project.imageUrl}`}
+                                       src={project.imageUrl}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -251,7 +251,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={`${IMAGE_BASE}${project.imageUrl}`}
+                                        src={project.imageUrl}
                                         alt={project.title}
                                         style={{
                                             width: "100%",

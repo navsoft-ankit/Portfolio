@@ -87,119 +87,114 @@ export default function Projects({ projects }) {
           }}
         >
 
-          {projectList.map((project, index) => (
+{projectList.map((project, index) => {
 
-            <div
-              key={project.id}
-              style={{
-                borderTop: `3px solid ${BROWN}`,
-                borderRight:
-                  index < projectList.length - 1
-                    ? "1px solid #e0d9d0"
-                    : "none",
-                padding: "36px 28px",
-              }}
-            >
+  console.log("Project =", project);
+  console.log("Image URL =", project.imageUrl);
 
-              {/* IMAGE */}
-              <div
-                style={{
-                  width: "100%",
-                  height: "220px",
-                  background: CREAM,
-                  marginBottom: "20px",
-                  overflow: "hidden",
-                  borderRadius: "10px",
-                }}
-              >
-                {project.imageUrl ? (
-                  <img
-                    // 👈 Cloudinary ফুল URL অথবা লোকাল রিলেটিভ পাথ দুটোই হ্যান্ডেল করবে এই লজিকটি
-                    src={
-                      project.imageUrl?.startsWith("http")
-                        ? project.imageUrl
-                        : `${IMAGE_URL}${project.imageUrl}`
-                    }
-                    alt={project.title}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "#777",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    No Image
-                  </div>
-                )}
-              </div>
+  return (
+    <div
+      key={project._id}
+      style={{
+        borderTop: `3px solid ${BROWN}`,
+        borderRight:
+          index < projectList.length - 1
+            ? "1px solid #e0d9d0"
+            : "none",
+        padding: "36px 28px",
+      }}
+    >
+      {/* IMAGE */}
+      <div
+        style={{
+          width: "100%",
+          height: "220px",
+          background: CREAM,
+          marginBottom: "20px",
+          overflow: "hidden",
+          borderRadius: "10px",
+        }}
+      >
+        {project.imageUrl ? (
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#777",
+            }}
+          >
+            No Image
+          </div>
+        )}
+      </div>
 
-              {/* TITLE */}
-              <h3
-                style={{
-                  fontSize: "1.5rem",
-                  fontWeight: 400,
-                  marginBottom: "12px",
-                  fontFamily: "Georgia, serif",
-                }}
-              >
-                {project.title}
-              </h3>
+      {/* TITLE */}
+      <h3
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: 400,
+          marginBottom: "12px",
+          fontFamily: "Georgia, serif",
+        }}
+      >
+        {project.title}
+      </h3>
 
-              {/* TECHNOLOGIES */}
-              <p
-                style={{
-                  fontSize: "0.9rem",
-                  color: BROWN,
-                  fontWeight: "600",
-                  marginBottom: "12px",
-                }}
-              >
-                {project.technologies}
-              </p>
+      {/* TECHNOLOGIES */}
+      <p
+        style={{
+          fontSize: "0.9rem",
+          color: BROWN,
+          fontWeight: "600",
+          marginBottom: "12px",
+        }}
+      >
+        {project.technologies}
+      </p>
 
-              {/* DESCRIPTION */}
-              <p
-                style={{
-                  fontSize: "1rem",
-                  color: "#666",
-                  lineHeight: "1.7",
-                  marginBottom: "20px",
-                }}
-              >
-                {project.description}
-              </p>
+      {/* DESCRIPTION */}
+      <p
+        style={{
+          fontSize: "1rem",
+          color: "#666",
+          lineHeight: "1.7",
+          marginBottom: "20px",
+        }}
+      >
+        {project.description}
+      </p>
 
-              {/* BUTTON */}
-              <Link
-                to={`/projects/${project.id}`}
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: 1,
-                  color: BROWN,
-                  textDecoration: "none",
-                  borderBottom: `1.5px solid ${BROWN}`,
-                  paddingBottom: "2px",
-                }}
-              >
-                View Project →
-              </Link>
-
-            </div>
-
-          ))}
-
+      {/* BUTTON */}
+      <Link
+        to={`/projects/${project._id}`}
+        style={{
+          fontSize: "0.75rem",
+          fontWeight: 700,
+          letterSpacing: 1,
+          color: BROWN,
+          textDecoration: "none",
+          borderBottom: `1.5px solid ${BROWN}`,
+          paddingBottom: "2px",
+        }}
+      >
+        View Project →
+      </Link>
+    </div>
+  );
+})}
         </div>
       </div>
     </section>
