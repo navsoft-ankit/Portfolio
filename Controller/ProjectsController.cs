@@ -4,6 +4,7 @@ using PORFOLIO.Data;
 using PORFOLIO.models;
 using PORFOLIO.DTOs;
 using PORFOLIO.Services;
+using MongoDB.Bson;
 
 namespace PORFOLIO.Controllers
 {
@@ -28,16 +29,20 @@ namespace PORFOLIO.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProject(string id)
-        {
-            var project = await _context.Projects.Find(x => x.Id == id).FirstOrDefaultAsync();
+public async Task<IActionResult> GetProject(string id)
+{
+    if (!ObjectId.TryParse(id, out _))
+        return BadRequest("Invalid project id");
 
-            if (project == null)
-                return NotFound();
+    var project = await _context.Projects
+        .Find(x => x.Id == id)
+        .FirstOrDefaultAsync();
 
-            return Ok(project);
-        }
+    if (project == null)
+        return NotFound();
 
+    return Ok(project);
+}
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)

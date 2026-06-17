@@ -12,11 +12,8 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 });
 
 builder.Services.AddSingleton<MongoDbContext>();
-
-// Cloudinary
 builder.Services.AddSingleton<CloudinaryService>();
 
-// Controllers
 builder.Services.AddControllers();
 
 // CORS
@@ -36,10 +33,12 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+// ❗ IMPORTANT ORDER FIX
 app.UseRouting();
 
 app.UseCors("AllowReact");
+
+app.UseAuthorization(); // safe add
 
 app.MapControllers();
 
