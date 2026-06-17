@@ -19,10 +19,11 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins(
-                "http://localhost:5173",
-                "http://192.168.3.38:5173",
-                "https://ankitdas.vercel.app"
-            )
+    "http://localhost:5173",
+    "https://ankitdas.vercel.app",
+    "https://portfolio-6k0f.onrender.com"
+)
+            
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
@@ -49,5 +50,6 @@ app.UseStaticFiles();
 app.UseCors("AllowReact");
 
 app.MapControllers();
+app.MapGet("/", () => "Portfolio API Running 🚀");
 
 app.Run();
