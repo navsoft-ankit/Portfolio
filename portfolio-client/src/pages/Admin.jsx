@@ -819,18 +819,22 @@ export default function Admin() {
                                         })}
                                 />
 
-                                <button onClick={async () => {
-                                    if (!newSkill.name) return;
-                                    const r = await createSkill(newSkill);
-                                    setSkills([...skills, r.data]);
-                                    setNewSkill({
-                                        name: "",
-                                        percentage: ""
-                                    });
-                                }}
-                                    style={btn(BROWN)}>
-                                    ADD
-                                </button>
+<button onClick={async () => {
+    if (!newSkill.name) return;
+    const payload = {
+        name: newSkill.name,
+        percentage: Number(newSkill.percentage) || 0
+    };
+    const r = await createSkill(payload);
+    setSkills([...skills, r.data]);
+    setNewSkill({
+        name: "",
+        percentage: ""
+    });
+}}
+    style={btn(BROWN)}>
+    ADD
+</button>
                             </div>
 
                             <div style={
