@@ -39,5 +39,27 @@ namespace PORFOLIO.Controllers
                 Message = "Login Successful"
             });
         }
+        [HttpPost("create-admin")]
+public async Task<IActionResult> CreateAdmin(LoginDTO model)
+{
+    var existing = await _context.Admin
+        .Find(x => x.Username == model.Username)
+        .FirstOrDefaultAsync();
+
+    if (existing != null)
+        return BadRequest("Admin already exists.");
+
+    var admin = new User
+    {
+        Username = model.Username,
+        Email = model.Email,
+        PasswordHash = model.Password, // plain text for now
+        Role = "Admin"
+    };
+
+    await _context.Admin.InsertOneAsync(admin);
+
+    return Ok(new { Message = "Admin created successfully" });
+}
     }
 }
