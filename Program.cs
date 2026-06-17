@@ -1,8 +1,15 @@
 using PORFOLIO.Data;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MongoDB
+// MongoDB Client + Context DI FIX
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    return new MongoClient(config["ConnectionStrings:MongoDb"]);
+});
+
 builder.Services.AddSingleton<MongoDbContext>();
 
 // CORS
@@ -27,13 +34,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Swagger only for dev
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// // ❌ optional: Render e problem করলে এটা remove করতে পারো
+// app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
