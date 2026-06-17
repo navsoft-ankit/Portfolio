@@ -19,6 +19,7 @@ export default function ProjectsPage() {
 
         getProjects()
             .then(res => {
+                
                 setProjects(res.data);
             })
             .catch(err => {
@@ -174,7 +175,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project.id}`}
+                                         to={`/projects/${project.id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -232,7 +233,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project.id}`}
+                                         to={`/projects/${project.id}`}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",

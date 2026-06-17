@@ -10,27 +10,24 @@ const IMAGE_BASE =
 
 export default function Projects({ projects }) {
 
-  // ১. MongoDB-র সাথে মিল রেখে id পরিবর্তন করে _id করা হয়েছে
-  const defaultProjects = [
-    {
-      _id: "1",
-      title: "Voxify Feedback System",
-      description:
-        "Feedback platform with React frontend and ASP.NET Core backend.",
-    },
-    {
-      _id: "2",
-      title: "Weather API Application",
-      description:
-        "Real-time weather application integrated with external Weather APIs.",
-    },
-    {
-      _id: "3",
-      title: "QR Generator",
-      description:
-        "QR code generation application built with React and ASP.NET Core.",
-    },
-  ];
+
+const defaultProjects = [
+  {
+    id: "1",
+    title: "Voxify Feedback System",
+    description: "Feedback platform with React frontend and ASP.NET Core backend.",
+  },
+  {
+    id: "2",
+    title: "Weather API Application",
+    description: "Real-time weather application integrated with external Weather APIs.",
+  },
+  {
+    id: "3",
+    title: "QR Generator",
+    description: "QR code generation application built with React and ASP.NET Core.",
+  },
+];
 
   const projectList =
     projects && projects.length > 0
@@ -89,12 +86,11 @@ export default function Projects({ projects }) {
 
 {projectList.map((project, index) => {
 
-  console.log("Project =", project);
-  console.log("Image URL =", project.imageUrl);
+
 
   return (
     <div
-      key={project._id}
+      key={project.id || project._id}
       style={{
         borderTop: `3px solid ${BROWN}`,
         borderRight:
@@ -179,7 +175,7 @@ export default function Projects({ projects }) {
 
       {/* BUTTON */}
       <Link
-        to={`/projects/${project._id}`}
+        to={`/projects/${project.id || project._id}`}
         style={{
           fontSize: "0.75rem",
           fontWeight: 700,
