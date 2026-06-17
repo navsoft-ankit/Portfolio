@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const BASE =
-  import.meta.env.VITE_API_URL ||
-  "https://portfolio-6k0f.onrender.com/api";
+  import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : "https://portfolio-6k0f.onrender.com/api";
 
 export const api = axios.create({ baseURL: BASE });
 

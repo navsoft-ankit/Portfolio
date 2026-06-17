@@ -6,9 +6,11 @@ import { getProjects } from "../api/api";
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const IMAGE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://portfolio-6k0f.onrender.com";
+const IMAGE_BASE =
+  import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace("/api", "")
+    : "https://portfolio-6k0f.onrender.com";
+    
 export default function ProjectsPage() {
 
     const [projects, setProjects] = useState([]);
@@ -99,11 +101,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={
-  project.imageUrl?.startsWith("http")
-    ? project.imageUrl
-    : `${IMAGE_URL}${project.imageUrl}`
-}
+                                       src={`${IMAGE_BASE}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",
@@ -175,7 +173,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project._id}`}
+                                        to={project._id ? `/projects/${project._id}` : "#"}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -233,7 +231,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     <Link
-                                        to={`/projects/${project._id}`}
+                                        to={project._id ? `/projects/${project._id}` : "#"}
                                         style={{
                                             background: BROWN,
                                             color: "#fff",
@@ -252,11 +250,7 @@ export default function ProjectsPage() {
 
                                     <img
                                         className="project-image"
-                                        src={
-  project.imageUrl?.startsWith("http")
-    ? project.imageUrl
-    : `${IMAGE_URL}${project.imageUrl}`
-}
+                                        src={`${IMAGE_BASE}${project.imageUrl}`}
                                         alt={project.title}
                                         style={{
                                             width: "100%",

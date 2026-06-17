@@ -22,24 +22,23 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReact",
         policy =>
         {
-            policy.WithOrigins(
-                "http://localhost:5173",
-                "https://ankitdas.vercel.app"
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .SetIsOriginAllowed(origin => true);
+            policy
+                .WithOrigins(
+                    "http://localhost:5173",
+                    "https://ankitdas.vercel.app"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
 });
 
 var app = builder.Build();
 
-// ❗ IMPORTANT ORDER FIX
 app.UseRouting();
 
-app.UseCors("AllowReact");
+app.UseCors("AllowReact"); // MUST be here
 
-app.UseAuthorization(); // safe add
+app.UseAuthorization();
 
 app.MapControllers();
 

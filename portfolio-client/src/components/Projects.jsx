@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const IMAGE_URL =
-  import.meta.env.VITE_API_URL ||
-  "https://portfolio-6k0f.onrender.com";
+const IMAGE_BASE =
+  import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace("/api", "")
+    : "https://portfolio-6k0f.onrender.com";
 
 export default function Projects({ projects }) {
 
@@ -181,7 +182,7 @@ export default function Projects({ projects }) {
 
               {/* BUTTON */}
               <Link
-                to={`/projects/${project._id}`} // 👈 id এর বদলে ডাইনামিক _id পাস করা হয়েছে
+                to={project._id ? `/projects/${project._id}` : "#"}
                 style={{
                   fontSize: "0.75rem",
                   fontWeight: 700,
