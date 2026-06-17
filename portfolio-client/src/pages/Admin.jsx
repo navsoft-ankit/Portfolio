@@ -175,7 +175,6 @@ export default function Admin() {
             }, 2000);
 
         } catch (err) {
-            console.log(err);
             setProfileMsg("Failed to save");
         }
     };
@@ -592,33 +591,35 @@ export default function Admin() {
                                                 )}
                                                 rows={3}
                                             />
-                                            <Field
-                                                label="GitHub URL"
-                                                value={editProject.githubUrl || ""}
-                                                onChange={e =>
-                                                    setEditProject({
-                                                        ...editProject,
-                                                        githubUrl: e.target.value
-                                                    })
-                                                }
-                                            />
-                                            <Field
-                                                label="Image Url"
-                                                value={editProject.ImageUrl || ""}
-                                                onChange={e =>
-                                                    setEditProject({
-                                                        ...editProject,
-                                                        ImageUrl: e.target.value
-                                                    })
-                                                }
-                                            />
+                                            <div style={{ marginBottom: 15 }}>
+
+                                                <label
+                                                    style={{
+                                                        display: "block",
+                                                        marginBottom: 5,
+                                                        fontWeight: "bold"
+                                                    }}
+                                                >
+                                                    Change Project Image
+                                                </label>
+
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) =>
+                                                        setProjectImage(e.target.files[0])
+                                                    }
+                                                />
+
+                                            </div>
+
                                             <Field
                                                 label="Technologies"
-                                                value={editProject.Technologies || ""}
+                                                value={editProject.technologies || ""}
                                                 onChange={e =>
                                                     setEditProject({
                                                         ...editProject,
-                                                        Technologies: e.target.value
+                                                        technologies: e.target.value
                                                     })
                                                 }
                                             />
@@ -631,7 +632,8 @@ export default function Admin() {
                                             >
                                                 <button onClick={async () => {
                                                     await updateProject(editProject.id, editProject);
-                                                    setProjects(projects.map(x => x.id === editProject.id ? editProject : x));
+                                                    setProjects(projects.map
+                                                        (x => x.id === editProject.id ? editProject : x));
                                                     setEditProject(null);
                                                 }}
                                                     style=

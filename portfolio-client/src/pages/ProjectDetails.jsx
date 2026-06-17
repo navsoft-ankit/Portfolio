@@ -23,7 +23,6 @@ export default function ProjectDetails() {
             })
             .catch(err => {
 
-                console.log(err);
 
             });
 

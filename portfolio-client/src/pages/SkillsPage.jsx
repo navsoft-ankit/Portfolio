@@ -1,22 +1,30 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
+import { getSkills } from "../api/api";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
 export default function SkillsPage() {
-    const skills = [
-        { name: "C#", level: 90 },
-        { name: ".NET Core", level: 88 },
-        { name: "ASP.NET Web API", level: 85 },
-        { name: "SQL Server", level: 90 },
-        { name: "Entity Framework", level: 85 },
-        { name: "React.js", level: 80 },
-        { name: "JavaScript", level: 82 },
-        { name: "HTML5", level: 95 },
-        { name: "CSS3", level: 90 },
-        { name: "Git & GitHub", level: 85 },
-    ];
+
+    const [skills, setSkills] = useState([]);
+
+    useEffect(() => {
+
+        getSkills()
+            .then(res => {
+
+                setSkills(res.data);
+
+            })
+            .catch(err => {
+
+                console.log(err);
+
+            });
+
+    }, []);
 
     return (
         <>
@@ -29,13 +37,16 @@ export default function SkillsPage() {
                     padding: "120px 8% 80px",
                 }}
             >
+
                 {/* Header */}
+
                 <div
                     style={{
                         textAlign: "center",
                         marginBottom: "60px",
                     }}
                 >
+
                     <h1
                         style={{
                             color: BROWN,
@@ -68,9 +79,12 @@ export default function SkillsPage() {
                         Here are the technologies and tools I use to build scalable,
                         efficient, and modern web applications.
                     </p>
+
                 </div>
 
+
                 {/* Skills Grid */}
+
                 <div
                     className="skills-grid"
                     style={{
@@ -79,9 +93,11 @@ export default function SkillsPage() {
                         gap: "30px",
                     }}
                 >
-                    {skills.map((skill, index) => (
+
+                    {skills.map((skill) => (
+
                         <div
-                            key={index}
+                            key={skill.id}
                             style={{
                                 background: "#fff",
                                 padding: "25px",
@@ -89,6 +105,7 @@ export default function SkillsPage() {
                                 boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
                             }}
                         >
+
                             <div
                                 style={{
                                     display: "flex",
@@ -96,6 +113,7 @@ export default function SkillsPage() {
                                     marginBottom: "10px",
                                 }}
                             >
+
                                 <h3
                                     style={{
                                         color: BROWN,
@@ -111,9 +129,11 @@ export default function SkillsPage() {
                                         fontWeight: "bold",
                                     }}
                                 >
-                                    {skill.level}%
+                                    {skill.percentage}%
                                 </span>
+
                             </div>
+
 
                             <div
                                 style={{
@@ -123,26 +143,34 @@ export default function SkillsPage() {
                                     overflow: "hidden",
                                 }}
                             >
+
                                 <div
                                     style={{
-                                        width: `${skill.level}%`,
+                                        width: `${skill.percentage}%`,
                                         height: "100%",
                                         background: BROWN,
                                         borderRadius: "10px",
                                         transition: "0.5s",
                                     }}
                                 />
+
                             </div>
+
                         </div>
+
                     ))}
+
                 </div>
 
-                {/* Categories */}
+
+                {/* Technologies */}
+
                 <div
                     style={{
                         marginTop: "80px",
                     }}
                 >
+
                     <h2
                         style={{
                             textAlign: "center",
@@ -161,19 +189,11 @@ export default function SkillsPage() {
                             gap: "15px",
                         }}
                     >
-                        {[
-                            "ASP.NET Core",
-                            "C#",
-                            "React",
-                            "TypeScript",
-                            "Entity Framework",
-                            "SQL Server",
-                            "REST APIs",
-                            "Git",
-                            "Tailwind CSS",
-                        ].map((tech, index) => (
+
+                        {skills.map((skill) => (
+
                             <span
-                                key={index}
+                                key={skill.id}
                                 style={{
                                     background: BROWN,
                                     color: "#fff",
@@ -183,14 +203,19 @@ export default function SkillsPage() {
                                     fontWeight: "500",
                                 }}
                             >
-                                {tech}
+                                {skill.name}
                             </span>
+
                         ))}
+
                     </div>
+
                 </div>
+
             </section>
 
             <Footer />
+
         </>
     );
 }

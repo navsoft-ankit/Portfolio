@@ -8,7 +8,7 @@ export default function About() {
     return (
         <>
             <div
-            
+
                 style={{
                     minHeight: "100vh",
                     background: "#fff",
@@ -52,7 +52,7 @@ export default function About() {
                         }}
                     >
                         <img
-                         className="about-img"
+                            className="about-img"
                             src="/image.png"
                             alt="Ankit Das"
                             style={{
@@ -66,7 +66,7 @@ export default function About() {
 
                     {/* Divider */}
                     <div
-                    className="about-divider"
+                        className="about-divider"
                         style={{
                             width: "2px",
                             height: "700px",
@@ -179,7 +179,6 @@ export default function About() {
                 </div>
             </div>
 
-            {/* Footer parent div er baire */}
             <Footer />
         </>
     );
