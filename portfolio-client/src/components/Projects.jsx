@@ -9,21 +9,22 @@ const IMAGE_URL =
 
 export default function Projects({ projects }) {
 
+  // ১. MongoDB-র সাথে মিল রেখে id পরিবর্তন করে _id করা হয়েছে
   const defaultProjects = [
     {
-      id: 1,
+      _id: "1",
       title: "Voxify Feedback System",
       description:
         "Feedback platform with React frontend and ASP.NET Core backend.",
     },
     {
-      id: 2,
+      _id: "2",
       title: "Weather API Application",
       description:
         "Real-time weather application integrated with external Weather APIs.",
     },
     {
-      id: 3,
+      _id: "3",
       title: "QR Generator",
       description:
         "QR code generation application built with React and ASP.NET Core.",
@@ -88,7 +89,7 @@ export default function Projects({ projects }) {
           {projectList.map((project, index) => (
 
             <div
-              key={project.id}
+              key={project._id} // 👈 id এর বদলে _id ব্যবহার করা হয়েছে
               style={{
                 borderTop: `3px solid ${BROWN}`,
                 borderRight:
@@ -100,7 +101,6 @@ export default function Projects({ projects }) {
             >
 
               {/* IMAGE */}
-
               <div
                 style={{
                   width: "100%",
@@ -111,11 +111,14 @@ export default function Projects({ projects }) {
                   borderRadius: "10px",
                 }}
               >
-
                 {project.imageUrl ? (
-
                   <img
-                    src={project.imageUrl}
+                    // 👈 Cloudinary ফুল URL অথবা লোকাল রিলেটিভ পাথ দুটোই হ্যান্ডেল করবে এই লজিকটি
+                    src={
+                      project.imageUrl?.startsWith("http")
+                        ? project.imageUrl
+                        : `${IMAGE_URL}${project.imageUrl}`
+                    }
                     alt={project.title}
                     style={{
                       width: "100%",
@@ -123,9 +126,7 @@ export default function Projects({ projects }) {
                       objectFit: "cover",
                     }}
                   />
-
                 ) : (
-
                   <div
                     style={{
                       width: "100%",
@@ -139,13 +140,10 @@ export default function Projects({ projects }) {
                   >
                     No Image
                   </div>
-
                 )}
-
               </div>
 
               {/* TITLE */}
-
               <h3
                 style={{
                   fontSize: "1.5rem",
@@ -158,7 +156,6 @@ export default function Projects({ projects }) {
               </h3>
 
               {/* TECHNOLOGIES */}
-
               <p
                 style={{
                   fontSize: "0.9rem",
@@ -171,7 +168,6 @@ export default function Projects({ projects }) {
               </p>
 
               {/* DESCRIPTION */}
-
               <p
                 style={{
                   fontSize: "1rem",
@@ -184,9 +180,8 @@ export default function Projects({ projects }) {
               </p>
 
               {/* BUTTON */}
-
               <Link
-                to={`/projects/${project.id}`}
+                to={`/projects/${project._id}`} // 👈 id এর বদলে ডাইনামিক _id পাস করা হয়েছে
                 style={{
                   fontSize: "0.75rem",
                   fontWeight: 700,
@@ -205,9 +200,7 @@ export default function Projects({ projects }) {
           ))}
 
         </div>
-
       </div>
-
     </section>
   );
 }
