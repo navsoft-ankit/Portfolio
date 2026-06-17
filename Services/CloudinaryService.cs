@@ -21,7 +21,7 @@ namespace PORFOLIO.Services
         public async Task<string> UploadImageAsync(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return null;
+                throw new Exception("Empty file");
 
             using var stream = file.OpenReadStream();
 
@@ -32,6 +32,9 @@ namespace PORFOLIO.Services
             };
 
             var result = await _cloudinary.UploadAsync(uploadParams);
+
+            if (result == null || string.IsNullOrEmpty(result.SecureUrl?.ToString()))
+                throw new Exception("Cloudinary upload failed");
 
             return result.SecureUrl.ToString();
         }

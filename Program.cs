@@ -1,10 +1,10 @@
 using PORFOLIO.Data;
-using MongoDB.Driver;
 using PORFOLIO.Services;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MongoDB Client + Context DI FIX
+// MongoDB
 builder.Services.AddSingleton<IMongoClient>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
@@ -13,7 +13,11 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 
 builder.Services.AddSingleton<MongoDbContext>();
 
+// Cloudinary
 builder.Services.AddSingleton<CloudinaryService>();
+
+// Controllers
+builder.Services.AddControllers();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -22,40 +26,23 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins(
-    "http://localhost:5173",
-    "https://ankitdas.vercel.app",
-    "https://portfolio-6k0f.onrender.com"
-)
-            
+                "http://localhost:5173",
+                "https://ankitdas.vercel.app"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
 });
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
-// Swagger only for dev
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// // ❌ optional: Render e problem করলে এটা remove করতে পারো
-// app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseCors("AllowReact");
 
 app.MapControllers();
+
 app.MapGet("/", () => "Portfolio API Running 🚀");
-app.MapGet("/test", () => "WORKING");
 
 app.Run();

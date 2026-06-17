@@ -20,7 +20,6 @@ namespace PORFOLIO.Controllers
             _cloudinary = cloudinary;
         }
 
-        // GET: api/profile
         [HttpGet]
         public async Task<IActionResult> GetProfile()
         {
@@ -29,18 +28,17 @@ namespace PORFOLIO.Controllers
                 .FirstOrDefaultAsync();
 
             if (profile == null)
-                return NotFound("Profile not found.");
+                return NotFound();
 
             return Ok(profile);
         }
 
-        // POST: api/profile
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProfile([FromForm] ProfileCreateDto dto)
         {
             if (dto.Image == null)
-                return BadRequest("Profile image is required.");
+                return BadRequest("Image required");
 
             var imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
 
@@ -49,10 +47,10 @@ namespace PORFOLIO.Controllers
                 Name = dto.Name,
                 Title = dto.Title,
                 Bio = dto.Bio,
-                CvUrl = dto.CvUrl,
                 Email = dto.Email,
                 GithubUrl = dto.GithubUrl,
                 LinkedinUrl = dto.LinkedinUrl,
+                CvUrl = dto.CvUrl,
                 ProfileImage = imageUrl
             };
 
@@ -61,7 +59,6 @@ namespace PORFOLIO.Controllers
             return Ok(profile);
         }
 
-        // PUT: api/profile/{id}
         [HttpPut("{id}")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UpdateProfile(string id, [FromForm] ProfileCreateDto dto)
@@ -71,7 +68,10 @@ namespace PORFOLIO.Controllers
                 .FirstOrDefaultAsync();
 
             if (profile == null)
-                return NotFound("Profile not found.");
+                return NotFound();
+
+            if (dto.Image != null)
+                profile.ProfileImage = await _cloudinary.UploadImageAsync(dto.Image);
 
             profile.Name = dto.Name;
             profile.Title = dto.Title;
@@ -81,29 +81,18 @@ namespace PORFOLIO.Controllers
             profile.LinkedinUrl = dto.LinkedinUrl;
             profile.CvUrl = dto.CvUrl;
 
-            if (dto.Image != null)
-            {
-                var imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
-                profile.ProfileImage = imageUrl;
-            }
-
-            await _context.Profiles.ReplaceOneAsync(
-                x => x.Id == id,
-                profile
-            );
+            await _context.Profiles.ReplaceOneAsync(x => x.Id == id, profile);
 
             return Ok(profile);
         }
 
-        // DELETE: api/profile/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfile(string id)
         {
-            var result = await _context.Profiles
-                .DeleteOneAsync(x => x.Id == id);
+            var result = await _context.Profiles.DeleteOneAsync(x => x.Id == id);
 
             if (result.DeletedCount == 0)
-                return NotFound("Profile not found.");
+                return NotFound();
 
             return NoContent();
         }

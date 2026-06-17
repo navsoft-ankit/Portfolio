@@ -97,7 +97,7 @@ export default function ProjectDetails() {
             >
 
                 <img
-                    src={`${IMAGE_URL}${project.imageUrl}`}
+                    src={project.imageUrl}
                     alt={project.title}
                     style={{
                         width: "100%",

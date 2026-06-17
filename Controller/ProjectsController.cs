@@ -20,24 +20,17 @@ namespace PORFOLIO.Controllers
             _cloudinary = cloudinary;
         }
 
-        // GET: api/projects
         [HttpGet]
         public async Task<IActionResult> GetProjects()
         {
-            var projects = await _context.Projects
-                .Find(_ => true)
-                .ToListAsync();
-
+            var projects = await _context.Projects.Find(_ => true).ToListAsync();
             return Ok(projects);
         }
 
-        // GET: api/projects/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProject(string id)
         {
-            var project = await _context.Projects
-                .Find(x => x.Id == id)
-                .FirstOrDefaultAsync();
+            var project = await _context.Projects.Find(x => x.Id == id).FirstOrDefaultAsync();
 
             if (project == null)
                 return NotFound();
@@ -45,7 +38,6 @@ namespace PORFOLIO.Controllers
             return Ok(project);
         }
 
-        // POST: api/projects
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CreateProject([FromForm] ProjectCreateDto dto)
@@ -53,9 +45,7 @@ namespace PORFOLIO.Controllers
             string? imageUrl = null;
 
             if (dto.Image != null)
-            {
                 imageUrl = await _cloudinary.UploadImageAsync(dto.Image);
-            }
 
             var project = new Project
             {
@@ -72,37 +62,33 @@ namespace PORFOLIO.Controllers
             return Ok(project);
         }
 
-        // PUT: api/projects/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(string id, Project updated)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateProject(string id, [FromForm] ProjectCreateDto dto)
         {
-            var project = await _context.Projects
-                .Find(x => x.Id == id)
-                .FirstOrDefaultAsync();
+            var project = await _context.Projects.Find(x => x.Id == id).FirstOrDefaultAsync();
 
             if (project == null)
                 return NotFound();
 
-            project.Title = updated.Title;
-            project.Description = updated.Description;
-            project.GithubUrl = updated.GithubUrl;
-            project.ImageUrl = updated.ImageUrl;
-            project.Technologies = updated.Technologies;
+            if (dto.Image != null)
+                project.ImageUrl = await _cloudinary.UploadImageAsync(dto.Image);
 
-            await _context.Projects.ReplaceOneAsync(
-                x => x.Id == id,
-                project
-            );
+            project.Title = dto.Title;
+            project.Description = dto.Description;
+            project.GithubUrl = dto.GithubUrl;
+            project.LiveUrl = dto.LiveUrl;
+            project.Technologies = dto.Technologies;
+
+            await _context.Projects.ReplaceOneAsync(x => x.Id == id, project);
 
             return Ok(project);
         }
 
-        // DELETE: api/projects/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(string id)
         {
-            var result = await _context.Projects
-                .DeleteOneAsync(x => x.Id == id);
+            var result = await _context.Projects.DeleteOneAsync(x => x.Id == id);
 
             if (result.DeletedCount == 0)
                 return NotFound();
