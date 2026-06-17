@@ -51,5 +51,6 @@ app.UseCors("AllowReact");
 
 app.MapControllers();
 app.MapGet("/", () => "Portfolio API Running 🚀");
+app.MapGet("/test", () => "WORKING");
 
 app.Run();
