@@ -17,7 +17,7 @@ export default function ProjectDetails() {
 
     useEffect(() => {
 
-        getProjectById(_id)
+        getProjectById(id)
             .then(res => {
 
                 setProject(res.data);
