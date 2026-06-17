@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
-const IMAGE_URL = "http://localhost:5055";
+const IMAGE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://portfolio-6k0f.onrender.com";
 
 export default function Projects({ projects }) {
 
