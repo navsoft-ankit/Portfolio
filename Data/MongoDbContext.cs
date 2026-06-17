@@ -10,7 +10,7 @@ namespace PORFOLIO.Data
         public MongoDbContext(IConfiguration config)
         {
             var client = new MongoClient(
-                config.GetConnectionString("MongoDb")
+                config["ConnectionStrings:MongoDb"]
             );
 
             _db = client.GetDatabase("PortfolioDb");
