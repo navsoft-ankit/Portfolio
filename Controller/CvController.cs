@@ -8,7 +8,6 @@ namespace PORFOLIO.Controllers;
 public class CvController : ControllerBase
 {
     private readonly CloudinaryService _cloudinary;
-
     public CvController(CloudinaryService cloudinary)
     {
         _cloudinary = cloudinary;

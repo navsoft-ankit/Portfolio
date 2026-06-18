@@ -15,7 +15,6 @@ namespace PORFOLIO.Data
 
             _db = client.GetDatabase("PortfolioDb");
         }
-
         public IMongoCollection<User> Admin =>
             _db.GetCollection<User>("Admin");
 
