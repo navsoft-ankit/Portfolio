@@ -7,6 +7,7 @@ import {
     getSkills, createSkill, updateSkill, deleteSkill,
     getServices, createService, updateService, deleteService,
     getMessages, deleteMessage,
+    uploadCv as uploadCvApi
 } from "../api/api";
 
 const BROWN = "#3d1f10";
@@ -237,34 +238,28 @@ export default function Admin() {
         }
     };
 
-    const uploadCv = async () => {
-        if (!cvFile) {
-            setCvMsg("Please select a CV first");
-            return;
-        }
+const uploadCv = async () => {
+    if (!cvFile) {
+        setCvMsg("Please select a CV first");
+        return;
+    }
 
-        const formData = new FormData();
-        formData.append("file", cvFile);
+    const formData = new FormData();
+    formData.append("file", cvFile);
 
-        try {
-            const res = await fetch("https://portfolio-6k0f.onrender.com/api/Cv/upload", {
-                    method: "POST",
-                    body: formData
-                }
-            );
+    try {
+        const res = await uploadCvApi(formData);
 
-            const data = await res.json();
+        setProfile(prev => ({
+            ...prev,
+            cvUrl: res.data.cvUrl
+        }));
 
-            setProfile(prev => ({
-                ...prev,
-                cvUrl: data.cvUrl
-            }));
-
-            setCvMsg("CV uploaded successfully!");
-        } catch (err) {
-            setCvMsg("Upload failed");
-        }
-    };
+        setCvMsg("CV uploaded successfully!");
+    } catch (err) {
+        setCvMsg("Upload failed");
+    }
+};
 
     const tabs = [
         "profile",

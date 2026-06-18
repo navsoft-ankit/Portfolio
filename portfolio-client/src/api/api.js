@@ -55,3 +55,6 @@ export const deleteService = (id) => api.delete(`/services/${id}`);
 export const getMessages = () => api.get("/contact");
 export const sendMessage = (data) => api.post("/contact", data);
 export const deleteMessage = (id) => api.delete(`/contact/${id}`);
+
+// Cv
+export const uploadCv = (formData) => api.post("/Cv/upload", formData);

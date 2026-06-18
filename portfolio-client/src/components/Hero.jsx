@@ -16,6 +16,7 @@ export default function Hero({ profile }) {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
+  // Safe bio fallback
   const bio =
     typeof profile?.bio === "string" &&
     profile.bio.trim() !== "" &&
@@ -23,13 +24,20 @@ export default function Hero({ profile }) {
       ? profile.bio
       : ".NET Full Stack Developer";
 
-    const getCvUrl = (url) => {
-  if (!url) return "";
+  // SAFE CV URL BUILDER (FIXED)
+  const getCvUrl = (url) => {
+    if (!url) return "";
 
-  if (url.startsWith("http")) return url;
+    // already full URL (Cloudinary etc.)
+    if (url.startsWith("http")) return url;
 
-  return `https://portfolio-6k0f.onrender.com${url}`;
-};
+    const base = "https://portfolio-6k0f.onrender.com";
+
+    return `${base}${url.startsWith("/") ? url : "/" + url}`;
+  };
+
+  // safer CV check
+  const hasCv = profile?.cvUrl && profile.cvUrl.length > 10;
 
   return (
     <section
@@ -79,7 +87,6 @@ export default function Hero({ profile }) {
       >
         {/* NAME */}
         <h1
-          aria-label={profile?.name || "Portfolio Hero"}
           style={{
             color: "#fff",
             fontSize: "clamp(3rem, 8vw, 6rem)",
@@ -129,7 +136,6 @@ export default function Hero({ profile }) {
               letterSpacing: "2px",
               cursor: "pointer",
               textTransform: "uppercase",
-              transition: "0.3s",
             }}
           >
             View My Projects
@@ -146,18 +152,16 @@ export default function Hero({ profile }) {
               fontSize: "0.75rem",
               fontWeight: 700,
               letterSpacing: "2px",
-              cursor: "pointer",
-              textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-block",
-              transition: "0.3s",
+              textTransform: "uppercase",
             }}
           >
             Contact Me
           </Link>
 
           {/* CV DOWNLOAD */}
-          {profile?.cvUrl && (
+          {hasCv && (
             <a
               href={getCvUrl(profile.cvUrl)}
               target="_blank"
@@ -170,10 +174,9 @@ export default function Hero({ profile }) {
                 fontSize: "0.75rem",
                 fontWeight: 700,
                 letterSpacing: "2px",
-                textTransform: "uppercase",
                 textDecoration: "none",
                 display: "inline-block",
-                transition: "0.3s",
+                textTransform: "uppercase",
               }}
             >
               Download CV
