@@ -75,19 +75,57 @@ export default function Login() {
                         }}
                     >
                         <svg
-                            width="34"
-                            height="34"
+                            width="50"
+                            height="50"
                             viewBox="0 0 24 24"
                             fill="none"
-                            stroke={BROWN}
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
                         >
-                            <path d="M12 19l7-7 3 3-7 7-3-3z" />
-                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-                            <path d="M2 2l7.586 7.586" />
-                            <circle cx="11" cy="11" r="2" />
+                            <defs>
+                                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#3d1f10" />
+                                    <stop offset="100%" stopColor="#7a4b2f" />
+                                </linearGradient>
+                            </defs>
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="url(#grad)"
+                                strokeWidth="1.8"
+                                opacity="0.25"
+                            />
+
+                            <path
+                                d="M8 9L5.5 12L8 15"
+                                stroke="url(#grad)"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                            />
+
+                            <path
+                                d="M16 9L18.5 12L16 15"
+                                stroke="url(#grad)"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                            />
+
+                            <path
+                                d="M10 11V9.5a2 2 0 1 1 4 0V11"
+                                stroke="url(#grad)"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                            />
+
+                            <rect
+                                x="9"
+                                y="11"
+                                width="6"
+                                height="5"
+                                rx="1.5"
+                                stroke="url(#grad)"
+                                strokeWidth="1.8"
+                            />
                         </svg>
                     </div>
 
