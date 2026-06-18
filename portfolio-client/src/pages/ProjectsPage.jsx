@@ -209,6 +209,31 @@ export default function ProjectsPage() {
                                         {project.title}
                                     </h2>
 
+                                                                        <div style={{ marginBottom: "25px" }}>
+                                        <h3
+                                            style={{
+                                                color: BROWN,
+                                                marginBottom: "12px",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700"
+                                            }}
+                                        >
+                                            Technologies
+                                        </h3>
+
+                                        <p
+                                            style={{
+                                                fontSize: "1rem",
+                                                color: "#666",
+                                                lineHeight: "1.8"
+                                            }}
+                                        >
+                                            {project.technologies || "Not specified"}
+                                        </p>
+                                    </div>
+
+                                    
+
                                     <div style={{ marginBottom: "40px" }}>
                                         <h3
                                             style={{
