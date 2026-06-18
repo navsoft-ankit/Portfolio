@@ -33,26 +33,41 @@ export default function Home() {
 
     if (!profile) {
         return (
-            <div
-                style={{
-                    height: "100vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background: "#fff",
-                }}
-            >
+            <>
+                <style>
+                    {`
+          @keyframes spin {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+                </style>
+
                 <div
                     style={{
-                        width: "60px",
-                        height: "60px",
-                        border: "6px solid #e5e5e5",
-                        borderTop: "6px solid #3d1f10",
-                        borderRadius: "50%",
-                        animation: "spin 1s linear infinite",
+                        height: "100vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background: "#fff",
                     }}
-                />
-            </div>
+                >
+                    <div
+                        style={{
+                            width: "45px",
+                            height: "45px",
+                            border: "4px solid rgba(61,31,16,0.15)",
+                            borderTop: "4px solid #3d1f10",
+                            borderRadius: "50%",
+                            animation: "spin 0.8s linear infinite",
+                        }}
+                    />
+                </div>
+            </>
         );
     }
 
