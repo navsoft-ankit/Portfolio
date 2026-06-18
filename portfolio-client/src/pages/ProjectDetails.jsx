@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProjectById } from "../api/api";
+import Projects from "../components/Projects";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
@@ -31,23 +32,28 @@ export default function ProjectDetails() {
 
     }, [id]);
 
-    if (!project) {
-
+    if (!Projects) {
         return (
-
             <div
-                style={{
-                    minHeight: "100vh",
+                style = {{
+                    height: "100vh",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection: "column",
+                    background: "#fff",
                 }}
-            >
-                <h1>Loading...</h1>
-
+                >
+                    <div
+                        style = {{
+                            width: "60px",
+                            height: "60px",
+                            border: "6px solid #e5e5e5",
+                            borderTop: "6px solid #3d1f10",
+                            borderRadius: "50%",
+                            animation: "spin 1s linear infinite",
+                        }}
+                    />
             </div>
-
         );
     }
 
