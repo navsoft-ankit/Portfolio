@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProjectById } from "../api/api";
-import Projects from "../components/Projects";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
@@ -32,7 +31,7 @@ export default function ProjectDetails() {
 
     }, [id]);
 
-    if (!Projects) {
+    if (!project) {
         return (
             <div
                 style = {{
