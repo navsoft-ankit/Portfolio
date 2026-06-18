@@ -147,6 +147,10 @@ export default function Admin() {
     const [imageFile, setImageFile] = useState(null);
     const [projectImage, setProjectImage] = useState(null);
 
+    // Cv
+    const [cvFile, setCvFile] = useState(null);
+    const [cvMsg, setCvMsg] = useState("");
+
     useEffect(() => {
         getProfile().then(r =>
             setProfile(r.data))
@@ -230,6 +234,37 @@ export default function Admin() {
 
         } catch (err) {
             setProfileMsg("Failed to save");
+        }
+    };
+
+    const uploadCv = async () => {
+        if (!cvFile) {
+            setCvMsg("Please select a CV first");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", cvFile);
+
+        try {
+            const res = await fetch(
+                "https://your-api.com/api/Cv/upload",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const data = await res.json();
+
+            setProfile(prev => ({
+                ...prev,
+                cvUrl: data.cvUrl
+            }));
+
+            setCvMsg("CV uploaded successfully!");
+        } catch (err) {
+            setCvMsg("Upload failed");
         }
     };
 
@@ -467,6 +502,46 @@ export default function Admin() {
                                 )}
 
                             </div>
+
+                            <div style={{ marginTop: 20 }}>
+
+                                <label style={{
+                                    display: "block",
+                                    fontSize: "0.72rem",
+                                    fontWeight: 700,
+                                    color: "#666",
+                                    marginBottom: 6
+                                }}>
+                                    Upload CV (PDF)
+                                </label>
+
+                                <input
+                                    type="file"
+                                    accept=".pdf"
+                                    onChange={(e) => setCvFile(e.target.files[0])}
+                                />
+
+                                <button
+                                    onClick={uploadCv}
+                                    style={{
+                                        ...btn(BROWN),
+                                        marginTop: 10
+                                    }}
+                                >
+                                    UPLOAD CV
+                                </button>
+
+                                {cvMsg && (
+                                    <p style={{
+                                        fontSize: "0.8rem",
+                                        color: BROWN,
+                                        marginTop: 6
+                                    }}>
+                                        {cvMsg}
+                                    </p>
+                                )}
+                            </div>
+
                             <button onClick={saveProfile}
                                 style={{
                                     ...btn(BROWN),
@@ -696,64 +771,64 @@ export default function Admin() {
                                                     gap: 8
                                                 }}
                                             >
-<button
-onClick={async () => {
+                                                <button
+                                                    onClick={async () => {
 
-    const formData = new FormData();
+                                                        const formData = new FormData();
 
-    formData.append(
-      "Title",
-      editProject.title || ""
-    );
+                                                        formData.append(
+                                                            "Title",
+                                                            editProject.title || ""
+                                                        );
 
-    formData.append(
-      "Description",
-      editProject.description || ""
-    );
+                                                        formData.append(
+                                                            "Description",
+                                                            editProject.description || ""
+                                                        );
 
-    formData.append(
-      "GithubUrl",
-      editProject.githubUrl || ""
-    );
+                                                        formData.append(
+                                                            "GithubUrl",
+                                                            editProject.githubUrl || ""
+                                                        );
 
-    formData.append(
-      "LiveUrl",
-      editProject.liveUrl || ""
-    );
+                                                        formData.append(
+                                                            "LiveUrl",
+                                                            editProject.liveUrl || ""
+                                                        );
 
-    formData.append(
-      "Technologies",
-      editProject.technologies || ""
-    );
+                                                        formData.append(
+                                                            "Technologies",
+                                                            editProject.technologies || ""
+                                                        );
 
-    if (projectImage) {
-        formData.append(
-          "Image",
-          projectImage
-        );
-    }
+                                                        if (projectImage) {
+                                                            formData.append(
+                                                                "Image",
+                                                                projectImage
+                                                            );
+                                                        }
 
-    const r = await updateProject(
-      editProject.id,
-      formData
-    );
+                                                        const r = await updateProject(
+                                                            editProject.id,
+                                                            formData
+                                                        );
 
-    setProjects(
-      projects.map(x =>
-        x.id === editProject.id
-          ? r.data
-          : x
-      )
-    );
+                                                        setProjects(
+                                                            projects.map(x =>
+                                                                x.id === editProject.id
+                                                                    ? r.data
+                                                                    : x
+                                                            )
+                                                        );
 
-    setEditProject(null);
-    setProjectImage(null);
+                                                        setEditProject(null);
+                                                        setProjectImage(null);
 
-}}
-style={btn(BROWN)}
->
-SAVE
-</button>
+                                                    }}
+                                                    style={btn(BROWN)}
+                                                >
+                                                    SAVE
+                                                </button>
 
                                                 <button
                                                     onClick={() => setEditProject(null)}
@@ -864,22 +939,22 @@ SAVE
                                         })}
                                 />
 
-<button onClick={async () => {
-    if (!newSkill.name) return;
-    const payload = {
-        name: newSkill.name,
-        percentage: Number(newSkill.percentage) || 0
-    };
-    const r = await createSkill(payload);
-    setSkills([...skills, r.data]);
-    setNewSkill({
-        name: "",
-        percentage: ""
-    });
-}}
-    style={btn(BROWN)}>
-    ADD
-</button>
+                                <button onClick={async () => {
+                                    if (!newSkill.name) return;
+                                    const payload = {
+                                        name: newSkill.name,
+                                        percentage: Number(newSkill.percentage) || 0
+                                    };
+                                    const r = await createSkill(payload);
+                                    setSkills([...skills, r.data]);
+                                    setNewSkill({
+                                        name: "",
+                                        percentage: ""
+                                    });
+                                }}
+                                    style={btn(BROWN)}>
+                                    ADD
+                                </button>
                             </div>
 
                             <div style={

@@ -6,23 +6,29 @@ namespace PORFOLIO.Controllers;
 [Route("api/[controller]")]
 public class CvController : ControllerBase
 {
-    [HttpPost("upload-image")]
-    public async Task<IActionResult> UploadImage(IFormFile file)
+    // UPLOAD CV (Admin only)
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadCv(IFormFile file)
     {
         if (file == null || file.Length == 0)
             return BadRequest("No file selected");
 
-        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        // only PDF allowed
+        var ext = Path.GetExtension(file.FileName).ToLower();
+        if (ext != ".pdf")
+            return BadRequest("Only PDF allowed");
 
         var folderPath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "wwwroot",
             "uploads",
-            "images");
+            "cv");
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
 
+        // always overwrite latest CV
+        var fileName = "cv.pdf";
         var filePath = Path.Combine(folderPath, fileName);
 
         using (var stream = new FileStream(filePath, FileMode.Create))
@@ -32,7 +38,18 @@ public class CvController : ControllerBase
 
         return Ok(new
         {
-            imageUrl = $"/uploads/images/{fileName}"
+            message = "CV uploaded successfully",
+            cvUrl = $"/uploads/cv/{fileName}"
+        });
+    }
+
+    // GET CV (Portfolio use)
+    [HttpGet("get")]
+    public IActionResult GetCv()
+    {
+        return Ok(new
+        {
+            cvUrl = "/uploads/cv/cv.pdf"
         });
     }
 }

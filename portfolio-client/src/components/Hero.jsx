@@ -1,16 +1,25 @@
 import { Link } from "react-router-dom";
+
 const BROWN = "#3d1f10";
 
 export default function Hero({ profile }) {
-  const scrollTo = (id) =>
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const yOffset = -70;
+    const y =
+      el.getBoundingClientRect().top +
+      window.pageYOffset +
+      yOffset;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   const bio =
-    profile?.bio &&
-      profile.bio.trim() !== "" &&
-      profile.bio.toLowerCase() !== "string"
+    typeof profile?.bio === "string" &&
+    profile.bio.trim() !== "" &&
+    profile.bio.toLowerCase() !== "string"
       ? profile.bio
       : ".NET Full Stack Developer";
 
@@ -19,22 +28,22 @@ export default function Hero({ profile }) {
       id="home"
       style={{
         position: "relative",
-        height: "100vh",
-        minHeight: "650px",
+        height: "100dvh",
+        minHeight: "100vh",
         overflow: "hidden",
       }}
     >
       {/* Background Image */}
       <img
-        src="/image.png"
-        alt="Ankit Das"
+        src={profile?.profileImage || "/image.png"}
+        alt={profile?.name || "Portfolio"}
         style={{
           position: "absolute",
           inset: 0,
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "50% 50%",
+          objectPosition: "center",
         }}
       />
 
@@ -60,7 +69,9 @@ export default function Hero({ profile }) {
           padding: "0 20px",
         }}
       >
+        {/* NAME */}
         <h1
+          aria-label={profile?.name || "Portfolio Hero"}
           style={{
             color: "#fff",
             fontSize: "clamp(3rem, 8vw, 6rem)",
@@ -73,6 +84,7 @@ export default function Hero({ profile }) {
           {profile?.name || "Ankit Das"}
         </h1>
 
+        {/* BIO */}
         <p
           style={{
             color: "rgba(255,255,255,0.9)",
@@ -87,6 +99,7 @@ export default function Hero({ profile }) {
           {bio}
         </p>
 
+        {/* BUTTONS */}
         <div
           style={{
             display: "flex",
@@ -95,6 +108,7 @@ export default function Hero({ profile }) {
             flexWrap: "wrap",
           }}
         >
+          {/* Projects */}
           <button
             onClick={() => scrollTo("my-projects")}
             style={{
@@ -107,11 +121,13 @@ export default function Hero({ profile }) {
               letterSpacing: "2px",
               cursor: "pointer",
               textTransform: "uppercase",
+              transition: "0.3s",
             }}
           >
             View My Projects
           </button>
 
+          {/* Contact */}
           <Link
             to="/contact"
             style={{
@@ -126,10 +142,35 @@ export default function Hero({ profile }) {
               textTransform: "uppercase",
               textDecoration: "none",
               display: "inline-block",
+              transition: "0.3s",
             }}
           >
             Contact Me
           </Link>
+
+          {/* CV DOWNLOAD */}
+          {profile?.cvUrl && (
+            <a
+              href={profile.cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                background: "transparent",
+                color: "#fff",
+                border: "2px solid #fff",
+                padding: "15px 36px",
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                display: "inline-block",
+                transition: "0.3s",
+              }}
+            >
+              Download CV
+            </a>
+          )}
         </div>
       </div>
     </section>
