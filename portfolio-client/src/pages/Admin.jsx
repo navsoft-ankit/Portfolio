@@ -237,42 +237,34 @@ export default function Admin() {
         }
     };
 
-const uploadCv = async () => {
-    if (!cvFile) {
-        setCvMsg("Please select a CV first");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", cvFile);
-
-    try {
-        const res = await fetch(
-            "https://portfolio-6k0f.onrender.com/api/Cv/upload",
-            {
-                method: "POST",
-                body: formData
-            }
-        );
-
-        if (!res.ok) {
-            const text = await res.text();
-            throw new Error(text || "Upload failed from server");
+    const uploadCv = async () => {
+        if (!cvFile) {
+            setCvMsg("Please select a CV first");
+            return;
         }
 
-        const data = await res.json();
+        const formData = new FormData();
+        formData.append("file", cvFile);
 
-        setProfile(prev => ({
-            ...prev,
-            cvUrl: data.cvUrl
-        }));
+        try {
+            const res = await ffetch("https://portfolio-6k0f.onrender.com/api/Cv/upload", {
+                    method: "POST",
+                    body: formData
+                }
+            );
 
-        setCvMsg("CV uploaded successfully!");
-    } catch (err) {
-        console.error(err);
-        setCvMsg(err.message);
-    }
-};
+            const data = await res.json();
+
+            setProfile(prev => ({
+                ...prev,
+                cvUrl: data.cvUrl
+            }));
+
+            setCvMsg("CV uploaded successfully!");
+        } catch (err) {
+            setCvMsg("Upload failed");
+        }
+    };
 
     const tabs = [
         "profile",

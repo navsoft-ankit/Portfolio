@@ -6,14 +6,14 @@ namespace PORFOLIO.Controllers;
 [Route("api/[controller]")]
 public class CvController : ControllerBase
 {
-    // UPLOAD CV (Admin only)
+    private readonly string _baseUrl = "https://portfolio-6k0f.onrender.com";
+
     [HttpPost("upload")]
     public async Task<IActionResult> UploadCv(IFormFile file)
     {
         if (file == null || file.Length == 0)
             return BadRequest("No file selected");
 
-        // only PDF allowed
         var ext = Path.GetExtension(file.FileName).ToLower();
         if (ext != ".pdf")
             return BadRequest("Only PDF allowed");
@@ -22,12 +22,12 @@ public class CvController : ControllerBase
             Directory.GetCurrentDirectory(),
             "wwwroot",
             "uploads",
-            "cv");
+            "cv"
+        );
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
 
-        // always overwrite latest CV
         var fileName = "cv.pdf";
         var filePath = Path.Combine(folderPath, fileName);
 
@@ -39,17 +39,16 @@ public class CvController : ControllerBase
         return Ok(new
         {
             message = "CV uploaded successfully",
-            cvUrl = $"/uploads/cv/{fileName}"
+            cvUrl = $"{_baseUrl}/uploads/cv/{fileName}"
         });
     }
 
-    // GET CV (Portfolio use)
     [HttpGet("get")]
     public IActionResult GetCv()
     {
         return Ok(new
         {
-            cvUrl = "/uploads/cv/cv.pdf"
+            cvUrl = $"{_baseUrl}/uploads/cv/cv.pdf"
         });
     }
 }
