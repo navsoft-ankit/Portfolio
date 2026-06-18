@@ -18,7 +18,7 @@ const handleSubmit = async (e) => {
   try {
     const res = await sendMessage(form);
 
-    console.log(res.data);
+    // console.log(res.data);
 
     setStatus("Message sent successfully!");
   }
