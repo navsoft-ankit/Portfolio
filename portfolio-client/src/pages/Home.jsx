@@ -39,10 +39,20 @@ export default function Home() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    background: "#fff",
                 }}
                 >
-                    Loading...
-                </div>
+                    <div
+                        style = {{
+                            width: "60px",
+                            height: "60px",
+                            border: "6px solid #e5e5e5",
+                            borderTop: "6px solid #3d1f10",
+                            borderRadius: "50%",
+                            animation: "spin 1s linear infinite",
+                        }}
+                    />
+            </div>
         );
     }
 
