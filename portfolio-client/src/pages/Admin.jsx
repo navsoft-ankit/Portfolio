@@ -15,13 +15,7 @@ const CREAM = "#f0ece4";
 
 function Section({ title, children }) {
     return (
-        <div style={{
-            background: "#fff",
-            borderRadius: 8,
-            padding: 28,
-            marginBottom: 24,
-            boxShadow: "0 1px 6px rgba(0,0,0,0.06)"
-        }}>
+        <div className="section">
 
             <h2 style={{
                 fontSize: "1rem",
@@ -44,10 +38,7 @@ function Section({ title, children }) {
 
 function Field({ label, value, onChange, type = "text", rows }) {
     return (
-        <div style={{
-            marginBottom: 12
-        }}>
-
+        <div className="field">
             <label style={{
                 display: "block",
                 fontSize: "0.72rem",
@@ -270,22 +261,10 @@ export default function Admin() {
     ];
 
     return (
-        <div style={{
-            minHeight: "100vh",
-            background: CREAM,
-            fontFamily: "sans-serif"
-        }}
-        >
-            {/* Top bar */}
-            <div style={{
-                background: BROWN,
-                padding: "0 32px",
-                height: 64,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between"
-            }}>
+        <div className="admin-wrapper">
 
+            {/* Top bar */}
+            <div className="admin-topbar">
                 <span style={{
                     color: "#fff",
                     fontSize: "1.1rem",
@@ -325,19 +304,10 @@ export default function Admin() {
                 </div>
             </div>
 
-            <div style=
-                {{
-                    display: "flex",
-                    minHeight: "calc(100vh - 64px)"
-                }}>
+            <div className="admin-body">
 
                 {/* Sidebar */}
-                <aside style={{
-                    width: 180,
-                    background: "#fff",
-                    borderRight: "1px solid #e0d9d0",
-                    padding: "24px 0"
-                }}>
+                <aside className="admin-sidebar">
 
                     {tabs.map(t => (
                         <button key={t}
@@ -368,11 +338,7 @@ export default function Admin() {
                 </aside>
 
                 {/* Content */}
-                <main style={{
-                    flex: 1,
-                    padding: 32,
-                    maxWidth: 900
-                }}>
+                <main className="admin-content">
 
                     {/* PROFILE */}
                     {tab === "profile" && (
