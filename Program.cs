@@ -37,6 +37,8 @@ var app = builder.Build();
 
 app.UseCors("AllowReact");
 
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthorization();

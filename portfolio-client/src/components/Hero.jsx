@@ -23,6 +23,14 @@ export default function Hero({ profile }) {
       ? profile.bio
       : ".NET Full Stack Developer";
 
+    const getCvUrl = (url) => {
+  if (!url) return "";
+
+  if (url.startsWith("http")) return url;
+
+  return `https://portfolio-6k0f.onrender.com${url}`;
+};
+
   return (
     <section
       id="home"
@@ -151,7 +159,7 @@ export default function Hero({ profile }) {
           {/* CV DOWNLOAD */}
           {profile?.cvUrl && (
             <a
-              href={profile.cvUrl}
+              href={getCvUrl(profile.cvUrl)}
               target="_blank"
               rel="noopener noreferrer"
               style={{
