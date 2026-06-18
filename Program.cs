@@ -11,9 +11,13 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
     return new MongoClient(config["ConnectionStrings:MongoDb"]);
 });
 
+//MongoDbContext 
 builder.Services.AddSingleton<MongoDbContext>();
+
+//Services
 builder.Services.AddSingleton<CloudinaryService>();
 
+//Controllers
 builder.Services.AddControllers();
 
 // CORS
@@ -24,9 +28,9 @@ builder.Services.AddCors(options =>
         {
             policy
                .WithOrigins(
-    "http://localhost:5173",
-    "https://ankitdas.vercel.app",
-    "https://portfolio-p7iw0vjfn-ankitdas-6862s-projects.vercel.app"
+                    "http://localhost:5173",
+                    "https://ankitdas.vercel.app",
+                    "https://portfolio-p7iw0vjfn-ankitdas-6862s-projects.vercel.app"
 )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
@@ -45,6 +49,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/", () => "Portfolio API Running 🚀");
+app.MapGet("/", () => "Portfolio API Running ");
 
 app.Run();

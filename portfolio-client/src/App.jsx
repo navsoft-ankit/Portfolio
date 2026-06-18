@@ -36,7 +36,7 @@ export default function App() {
           <Route path="/skills" element={<SkillsPage />} />
 
           <Route path="/admin" element={<ProtectedRoute> <Admin /> </ProtectedRoute>} />
-          
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -92,7 +92,7 @@ export default function SkillsPage() {
                     }}
                 >
 
-                    {skills.map((skill) => 
+                    {skills.map((skill) =>
                     (
 
                         <div

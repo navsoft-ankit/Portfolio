@@ -1081,50 +1081,50 @@ export default function Admin() {
                                 >
 
                                     <div style={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    flexWrap: "wrap",        // <-- add
-    gap: 8                   // <-- add
-}}>
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "flex-start",
+                                        flexWrap: "wrap",        // <-- add
+                                        gap: 8                   // <-- add
+                                    }}>
 
-    <div style={{ minWidth: 0, flex: "1 1 200px" }}>   {/* <-- wrap kore, minWidth:0 add */}
-        <p style={{
-            fontWeight: 700,
-            fontSize: "0.9rem",
-            marginBottom: 4,
-            wordBreak: "break-word"     // <-- add: long email ke wrap korbe
-        }}>
-            {m.name}
-            <span style={{
-                color: "#888",
-                fontWeight: 400
-            }}>
-                — {m.email}
-            </span>
-        </p>
+                                        <div style={{ minWidth: 0, flex: "1 1 200px" }}>   {/* <-- wrap kore, minWidth:0 add */}
+                                            <p style={{
+                                                fontWeight: 700,
+                                                fontSize: "0.9rem",
+                                                marginBottom: 4,
+                                                wordBreak: "break-word"     // <-- add: long email ke wrap korbe
+                                            }}>
+                                                {m.name}
+                                                <span style={{
+                                                    color: "#888",
+                                                    fontWeight: 400
+                                                }}>
+                                                    — {m.email}
+                                                </span>
+                                            </p>
 
-        <p style={{
-            fontSize: "0.85rem",
-            color: "#444",
-            lineHeight: 1.6
-        }}>{m.message}
-        </p>
-    </div>
+                                            <p style={{
+                                                fontSize: "0.85rem",
+                                                color: "#444",
+                                                lineHeight: 1.6
+                                            }}>{m.message}
+                                            </p>
+                                        </div>
 
-    <button onClick={async () => {
-        await deleteMessage(m.id);
-        setMessages(messages.filter(x => x.id !== m.id));
-    }}
-        style={{
-            ...btn("#c0392b"),
-            marginLeft: 0,     // gap diye spacing hocche, marginLeft lagbe na
-            flexShrink: 0
-        }}>
-        DELETE
-    </button>
+                                        <button onClick={async () => {
+                                            await deleteMessage(m.id);
+                                            setMessages(messages.filter(x => x.id !== m.id));
+                                        }}
+                                            style={{
+                                                ...btn("#c0392b"),
+                                                marginLeft: 0,     // gap diye spacing hocche, marginLeft lagbe na
+                                                flexShrink: 0
+                                            }}>
+                                            DELETE
+                                        </button>
 
-</div>
+                                    </div>
                                 </div>
                             ))}
                         </Section>
