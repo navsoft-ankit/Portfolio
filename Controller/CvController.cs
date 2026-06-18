@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PORFOLIO.Services;
 
 namespace PORFOLIO.Controllers;
 
@@ -6,11 +7,11 @@ namespace PORFOLIO.Controllers;
 [Route("api/[controller]")]
 public class CvController : ControllerBase
 {
-    private readonly IConfiguration _config;
+    private readonly CloudinaryService _cloudinary;
 
-    public CvController(IConfiguration config)
+    public CvController(CloudinaryService cloudinary)
     {
-        _config = config;
+        _cloudinary = cloudinary;
     }
 
     [HttpPost("upload")]
@@ -23,68 +24,12 @@ public class CvController : ControllerBase
         if (ext != ".pdf")
             return BadRequest("Only PDF allowed");
 
-        var folderPath = Path.Combine(
-            Directory.GetCurrentDirectory(),
-            "wwwroot",
-            "uploads",
-            "cv"
-        );
-
-        if (!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
-
-        var fileName = "cv.pdf";
-        var filePath = Path.Combine(folderPath, fileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        var baseUrl = _config["BaseUrl"];
+        var url = await _cloudinary.UploadPdfAsync(file);
 
         return Ok(new
         {
             message = "CV uploaded successfully",
-            cvUrl = $"{baseUrl}/uploads/cv/{fileName}"
-        });
-    }
-
-    [HttpGet("get")]
-    public IActionResult GetCv()
-    {
-        var baseUrl = _config["BaseUrl"];
-
-        return Ok(new
-        {
-            cvUrl = $"{baseUrl}/uploads/cv/cv.pdf"
-        });
-    }
-
-    [HttpGet("check")]
-    public IActionResult CheckCv()
-    {
-        var filePath = Path.Combine(
-            Directory.GetCurrentDirectory(),
-            "wwwroot",
-            "uploads",
-            "cv",
-            "cv.pdf"
-        );
-
-        if (System.IO.File.Exists(filePath))
-        {
-            return Ok(new
-            {
-                exists = true,
-                message = "CV file still exists on server"
-            });
-        }
-
-        return NotFound(new
-        {
-            exists = false,
-            message = "CV file is missing"
+            cvUrl = url
         });
     }
 }
