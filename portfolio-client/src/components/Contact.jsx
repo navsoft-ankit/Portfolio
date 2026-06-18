@@ -12,23 +12,25 @@ export default function Contact() {
 
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      await sendMessage(form);
+  try {
+    const res = await sendMessage(form);
 
-      setStatus("Message sent successfully!");
+    console.log(res.data);
 
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-      });
-    } catch {
-      setStatus("Failed to send. Try again.");
-    }
-  };
+    setStatus("Message sent successfully!");
+  }
+  catch (err) {
+
+  console.log("FULL ERROR:", err.response);
+  console.log("ERROR DATA:", err.response?.data);
+  console.log("ERRORS:", err.response?.data?.errors);
+
+    setStatus("Failed to send");
+  }
+};
 
   return (
     <section

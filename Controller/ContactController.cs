@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using PORFOLIO.Data;
 using PORFOLIO.models;
+using PORFOLIO.DTOs;
 
 namespace PORFOLIO.Controllers
 {
@@ -28,12 +29,21 @@ namespace PORFOLIO.Controllers
         }
 
         // POST: api/contact
-        [HttpPost]
-        public async Task<IActionResult> SendMessage(ContactMessage message)
-        {
-            await _context.ContactMessages.InsertOneAsync(message);
-            return Ok(message);
-        }
+[HttpPost]
+public async Task<IActionResult> SendMessage([FromBody] ContactDto dto)
+{
+    var message = new ContactMessage
+    {
+        Name = dto.Name,
+        Email = dto.Email,
+        Message = dto.Message,
+        CreatedAt = DateTime.UtcNow
+    };
+
+    await _context.ContactMessages.InsertOneAsync(message);
+
+    return Ok(message);
+}
 
         // DELETE: api/contact/{id}
         [HttpDelete("{id}")]

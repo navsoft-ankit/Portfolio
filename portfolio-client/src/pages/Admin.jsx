@@ -696,19 +696,64 @@ export default function Admin() {
                                                     gap: 8
                                                 }}
                                             >
-                                                <button onClick={async () => {
-                                                    await updateProject(editProject.id,
-                                                        editProject);
-                                                    setProjects(projects.map
-                                                        (x => x.id === editProject.id
-                                                            ? editProject : x));
-                                                    setEditProject(null);
-                                                }}
-                                                    style=
-                                                    {btn(BROWN)}
-                                                >
-                                                    SAVE
-                                                </button>
+<button
+onClick={async () => {
+
+    const formData = new FormData();
+
+    formData.append(
+      "Title",
+      editProject.title || ""
+    );
+
+    formData.append(
+      "Description",
+      editProject.description || ""
+    );
+
+    formData.append(
+      "GithubUrl",
+      editProject.githubUrl || ""
+    );
+
+    formData.append(
+      "LiveUrl",
+      editProject.liveUrl || ""
+    );
+
+    formData.append(
+      "Technologies",
+      editProject.technologies || ""
+    );
+
+    if (projectImage) {
+        formData.append(
+          "Image",
+          projectImage
+        );
+    }
+
+    const r = await updateProject(
+      editProject.id,
+      formData
+    );
+
+    setProjects(
+      projects.map(x =>
+        x.id === editProject.id
+          ? r.data
+          : x
+      )
+    );
+
+    setEditProject(null);
+    setProjectImage(null);
+
+}}
+style={btn(BROWN)}
+>
+SAVE
+</button>
 
                                                 <button
                                                     onClick={() => setEditProject(null)}
