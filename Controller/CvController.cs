@@ -52,30 +52,30 @@ public class CvController : ControllerBase
         });
     }
     [HttpGet("check")]
-public IActionResult CheckCv()
-{
-    var filePath = Path.Combine(
-        Directory.GetCurrentDirectory(),
-        "wwwroot",
-        "uploads",
-        "cv",
-        "cv.pdf"
-    );
-
-    if (System.IO.File.Exists(filePath))
+    public IActionResult CheckCv()
     {
-        return Ok(new
+        var filePath = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "wwwroot",
+            "uploads",
+            "cv",
+            "cv.pdf"
+        );
+
+        if (System.IO.File.Exists(filePath))
         {
-            exists = true,
-            message = "CV file still exists on server",
-            url = "https://portfolio-6k0f.onrender.com/uploads/cv/cv.pdf"
+            return Ok(new
+            {
+                exists = true,
+                message = "CV file still exists on server",
+                url = "https://portfolio-6k0f.onrender.com/uploads/cv/cv.pdf"
+            });
+        }
+
+        return NotFound(new
+        {
+            exists = false,
+            message = "CV file is missing (deleted by server)"
         });
     }
-
-    return NotFound(new
-    {
-        exists = false,
-        message = "CV file is missing (deleted by server)"
-    });
-}
 }

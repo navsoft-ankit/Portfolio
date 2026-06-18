@@ -6,9 +6,9 @@ const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
 
 const IMAGE_BASE =
-  import.meta.env.VITE_API_URL
-    ? import.meta.env.VITE_API_URL.replace("/api", "")
-    : "https://portfolio-6k0f.onrender.com";
+    import.meta.env.VITE_API_URL
+        ? import.meta.env.VITE_API_URL.replace("/api", "")
+        : "https://portfolio-6k0f.onrender.com";
 
 export default function ProjectDetails() {
 
@@ -97,15 +97,15 @@ export default function ProjectDetails() {
                 }}
             >
 
-<img
-    src={project.imageUrl}
-    alt={project.title}
-    style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "contain",
-    }}
-/>
+                <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                    }}
+                />
 
             </div>
 
