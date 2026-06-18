@@ -9,7 +9,7 @@ import {
     getMessages, deleteMessage,
     uploadCv as uploadCvApi
 } from "../api/api";
-import "../styles/admin.css";
+import "../styles/Admin.css";
 
 const BROWN = "#3d1f10";
 const CREAM = "#f0ece4";
