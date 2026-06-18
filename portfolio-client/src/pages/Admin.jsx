@@ -238,28 +238,28 @@ export default function Admin() {
         }
     };
 
-const uploadCv = async () => {
-    if (!cvFile) {
-        setCvMsg("Please select a CV first");
-        return;
-    }
+    const uploadCv = async () => {
+        if (!cvFile) {
+            setCvMsg("Please select a CV first");
+            return;
+        }
 
-    const formData = new FormData();
-    formData.append("file", cvFile);
+        const formData = new FormData();
+        formData.append("file", cvFile);
 
-    try {
-        const res = await uploadCvApi(formData);
+        try {
+            const res = await uploadCvApi(formData);
 
-        setProfile(prev => ({
-            ...prev,
-            cvUrl: res.data.cvUrl
-        }));
+            setProfile(prev => ({
+                ...prev,
+                cvUrl: res.data.cvUrl
+            }));
 
-        setCvMsg("CV uploaded successfully!");
-    } catch (err) {
-        setCvMsg("Upload failed");
-    }
-};
+            setCvMsg("CV uploaded successfully!");
+        } catch (err) {
+            setCvMsg("Upload failed");
+        }
+    };
 
     const tabs = [
         "profile",
