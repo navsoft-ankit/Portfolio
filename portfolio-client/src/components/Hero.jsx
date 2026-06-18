@@ -19,8 +19,8 @@ export default function Hero({ profile }) {
   // Safe bio fallback
   const bio =
     typeof profile?.bio === "string" &&
-    profile.bio.trim() !== "" &&
-    profile.bio.toLowerCase() !== "string"
+      profile.bio.trim() !== "" &&
+      profile.bio.toLowerCase() !== "string"
       ? profile.bio
       : ".NET Full Stack Developer";
 
