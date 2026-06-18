@@ -24,9 +24,9 @@ const handleSubmit = async (e) => {
   }
   catch (err) {
 
-  console.log("FULL ERROR:", err.response);
-  console.log("ERROR DATA:", err.response?.data);
-  console.log("ERRORS:", err.response?.data?.errors);
+  // console.log("FULL ERROR:", err.response);
+  // console.log("ERROR DATA:", err.response?.data);
+  // console.log("ERRORS:", err.response?.data?.errors);
 
     setStatus("Failed to send");
   }
