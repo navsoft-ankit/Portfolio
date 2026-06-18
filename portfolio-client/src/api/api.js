@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const BASE =
-  import.meta.env.VITE_API_URL
-    ? `${import.meta.env.VITE_API_URL}/api`
-    : "https://portfolio-6k0f.onrender.com/api";
+const BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "https://portfolio-6k0f.onrender.com/api";
 
 export const api = axios.create({ baseURL: BASE });
 
@@ -34,8 +33,8 @@ export const createProject = (data) => api.post("/projects", data);
 export const updateProject = (id, data) =>
   api.put(`/projects/${id}`, data, {
     headers: {
-      "Content-Type": "multipart/form-data"
-    }
+      "Content-Type": "multipart/form-data",
+    },
   });
 export const deleteProject = (id) => api.delete(`/projects/${id}`);
 
