@@ -31,6 +31,21 @@ export default function Home() {
             .catch(() => { });
     }, []);
 
+    if (!profile) {
+        return (
+            <div
+                style = {{
+                    height: "100vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                >
+                    Loading...
+                </div>
+        );
+    }
+
     return (
         <div
             style={{
