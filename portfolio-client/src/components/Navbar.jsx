@@ -39,7 +39,7 @@ export default function Navbar() {
           textDecoration: "none",
         }}
       >
-        <svg
+        {/* <svg
           width="34"
           height="34"
           viewBox="0 0 24 24"
@@ -51,7 +51,7 @@ export default function Navbar() {
         >
           <polyline points="4 17 10 11 4 5"></polyline>
           <line x1="12" y1="19" x2="20" y2="19"></line>
-        </svg>
+        </svg> */}
 
         <span
           style={{
