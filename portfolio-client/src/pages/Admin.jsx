@@ -247,7 +247,7 @@ export default function Admin() {
         formData.append("file", cvFile);
 
         try {
-            const res = await ffetch("https://portfolio-6k0f.onrender.com/api/Cv/upload", {
+            const res = await fetch("https://portfolio-6k0f.onrender.com/api/Cv/upload", {
                     method: "POST",
                     body: formData
                 }
